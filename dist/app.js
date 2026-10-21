@@ -12,7 +12,7 @@ const translations = {
     "dest.eyebrow": "23 PLACES TO BEGIN", "dest.title": "Find your kind of Thailand.", "dest.all": "All", "dest.city": "Cities", "dest.nature": "Nature", "dest.island": "Islands", "dest.viewall": "View all destinations",
     "journeys.eyebrow": "SIGNATURE STARTING POINTS", "journeys.title": "Stay for a day.<br>Remember it for years.", "journeys.copy": "Every journey is editable. Swap a place, extend a stay, choose a different table—nothing is fixed until you confirm.",
     "style.eyebrow": "TRAVEL THAT FEELS LIKE YOU", "style.title": "Different ages.<br>Different energies.<br><em>Your kind of wonderful.</em>", "style.slow.title": "Slow & serene", "style.slow.copy": "Temples, gardens, rivers, gentle days", "style.social.title": "Social & vibrant", "style.social.copy": "Cozy cafés, beaches, nightlife, city energy", "style.family.title": "Family explorer", "style.family.copy": "Easy logistics, shared discovery, flexible pace", "style.island.title": "Island reset", "style.island.copy": "Turquoise water, soft sand, nothing rushed",
-    "rental.eyebrow": "TAKE YOUR OWN ROAD", "rental.title": "Prefer the wheel?", "rental.copy": "Choose from city cars, premium SUVs, convertibles, scooters, and touring motorcycles. Add a self-drive rental without changing the rest of your journey.", "rental.one": "Flexible daily or journey-long rental", "rental.two": "Hotel or airport handover options", "rental.three": "Car and motorcycle choices", "rental.cta": "Explore self-drive",
+    "rental.eyebrow": "TAKE YOUR OWN ROAD", "rental.title": "Prefer the wheel?", "rental.copy": "Add a self-drive rental without changing the rest of your journey. Motorcycles are ฿200 per day and cars are ฿1,500 per day.", "rental.one": "Motorcycle · ฿200 per day", "rental.two": "Hotel or airport handover options", "rental.three": "Car · ฿1,500 per day", "rental.cta": "Explore self-drive",
     "promise.eyebrow": "A CLEAR CANCELLATION PROMISE", "promise.title": "Plans can change.<br>Peace of mind shouldn’t.", "promise.copy": "Cancel without a Twar Mal cancellation fee and receive a full refund. If your chosen hotel has a non-refundable policy, only that hotel charge is deducted.", "promise.note": "Your exact hotel conditions are shown before card payment.",
     "final.eyebrow": "YOUR JOURNEY STARTS HERE", "final.title": "Where will Thailand<br><em>take you?</em>", "final.cta": "Start planning"
   },
@@ -25,7 +25,7 @@ const translations = {
     "dest.eyebrow": "23 จุดหมายให้เริ่มต้น", "dest.title": "พบเมืองไทยในแบบที่คุณชอบ", "dest.all": "ทั้งหมด", "dest.city": "เมือง", "dest.nature": "ธรรมชาติ", "dest.island": "เกาะ", "dest.viewall": "ดูจุดหมายทั้งหมด",
     "journeys.eyebrow": "ทริปแนะนำสำหรับเริ่มต้น", "journeys.title": "อยู่เพียงหนึ่งวัน<br>จดจำไปอีกหลายปี", "journeys.copy": "ทุกทริปแก้ไขได้ เปลี่ยนสถานที่ เพิ่มวัน หรือเลือกร้านใหม่ ทุกอย่างยืดหยุ่นจนกว่าคุณจะยืนยัน",
     "style.eyebrow": "การเดินทางที่เป็นตัวคุณ", "style.title": "ต่างวัย ต่างพลัง<br><em>แต่พิเศษในแบบของคุณ</em>", "style.slow.title": "สบายและสงบ", "style.slow.copy": "วัด สวน แม่น้ำ และวันสบาย ๆ", "style.social.title": "สนุกและมีสีสัน", "style.social.copy": "คาเฟ่ ชายหาด ชีวิตกลางคืน และเมือง", "style.family.title": "ครอบครัวนักสำรวจ", "style.family.copy": "เดินทางง่าย ค้นพบร่วมกัน จังหวะยืดหยุ่น", "style.island.title": "พักใจบนเกาะ", "style.island.copy": "ทะเลสีฟ้า หาดนุ่ม และไม่ต้องเร่งรีบ",
-    "rental.eyebrow": "เลือกเส้นทางด้วยตัวเอง", "rental.title": "อยากขับเองไหม?", "rental.copy": "เลือกได้ทั้งรถเล็กในเมือง SUV รถเปิดประทุน สกู๊ตเตอร์ และมอเตอร์ไซค์ทัวริ่ง เพิ่มรถเช่าได้โดยไม่ต้องเปลี่ยนส่วนอื่นของทริป", "rental.one": "เช่ารายวันหรือตลอดทริป", "rental.two": "รับรถที่โรงแรมหรือสนามบิน", "rental.three": "มีทั้งรถยนต์และมอเตอร์ไซค์", "rental.cta": "ดูรถเช่าขับเอง",
+    "rental.eyebrow": "เลือกเส้นทางด้วยตัวเอง", "rental.title": "อยากขับเองไหม?", "rental.copy": "เพิ่มรถเช่าขับเองได้โดยไม่ต้องเปลี่ยนส่วนอื่นของทริป มอเตอร์ไซค์วันละ ฿200 และรถยนต์วันละ ฿1,500", "rental.one": "มอเตอร์ไซค์ · ฿200 ต่อวัน", "rental.two": "รับรถที่โรงแรมหรือสนามบิน", "rental.three": "รถยนต์ · ฿1,500 ต่อวัน", "rental.cta": "ดูรถเช่าขับเอง",
     "promise.eyebrow": "คำสัญญาเรื่องการยกเลิก", "promise.title": "แผนเปลี่ยนได้<br>ความสบายใจไม่ควรเปลี่ยน", "promise.copy": "ยกเลิกได้โดยไม่มีค่าธรรมเนียมจาก Twar Mal และรับเงินคืนเต็มจำนวน หากโรงแรมที่เลือกไม่คืนเงิน จะหักเฉพาะค่าโรงแรมนั้น", "promise.note": "เงื่อนไขโรงแรมจะแสดงชัดเจนก่อนชำระด้วยบัตร",
     "final.eyebrow": "การเดินทางเริ่มที่นี่", "final.title": "เมืองไทยจะพาคุณ<br><em>ไปที่ไหน?</em>", "final.cta": "เริ่มวางแผน"
   }
@@ -42,6 +42,18 @@ const durationSelect = qs("#planner-duration");
 const travelerInput = qs("#traveler-count");
 const hotelSelect = qs("#hotel-choice");
 const transportSelect = qs("#transport-choice");
+const vehicleCountInput = qs("#vehicle-count");
+const tierInputs = qsa('[name="plan-tier"]');
+
+const pricing = {
+  tiers: {
+    budget: { label: "Budget Friendly", perGuestDay: 900 },
+    mid: { label: "Mid-range", perGuestDay: 1450 },
+    premium: { label: "Premium", perGuestDay: 2650 }
+  },
+  hotels: { budget: 1200, mid: 2500, premium: 5500, own: 0 },
+  transport: { none: 0, moto: 200, car: 1500, driver: 2500 }
+};
 let currentLanguage = "en";
 let toastTimer;
 
@@ -65,30 +77,64 @@ function durationDays() {
   return durationSelect.value === "custom" ? Number(qs("#custom-days").value || 1) : Number(durationSelect.value);
 }
 
+function selectedTier() {
+  return qs('[name="plan-tier"]:checked').value;
+}
+
+function chooseTier(tier) {
+  const input = qs(`[name="plan-tier"][value="${tier}"]`);
+  if (!input) return;
+  input.checked = true;
+  hotelSelect.value = tier;
+}
+
+function syncTransportFields(showNotice = false) {
+  const isKohLarn = destinationSelect.value === "Koh Larn";
+  const carOption = qs('#transport-choice option[value="car"]');
+  carOption.disabled = isKohLarn;
+  carOption.textContent = isKohLarn ? "Car rental · unavailable on Koh Larn" : "Car rental · ฿1,500 / day";
+
+  if (isKohLarn && transportSelect.value === "car") {
+    transportSelect.value = "moto";
+    if (showNotice) showToast("Koh Larn offers motorcycle rental only — changed to ฿200/day.");
+  }
+
+  const isRental = transportSelect.value === "moto" || transportSelect.value === "car";
+  qs(".vehicle-count-field").hidden = !isRental;
+  qs("#vehicle-count-label").textContent = transportSelect.value === "moto" ? "Motorcycles" : "Cars";
+  qs("#transport-policy").textContent = isKohLarn
+    ? "Koh Larn: car rental is unavailable. Motorcycles are ฿200 per day."
+    : "Rental price is per vehicle. Private driver price is per vehicle for up to 4 guests.";
+}
+
 function calculateEstimate() {
   const days = Math.max(1, durationDays());
   const travelers = Math.max(1, Number(travelerInput.value || 1));
-  const preset = { 1: 4900, 3: 14900, 7: 36900, 14: 69900 };
-  let perGuest = preset[days] || days * 4700;
   const nights = Math.max(0, days - 1);
-  if (hotelSelect.value === "resort") perGuest += nights * 1800;
-  if (hotelSelect.value === "suite") perGuest += nights * 3500;
-  if (hotelSelect.value === "own") perGuest -= nights * 900;
-  let groupExtra = 0;
-  if (transportSelect.value === "car") groupExtra = days * 1800;
-  if (transportSelect.value === "moto") groupExtra = days * 650;
-  if (transportSelect.value === "none") perGuest -= days * 500;
-  const total = Math.max(2500, perGuest * travelers + groupExtra);
+  const rooms = Math.ceil(travelers / 2);
+  const tier = selectedTier();
+  const planSubtotal = pricing.tiers[tier].perGuestDay * travelers * days;
+  const hotelSubtotal = pricing.hotels[hotelSelect.value] * rooms * nights;
+  const transportRate = pricing.transport[transportSelect.value];
+  const vehicleCount = transportSelect.value === "driver"
+    ? Math.ceil(travelers / 4)
+    : Math.max(1, Number(vehicleCountInput.value || 1));
+  const transportSubtotal = transportSelect.value === "none" ? 0 : transportRate * days * vehicleCount;
+  const total = planSubtotal + hotelSubtotal + transportSubtotal;
   qs("#estimate-total").textContent = formatTHB(total);
-  qs("#estimate-note").textContent = `for ${travelers} guest${travelers > 1 ? "s" : ""} · ${days} day${days > 1 ? "s" : ""}`;
-  return { days, travelers, total };
+  const roomNote = hotelSelect.value === "own" ? "hotel not included" : `${rooms} room${rooms > 1 ? "s" : ""}`;
+  qs("#estimate-note").textContent = `for ${travelers} guest${travelers > 1 ? "s" : ""} · ${days} day${days > 1 ? "s" : ""} · ${roomNote}`;
+  qs("#estimate-breakdown").textContent = `Plan ${formatTHB(planSubtotal)} + hotel ${formatTHB(hotelSubtotal)} + transport ${formatTHB(transportSubtotal)}`;
+  return { days, travelers, rooms, tier, planSubtotal, hotelSubtotal, transportSubtotal, total };
 }
 
 function openPlanner(options = {}) {
   if (options.destination && destinations.includes(options.destination)) destinationSelect.value = options.destination;
   if (options.duration) durationSelect.value = String(options.duration);
   if (options.style) qs("#planner-style").value = options.style;
+  if (options.tier) chooseTier(options.tier);
   if (options.transport === "Self-drive rental") transportSelect.value = "car";
+  syncTransportFields();
   qs(".custom-days-field").hidden = durationSelect.value !== "custom";
   plannerForm.hidden = false;
   bookingReview.hidden = true;
@@ -135,6 +181,7 @@ qsa(".destination-card").forEach((card) => {
 
 qsa(".destination-list button").forEach((button) => button.addEventListener("click", () => openPlanner({ destination: button.textContent })));
 qsa(".package-card button").forEach((button) => button.addEventListener("click", () => openPlanner({ duration: button.closest(".package-card").dataset.duration })));
+qsa(".tier-card").forEach((button) => button.addEventListener("click", () => openPlanner({ tier: button.dataset.tier })));
 qsa(".style-options button").forEach((button) => button.addEventListener("click", () => {
   qsa(".style-options button").forEach((item) => item.classList.remove("active"));
   button.classList.add("active");
@@ -156,8 +203,19 @@ qs(".all-destinations-toggle").addEventListener("click", (event) => {
   event.currentTarget.lastElementChild.textContent = list.hidden ? "＋" : "−";
 });
 
-[durationSelect, qs("#custom-days"), travelerInput, hotelSelect, transportSelect].forEach((input) => input.addEventListener("input", () => {
+[durationSelect, qs("#custom-days"), travelerInput, hotelSelect, transportSelect, vehicleCountInput].forEach((input) => input.addEventListener("input", () => {
   qs(".custom-days-field").hidden = durationSelect.value !== "custom";
+  syncTransportFields(true);
+  calculateEstimate();
+}));
+
+destinationSelect.addEventListener("change", () => {
+  syncTransportFields(true);
+  calculateEstimate();
+});
+
+tierInputs.forEach((input) => input.addEventListener("change", () => {
+  hotelSelect.value = input.value;
   calculateEstimate();
 }));
 
@@ -167,9 +225,11 @@ plannerForm.addEventListener("submit", (event) => {
   const rows = [
     ["Destination", destinationSelect.value],
     ["Travelers", String(estimate.travelers)],
+    ["Comfort level", pricing.tiers[estimate.tier].label],
     ["Travel style", qs("#planner-style").value],
-    ["Stay", hotelSelect.options[hotelSelect.selectedIndex].text],
-    ["Transport", transportSelect.options[transportSelect.selectedIndex].text],
+    ["Journey plan", formatTHB(estimate.planSubtotal)],
+    ["Stay", `${hotelSelect.options[hotelSelect.selectedIndex].text} · ${formatTHB(estimate.hotelSubtotal)}`],
+    ["Transport", `${transportSelect.options[transportSelect.selectedIndex].text} · ${formatTHB(estimate.transportSubtotal)}`],
     ["Dining", qs("#dining-choice").value]
   ];
   qs("#review-title").textContent = `${estimate.days} day${estimate.days > 1 ? "s" : ""} in ${destinationSelect.value}`;
