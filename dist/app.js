@@ -102,7 +102,8 @@ const pricing = {
     mid: { label: "Mid-range", perGuestDay: 1450 },
     premium: { label: "Premium", perGuestDay: 2650 }
   },
-  roomMultipliers: { single: 0.9, twin: 1, king: 1.15, presidential: 4 }
+  roomCategoryMultipliers: { normal: 1, family: 1.6, presidential: 4 },
+  roomViewMultipliers: { standard: 1, landscape: 1.1, mountain: 1.15, sea: 1.25 }
 };
 
 const qs = (selector, scope = document) => scope.querySelector(selector);
@@ -115,7 +116,9 @@ const destinationSelect = qs("#planner-destination");
 const durationSelect = qs("#planner-duration");
 const travelerInput = qs("#traveler-count");
 const hotelSelect = qs("#hotel-choice");
-const roomTypeSelect = qs("#room-type");
+const roomCategorySelect = qs("#room-category");
+const roomViewSelect = qs("#room-view");
+const bedTypeSelect = qs("#bed-type");
 const roomCountInput = qs("#room-count");
 const transportSelect = qs("#transport-choice");
 const vehicleTypeSelect = qs("#vehicle-type");
@@ -286,9 +289,10 @@ function calculateEstimate() {
   const rooms = Math.max(1, Number(roomCountInput.value || 1));
   const tier = selectedTier();
   const planSubtotal = pricing.tiers[tier].perGuestDay * travelers * days;
-  const roomMultiplier = pricing.roomMultipliers[roomTypeSelect.value];
+  const roomCategoryMultiplier = pricing.roomCategoryMultipliers[roomCategorySelect.value];
+  const roomViewMultiplier = pricing.roomViewMultipliers[roomViewSelect.value];
   const hotelRate = selectedHotelRate();
-  const hotelSubtotal = Math.round((hotelRate * roomMultiplier * rooms * nights) / 50) * 50;
+  const hotelSubtotal = Math.round((hotelRate * roomCategoryMultiplier * roomViewMultiplier * rooms * nights) / 50) * 50;
   const vehicle = selectedVehicle();
   const vehicleCount = Math.max(1, Number(vehicleCountInput.value || 1));
   const transportSubtotal = vehicle ? vehicle.rate * days * vehicleCount : 0;
@@ -389,7 +393,7 @@ travelerInput.addEventListener("input", () => {
   calculateEstimate();
 });
 
-[hotelSelect, roomTypeSelect, roomCountInput, vehicleCountInput].forEach((input) => input.addEventListener("input", calculateEstimate));
+[hotelSelect, roomCategorySelect, roomViewSelect, bedTypeSelect, roomCountInput, vehicleCountInput].forEach((input) => input.addEventListener("input", calculateEstimate));
 
 transportSelect.addEventListener("input", () => {
   syncTransportFields(true);
@@ -454,7 +458,9 @@ plannerForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const estimate = calculateEstimate();
   const vehicleCount = Math.max(1, Number(vehicleCountInput.value || 1));
-  const roomType = roomTypeSelect.options[roomTypeSelect.selectedIndex].text;
+  const roomCategory = roomCategorySelect.options[roomCategorySelect.selectedIndex].text;
+  const roomView = roomViewSelect.options[roomViewSelect.selectedIndex].text;
+  const bedType = bedTypeSelect.options[bedTypeSelect.selectedIndex].text;
   const vehicleDescription = estimate.vehicle
     ? `${estimate.vehicle.type} · ${estimate.vehicle.brand} ${estimate.vehicle.model} ${estimate.vehicle.year} × ${vehicleCount}`
     : "No Twar Mal transportation";
@@ -465,7 +471,9 @@ plannerForm.addEventListener("submit", (event) => {
     ["Travel style", qs("#planner-style").value],
     ["Journey plan", formatTHB(estimate.planSubtotal)],
     ["Hotel", `${hotelSelect.options[hotelSelect.selectedIndex].text} · ${formatTHB(estimate.hotelSubtotal)}`],
-    ["Rooms", `${estimate.rooms} × ${roomType}`],
+    ["Rooms", `${estimate.rooms} × ${roomCategory}`],
+    ["View", roomView],
+    ["Bed", `${bedType} · no price change`],
     ["Transport", `${vehicleDescription} · ${formatTHB(estimate.transportSubtotal)}`]
   ];
   if (!mealPlans.length) rows.push(["Meals", "Not planned · restaurant bills excluded"]);

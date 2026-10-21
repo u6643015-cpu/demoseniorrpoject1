@@ -230,7 +230,7 @@
             <div class="package-body"><div><h3>Thailand, Unhurried</h3><p>A two-week immersion with room for hidden places and slow mornings.</p></div><div class="package-meta"><span>Plan from <strong>฿12,600</strong> / guest + hotel</span><button type="button">Choose <span>→</span></button></div></div>
           </article>
         </div>
-        <p class="pricing-note">Plan prices exclude hotels, optional transportation, and every restaurant bill. Hotel estimates are added after you choose a destination, property, room type, and room quantity.</p>
+        <p class="pricing-note">Plan prices exclude hotels, optional transportation, and every restaurant bill. Hotel estimates are added after you choose a destination, property, room category, view, and room quantity. Bed choice does not change the price.</p>
       </section>
 
       <section class="travel-style">
@@ -328,7 +328,9 @@
               </div>
             </fieldset>
             <label class="field field-wide"><span>Hotel</span><select id="hotel-choice"></select><small class="field-hint" id="hotel-range-note">Select a destination and comfort level to see researched hotel examples.</small></label>
-            <label class="field"><span>Room type</span><select id="room-type"><option value="single">Single room</option><option value="twin" selected>Twin bedroom</option><option value="king">King-size bedroom</option><option value="presidential">Presidential room</option></select></label>
+            <label class="field"><span>Room category</span><select id="room-category"><option value="normal" selected>Normal room · base rate</option><option value="family">Family room · +60%</option><option value="presidential">Presidential room · ×4</option></select></label>
+            <label class="field"><span>Room view</span><select id="room-view"><option value="standard" selected>Standard / no special view · included</option><option value="landscape">Landscape view · +10%</option><option value="mountain">Mountain view · +15%</option><option value="sea">Sea view · +25%</option></select></label>
+            <label class="field"><span>Bed type · no price change</span><select id="bed-type"><option value="single">Single bed</option><option value="twin" selected>Twin beds</option><option value="king">King-size bed</option></select><small class="field-hint">Bed choice does not change the room price.</small></label>
             <label class="field"><span>Number of rooms</span><input id="room-count" type="number" min="1" max="12" value="1" /></label>
             <label class="field"><span>Getting around</span><select id="transport-choice"><option value="none">No Twar Mal transportation · ฿0</option><option value="moto">Motorcycle rental · model-based</option><option value="car">Self-drive car · from ฿800 / day</option><option value="driver">Private car + driver · from ฿1,700 / day</option></select><small class="field-hint" id="transport-policy">Choose a vehicle type and model to see its daily rate.</small></label>
             <label class="field vehicle-detail-field" hidden><span>Vehicle type</span><select id="vehicle-type"></select></label>
