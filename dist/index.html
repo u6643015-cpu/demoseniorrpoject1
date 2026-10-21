@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Twar Mal creates flexible luxury journeys across Thailand with curated stays, dining, local transportation, and self-drive rentals." />
+    <meta name="theme-color" content="#0d4d43" />
+    <title>Twar Mal | Thailand, tailored to you</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="Twar Mal home">
+          <img src="assets/twar-mal-logo.jpeg" alt="Twar Mal Travel & Tour" />
+          <span class="brand-copy"><strong>Twar Mal</strong><small>TRAVEL &amp; TOUR</small></span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span><span></span><span class="sr-only">Open navigation</span>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="#destinations" data-i18n="nav.destinations">Destinations</a>
+          <a href="#journeys" data-i18n="nav.packages">Journeys</a>
+          <a href="#rentals" data-i18n="nav.rentals">Self-drive</a>
+          <a href="#about" data-i18n="nav.why">Why us</a>
+        </div>
+        <div class="nav-actions">
+          <button class="lang-toggle" type="button" aria-label="Switch language"><span class="active">EN</span><span>ไทย</span></button>
+          <button class="text-button account-trigger" type="button" data-i18n="nav.signin">Sign in</button>
+          <button class="button button-small open-planner" type="button" data-i18n="nav.plan">Plan my trip</button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-heading">
+        <div class="hero-image" aria-hidden="true"></div>
+        <div class="hero-grain" aria-hidden="true"></div>
+        <div class="hero-content shell">
+          <div class="eyebrow light" data-i18n="hero.eyebrow">PRIVATE JOURNEYS · BEAUTIFULLY ARRANGED</div>
+          <h1 id="hero-heading" data-i18n="hero.title">Thailand,<br /><em>tailored to you.</em></h1>
+          <p data-i18n="hero.copy">Arrive with a dream. We shape the stay, the table, the road, and every remarkable moment in between.</p>
+          <div class="hero-cta-row">
+            <button class="button button-gold open-planner" type="button" data-i18n="hero.cta">Create my journey</button>
+            <a class="play-link" href="#journeys"><span aria-hidden="true">↘</span><span data-i18n="hero.explore">Explore signature journeys</span></a>
+          </div>
+        </div>
+
+        <form class="trip-finder" id="trip-finder">
+          <label>
+            <span data-i18n="finder.where">Where would you like to go?</span>
+            <select id="quick-destination" name="destination">
+              <option value="Bangkok">Bangkok</option>
+              <option value="Chiang Mai">Chiang Mai</option>
+              <option value="Phuket">Phuket</option>
+              <option value="Krabi">Krabi</option>
+              <option value="Koh Samui">Koh Samui</option>
+              <option value="Khao Yai">Khao Yai</option>
+            </select>
+          </label>
+          <span class="finder-divider" aria-hidden="true"></span>
+          <label>
+            <span data-i18n="finder.duration">Journey length</span>
+            <select id="quick-duration" name="duration">
+              <option value="1">1 day</option>
+              <option value="3" selected>3 days</option>
+              <option value="7">1 week</option>
+              <option value="14">2 weeks</option>
+              <option value="custom">Custom</option>
+            </select>
+          </label>
+          <span class="finder-divider" aria-hidden="true"></span>
+          <label>
+            <span data-i18n="finder.style">Travel style</span>
+            <select id="quick-style" name="style">
+              <option>Slow &amp; serene</option>
+              <option>Social &amp; vibrant</option>
+              <option>Family explorer</option>
+              <option>Island reset</option>
+            </select>
+          </label>
+          <button class="finder-submit" type="submit" aria-label="Build this trip">↗</button>
+        </form>
+      </section>
+
+      <section class="intro shell" id="about">
+        <div class="section-number">01</div>
+        <div class="intro-copy">
+          <div class="eyebrow" data-i18n="intro.eyebrow">YOUR THAILAND, YOUR RHYTHM</div>
+          <h2 data-i18n="intro.title">Not a fixed tour.<br />A journey that fits.</h2>
+        </div>
+        <div class="intro-detail">
+          <p data-i18n="intro.copy">We begin when you arrive. Choose the places, pace, hotel, restaurants, and how you move—we arrange the details around you.</p>
+          <a href="#how-it-works" data-i18n="intro.link">See how it works <span>→</span></a>
+        </div>
+      </section>
+
+      <section class="benefits shell" id="how-it-works">
+        <article>
+          <span class="line-icon">◇</span>
+          <h3 data-i18n="benefit.one.title">Made around you</h3>
+          <p data-i18n="benefit.one.copy">Adjust your days, destinations, dining, and stays before you confirm.</p>
+        </article>
+        <article>
+          <span class="line-icon">⌁</span>
+          <h3 data-i18n="benefit.two.title">One seamless arrival</h3>
+          <p data-i18n="benefit.two.copy">From airport welcome to every local transfer, your route is handled.</p>
+        </article>
+        <article>
+          <span class="line-icon">✦</span>
+          <h3 data-i18n="benefit.three.title">Travel your way</h3>
+          <p data-i18n="benefit.three.copy">Choose a private driver or take the wheel with a car or motorcycle.</p>
+        </article>
+        <article>
+          <span class="line-icon">◌</span>
+          <h3 data-i18n="benefit.four.title">Book with confidence</h3>
+          <p data-i18n="benefit.four.copy">Free cancellation, less only any hotel fee that cannot be refunded.</p>
+        </article>
+      </section>
+
+      <section class="destinations" id="destinations">
+        <div class="shell section-heading-row">
+          <div>
+            <div class="eyebrow" data-i18n="dest.eyebrow">23 PLACES TO BEGIN</div>
+            <h2 data-i18n="dest.title">Find your kind of Thailand.</h2>
+          </div>
+          <div class="filter-tabs" role="group" aria-label="Filter destinations">
+            <button class="active" type="button" data-filter="all" data-i18n="dest.all">All</button>
+            <button type="button" data-filter="city" data-i18n="dest.city">Cities</button>
+            <button type="button" data-filter="nature" data-i18n="dest.nature">Nature</button>
+            <button type="button" data-filter="island" data-i18n="dest.island">Islands</button>
+          </div>
+        </div>
+
+        <div class="destination-grid shell">
+          <article class="destination-card destination-card-large" data-category="city" tabindex="0" data-destination="Bangkok">
+            <img src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Ornate Thai temple at sunset" />
+            <div class="card-shade"></div>
+            <div class="destination-content"><span>City · Culture · Dining</span><h3>Bangkok</h3><button type="button" aria-label="Plan a trip to Bangkok">↗</button></div>
+          </article>
+          <article class="destination-card" data-category="nature city" tabindex="0" data-destination="Chiang Mai">
+            <img src="https://images.unsplash.com/photo-1598970605070-a38a6ccd3a2d?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Green mountains in northern Thailand" />
+            <div class="card-shade"></div>
+            <div class="destination-content"><span>Mountains · Temples</span><h3>Chiang Mai</h3><button type="button" aria-label="Plan a trip to Chiang Mai">↗</button></div>
+          </article>
+          <article class="destination-card" data-category="island" tabindex="0" data-destination="Phuket">
+            <img src="https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Tropical Thai island and turquoise sea" />
+            <div class="card-shade"></div>
+            <div class="destination-content"><span>Sea · Sunset · Escape</span><h3>Phuket</h3><button type="button" aria-label="Plan a trip to Phuket">↗</button></div>
+          </article>
+          <article class="destination-card destination-card-wide" data-category="island nature" tabindex="0" data-destination="Krabi">
+            <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Longtail boats by limestone cliffs in Thailand" />
+            <div class="card-shade"></div>
+            <div class="destination-content"><span>Islands · Adventure</span><h3>Krabi</h3><button type="button" aria-label="Plan a trip to Krabi">↗</button></div>
+          </article>
+          <article class="destination-card" data-category="nature" tabindex="0" data-destination="Khao Yai">
+            <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Quiet mountain landscape at sunrise" />
+            <div class="card-shade"></div>
+            <div class="destination-content"><span>Forest · Slow living</span><h3>Khao Yai</h3><button type="button" aria-label="Plan a trip to Khao Yai">↗</button></div>
+          </article>
+        </div>
+
+        <div class="all-destinations shell">
+          <button class="all-destinations-toggle" type="button" aria-expanded="false"><span data-i18n="dest.viewall">View all destinations</span><span>＋</span></button>
+          <div class="destination-list" hidden>
+            <button type="button">Chiang Mai</button><button type="button">Chiang Rai</button><button type="button">Pattaya</button><button type="button">Phuket</button><button type="button">Bangkok</button><button type="button">Krabi</button><button type="button">Rayong</button><button type="button">Hua Hin</button><button type="button">Cha-am</button><button type="button">Kanchanaburi</button><button type="button">Koh Samui</button><button type="button">Nakhon Nayok</button><button type="button">Khao Kho</button><button type="button">Khao Yai</button><button type="button">Koh Phi Phi</button><button type="button">Koh Tao</button><button type="button">Koh Phangan</button><button type="button">Koh Lipe</button><button type="button">Koh Chang</button><button type="button">Koh Samet</button><button type="button">Ayutthaya</button><button type="button">Sukhothai</button><button type="button">Koh Larn</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="journeys shell" id="journeys">
+        <div class="section-heading-row">
+          <div>
+            <div class="eyebrow" data-i18n="journeys.eyebrow">SIGNATURE STARTING POINTS</div>
+            <h2 data-i18n="journeys.title">Stay for a day.<br />Remember it for years.</h2>
+          </div>
+          <p data-i18n="journeys.copy">Every journey is editable. Swap a place, extend a stay, choose a different table—nothing is fixed until you confirm.</p>
+        </div>
+
+        <div class="package-grid">
+          <article class="package-card" data-duration="1">
+            <div class="package-image day-one"><span>01 DAY</span></div>
+            <div class="package-body"><div><h3>The Perfect Day</h3><p>One city, beautifully paced—from morning welcome to your final dinner.</p></div><div class="package-meta"><span>Sample from <strong>฿4,900</strong> / guest</span><button type="button">Choose <span>→</span></button></div></div>
+          </article>
+          <article class="package-card featured" data-duration="3">
+            <div class="popular-label">MOST LOVED</div>
+            <div class="package-image day-three"><span>03 DAYS</span></div>
+            <div class="package-body"><div><h3>The Signature Escape</h3><p>A richer city story with a considered stay, private rides, and dining.</p></div><div class="package-meta"><span>Sample from <strong>฿14,900</strong> / guest</span><button type="button">Choose <span>→</span></button></div></div>
+          </article>
+          <article class="package-card" data-duration="7">
+            <div class="package-image day-seven"><span>07 DAYS</span></div>
+            <div class="package-body"><div><h3>The Grand Week</h3><p>Pair culture, nature, and coast in one relaxed, seamless week.</p></div><div class="package-meta"><span>Sample from <strong>฿36,900</strong> / guest</span><button type="button">Choose <span>→</span></button></div></div>
+          </article>
+          <article class="package-card" data-duration="14">
+            <div class="package-image day-fourteen"><span>14 DAYS</span></div>
+            <div class="package-body"><div><h3>Thailand, Unhurried</h3><p>A two-week immersion with room for hidden places and slow mornings.</p></div><div class="package-meta"><span>Sample from <strong>฿69,900</strong> / guest</span><button type="button">Choose <span>→</span></button></div></div>
+          </article>
+        </div>
+        <p class="pricing-note">Illustrative planning prices in THB. Final price changes with destination, dates, hotel, transport, and group size.</p>
+      </section>
+
+      <section class="travel-style">
+        <div class="travel-style-image" role="img" aria-label="Friends enjoying an elegant evening in Thailand"></div>
+        <div class="travel-style-copy">
+          <div class="eyebrow light" data-i18n="style.eyebrow">TRAVEL THAT FEELS LIKE YOU</div>
+          <h2 data-i18n="style.title">Different ages.<br />Different energies.<br /><em>Your kind of wonderful.</em></h2>
+          <div class="style-options">
+            <button type="button" data-style="Slow &amp; serene"><span>01</span><div><strong data-i18n="style.slow.title">Slow &amp; serene</strong><small data-i18n="style.slow.copy">Temples, gardens, rivers, gentle days</small></div><b>→</b></button>
+            <button class="active" type="button" data-style="Social &amp; vibrant"><span>02</span><div><strong data-i18n="style.social.title">Social &amp; vibrant</strong><small data-i18n="style.social.copy">Cozy cafés, beaches, nightlife, city energy</small></div><b>→</b></button>
+            <button type="button" data-style="Family explorer"><span>03</span><div><strong data-i18n="style.family.title">Family explorer</strong><small data-i18n="style.family.copy">Easy logistics, shared discovery, flexible pace</small></div><b>→</b></button>
+            <button type="button" data-style="Island reset"><span>04</span><div><strong data-i18n="style.island.title">Island reset</strong><small data-i18n="style.island.copy">Turquoise water, soft sand, nothing rushed</small></div><b>→</b></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="rentals shell" id="rentals">
+        <div class="rental-panel">
+          <div class="rental-copy">
+            <div class="eyebrow light" data-i18n="rental.eyebrow">TAKE YOUR OWN ROAD</div>
+            <h2 data-i18n="rental.title">Prefer the wheel?</h2>
+            <p data-i18n="rental.copy">Choose from city cars, premium SUVs, convertibles, scooters, and touring motorcycles. Add a self-drive rental without changing the rest of your journey.</p>
+            <ul>
+              <li data-i18n="rental.one">Flexible daily or journey-long rental</li>
+              <li data-i18n="rental.two">Hotel or airport handover options</li>
+              <li data-i18n="rental.three">Car and motorcycle choices</li>
+            </ul>
+            <button class="button button-light open-planner" type="button" data-transport="Self-drive rental" data-i18n="rental.cta">Explore self-drive</button>
+          </div>
+          <div class="rental-visual">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Scenic road through a tropical landscape" />
+            <div class="rental-badge"><span>CAR &amp; MOTO</span><strong>Freedom,<br />included.</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="promise shell" id="cancellation">
+        <div class="promise-mark">TM</div>
+        <div>
+          <div class="eyebrow" data-i18n="promise.eyebrow">A CLEAR CANCELLATION PROMISE</div>
+          <h2 data-i18n="promise.title">Plans can change.<br />Peace of mind shouldn’t.</h2>
+        </div>
+        <div>
+          <p data-i18n="promise.copy">Cancel without a Twar Mal cancellation fee and receive a full refund. If your chosen hotel has a non-refundable policy, only that hotel charge is deducted.</p>
+          <small data-i18n="promise.note">Your exact hotel conditions are shown before card payment.</small>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div class="final-cta-image" aria-hidden="true"></div>
+        <div class="final-cta-content">
+          <img src="assets/twar-mal-logo.jpeg" alt="" />
+          <div class="eyebrow light" data-i18n="final.eyebrow">YOUR JOURNEY STARTS HERE</div>
+          <h2 data-i18n="final.title">Where will Thailand<br /><em>take you?</em></h2>
+          <button class="button button-gold open-planner" type="button" data-i18n="final.cta">Start planning</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-main shell">
+        <div class="footer-brand">
+          <div class="brand brand-inverse"><img src="assets/twar-mal-logo.jpeg" alt="" /><span class="brand-copy"><strong>Twar Mal</strong><small>TRAVEL &amp; TOUR</small></span></div>
+          <p>Private journeys across Thailand, shaped around you.</p>
+        </div>
+        <div><h3>Explore</h3><a href="#destinations">Destinations</a><a href="#journeys">Journeys</a><a href="#rentals">Self-drive</a></div>
+        <div><h3>Support</h3><a href="#about">How it works</a><a href="#cancellation">Cancellation promise</a><button class="account-trigger footer-button" type="button">Account</button></div>
+        <div class="footer-action"><h3>Ready when you are.</h3><button class="button button-outline open-planner" type="button">Plan my trip</button></div>
+      </div>
+      <div class="footer-bottom shell"><span>© 2026 Twar Mal Travel &amp; Tour</span><span>Thailand · Prices in THB</span><span>Website preview</span></div>
+    </footer>
+
+    <div class="modal-shell" id="planner-modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-modal></div>
+      <section class="planner-modal" role="dialog" aria-modal="true" aria-labelledby="planner-title">
+        <button class="modal-close" type="button" data-close-modal aria-label="Close planner">×</button>
+        <div class="planner-heading">
+          <div><div class="eyebrow">DESIGN YOUR JOURNEY</div><h2 id="planner-title">A few details.<br /><em>Endless possibilities.</em></h2></div>
+          <div class="step-indicator"><span class="active">1</span><i></i><span>2</span></div>
+        </div>
+        <form id="planner-form">
+          <div class="form-grid">
+            <label class="field"><span>Destination</span><select id="planner-destination" required></select></label>
+            <label class="field"><span>Journey length</span><select id="planner-duration" required><option value="1">1 day</option><option value="3" selected>3 days</option><option value="7">1 week</option><option value="14">2 weeks</option><option value="custom">Custom duration</option></select></label>
+            <label class="field custom-days-field" hidden><span>Number of days</span><input id="custom-days" type="number" min="1" max="30" value="5" /></label>
+            <label class="field"><span>Travelers</span><input id="traveler-count" type="number" min="1" max="12" value="2" required /></label>
+            <label class="field"><span>Preferred start date</span><input id="start-date" type="date" required /></label>
+            <label class="field"><span>Travel style</span><select id="planner-style"><option>Slow &amp; serene</option><option selected>Social &amp; vibrant</option><option>Family explorer</option><option>Island reset</option></select></label>
+            <label class="field"><span>Stay</span><select id="hotel-choice"><option value="included">Curated boutique · included</option><option value="resort">5-star resort · upgrade</option><option value="suite">Private suite or villa · upgrade</option><option value="own">I’ll choose my own hotel</option></select></label>
+            <label class="field"><span>Getting around</span><select id="transport-choice"><option value="driver">Private local transport · included</option><option value="car">Self-drive car</option><option value="moto">Self-drive motorcycle</option><option value="none">No transportation</option></select></label>
+            <label class="field field-wide"><span>Dining preference</span><select id="dining-choice"><option>Local favorites &amp; hidden gems</option><option>Vegetarian-friendly</option><option>Halal-friendly</option><option>Fine dining</option><option>Surprise me</option></select></label>
+            <label class="field field-wide"><span>Anything you want to add or change?</span><textarea id="special-request" rows="3" placeholder="Places you love, mobility needs, hotel preference, celebrations…"></textarea></label>
+          </div>
+          <div class="estimate-bar">
+            <div><span>Planning estimate</span><strong id="estimate-total">฿29,800</strong><small id="estimate-note">for 2 guests · 3 days</small></div>
+            <button class="button" type="submit">Review &amp; confirm <span>→</span></button>
+          </div>
+          <p class="estimate-disclaimer">Sample estimate only. Final launch prices and availability must be connected before accepting live payments.</p>
+        </form>
+
+        <div class="booking-review" hidden>
+          <div class="review-card">
+            <div class="eyebrow">YOUR JOURNEY</div>
+            <h3 id="review-title">3 days in Bangkok</h3>
+            <div class="review-lines" id="review-lines"></div>
+            <div class="review-total"><span>Estimated total</span><strong id="review-total">฿29,800</strong></div>
+          </div>
+          <div class="checkout-card">
+            <div class="secure-row"><span>◆</span><div><strong>Card payment</strong><small>Prototype checkout · no charge will be made</small></div></div>
+            <label class="field"><span>Name on card</span><input type="text" autocomplete="cc-name" placeholder="Full name" /></label>
+            <label class="field"><span>Card number</span><input type="text" inputmode="numeric" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" maxlength="19" /></label>
+            <div class="mini-fields"><label class="field"><span>Expiry</span><input type="text" autocomplete="cc-exp" placeholder="MM / YY" /></label><label class="field"><span>CVC</span><input type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="•••" maxlength="4" /></label></div>
+            <button class="button button-full" id="demo-payment" type="button">Complete preview booking</button>
+            <p>Live card processing will be connected through a certified payment provider before launch.</p>
+          </div>
+          <button class="back-to-plan" type="button">← Edit journey</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="modal-shell" id="account-modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-account></div>
+      <section class="account-modal" role="dialog" aria-modal="true" aria-labelledby="account-title">
+        <button class="modal-close" type="button" data-close-account aria-label="Close account">×</button>
+        <img src="assets/twar-mal-logo.jpeg" alt="Twar Mal" />
+        <h2 id="account-title">Welcome to Twar Mal.</h2>
+        <p>Save your journey and return whenever you are ready.</p>
+        <div class="account-tabs"><button class="active" type="button" data-account-tab="signin">Sign in</button><button type="button" data-account-tab="signup">Create account</button></div>
+        <form id="signin-form" class="account-form">
+          <label class="field"><span>Email</span><input type="email" required autocomplete="email" placeholder="you@example.com" /></label>
+          <label class="field"><span>Password</span><input type="password" required autocomplete="current-password" placeholder="Your password" /></label>
+          <button class="button button-full" type="submit">Sign in</button>
+        </form>
+        <form id="signup-form" class="account-form" hidden>
+          <label class="field"><span>Name</span><input id="signup-name" type="text" required autocomplete="name" placeholder="Your name" /></label>
+          <label class="field"><span>Email</span><input type="email" required autocomplete="email" placeholder="you@example.com" /></label>
+          <label class="field"><span>Password</span><input type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters" /></label>
+          <button class="button button-full" type="submit">Create account</button>
+        </form>
+        <small>Account access is a frontend preview. Secure authentication will be connected before launch.</small>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
