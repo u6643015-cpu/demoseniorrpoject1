@@ -21,11 +21,12 @@ Then open `http://localhost:4173`.
 - 23 Thailand destinations
 - 207 categorized hotel examples and 32 vehicle choices
 - 1-day, 3-day, 7-day, 14-day, and custom-duration journeys
-- Custom hotel, dining, travel-style, and transportation preferences
+- Budget-aware hotel, activity, dining, travel-style, and transportation suggestions
+- Capacity-aware room and vehicle quantities with transparent price breakdowns
 - Self-drive car and motorcycle options
-- English and Thai presentation
+- English booking planner with an English/Thai marketing presentation
 - Responsive mobile and desktop layouts
-- Frontend account, booking, pricing, and checkout previews
+- Safe frontend account, booking, pricing, and test-checkout previews
 
 Secure authentication, persistent bookings, live inventory, and card processing require production service integrations before accepting real customer payments.
 

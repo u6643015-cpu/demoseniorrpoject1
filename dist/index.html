@@ -319,16 +319,20 @@
             <label class="field"><span>Travelers</span><input id="traveler-count" type="number" min="1" max="12" value="2" required /></label>
             <label class="field"><span>Preferred start date</span><input id="start-date" type="date" required /></label>
             <label class="field"><span>Travel style</span><select id="planner-style"><option>Slow &amp; serene</option><option selected>Social &amp; vibrant</option><option>Family explorer</option><option>Island reset</option></select></label>
+            <label class="field"><span>Arrival or pickup point</span><select id="pickup-point"><option>Airport or station</option><option>Hotel</option><option>Meet in the city</option><option>No pickup needed</option></select></label>
+            <label class="field field-wide"><span>Arrival details · optional</span><input id="arrival-details" type="text" placeholder="Flight or train number, arrival time, hotel, or meeting point" /></label>
+            <label class="field field-wide"><span>Must-see places &amp; activities · optional</span><textarea id="must-see" rows="2" placeholder="Temples, beaches, markets, nightlife, accessible activities, or exact places you want included…"></textarea></label>
+            <div class="trip-scope-note field-wide"><strong>What Twar Mal arranges</strong><span>Your editable itinerary, selected activity allowance, hotel, and local transportation after arrival.</span><span><b>Not sold here:</b> flights, intercity bus or train tickets, and restaurant or delivery bills.</span></div>
             <section class="budget-advisor field-wide" aria-labelledby="budget-title">
               <div class="budget-advisor-head">
                 <div>
                   <span class="budget-kicker">SMART BUDGET PLANNER</span>
                   <h3 id="budget-title">What is your total trip budget?</h3>
-                  <p>Tell us your minimum and maximum total in THB. We will show five separate recommendations that fit your range: travel package, hotel room, attractions and activities, transportation, and meals.</p>
+                  <p>Tell us your minimum and maximum total in THB. We will match the travel package, hotel room, included activity allowance, transportation, and an optional meal budget.</p>
                 </div>
                 <div class="budget-range-inputs">
-                  <label class="budget-input" for="trip-budget-min"><span>Minimum budget · THB</span><div class="budget-money"><b>฿</b><input id="trip-budget-min" type="number" min="1000" step="500" inputmode="numeric" placeholder="15,000" required /></div><small>The least you plan to spend.</small></label>
-                  <label class="budget-input" for="trip-budget-max"><span>Maximum budget · THB</span><div class="budget-money"><b>฿</b><input id="trip-budget-max" type="number" min="1000" step="500" inputmode="numeric" placeholder="30,000" required /></div><small>Your comfortable spending limit, including restaurants.</small></label>
+                  <label class="budget-input" for="trip-budget-min"><span>Minimum budget · THB</span><div class="budget-money"><b>฿</b><input id="trip-budget-min" type="number" min="1000" step="100" inputmode="numeric" placeholder="15,000" required /></div><small>The least you plan to spend.</small></label>
+                  <label class="budget-input" for="trip-budget-max"><span>Maximum budget · THB</span><div class="budget-money"><b>฿</b><input id="trip-budget-max" type="number" min="1000" step="100" inputmode="numeric" placeholder="30,000" required /></div><small>Your limit for the website total plus any meal budget you enter.</small></label>
                 </div>
               </div>
               <div class="budget-prompt" id="budget-prompt" aria-live="polite">
@@ -342,7 +346,7 @@
                 <article><span>04 · TRANSPORTATION</span><strong id="budget-transport-title"></strong><p id="budget-transport-copy"></p></article>
                 <article><span>05 · MEALS</span><strong id="budget-meal-title"></strong><p id="budget-meal-copy"></p></article>
               </div>
-              <p class="budget-note" id="budget-note">Restaurant spending is a planning allowance only and will not be added to the website payment total.</p>
+              <p class="budget-note" id="budget-note">No meal cost is added unless you enter both meal-budget fields.</p>
             </section>
             <fieldset class="tier-picker field-wide">
               <legend>Comfort level</legend>
@@ -357,11 +361,11 @@
             <label class="field"><span>Room category</span><select id="room-category"><option value="normal" selected>Normal room · base rate</option><option value="family">Family room · +60%</option><option value="presidential">Presidential room · ×4</option></select></label>
             <label class="field"><span>Room view</span><select id="room-view"><option value="standard" selected>Standard / no special view · included</option><option value="landscape">Landscape view · +10%</option><option value="mountain">Mountain view · +15%</option><option value="sea">Sea view · +25%</option></select></label>
             <label class="field"><span>Bed type · no price change</span><select id="bed-type"><option value="single">Single bed</option><option value="twin" selected>Twin beds</option><option value="king">King-size bed</option></select><small class="field-hint">Bed choice does not change the room price.</small></label>
-            <label class="field"><span>Number of rooms</span><input id="room-count" type="number" min="1" max="12" value="1" /></label>
+            <label class="field"><span>Number of rooms</span><input id="room-count" type="number" min="1" max="12" value="1" /><small class="field-hint" id="room-capacity-note">Minimum room quantity is calculated from travelers and room category.</small></label>
             <label class="field"><span>Getting around</span><select id="transport-choice"><option value="none">No Twar Mal transportation · ฿0</option><option value="moto">Motorcycle rental · model-based</option><option value="car">Self-drive car · from ฿800 / day</option><option value="driver">Private car + driver · from ฿1,700 / day</option></select><small class="field-hint" id="transport-policy">Choose a vehicle type and model to see its daily rate.</small></label>
             <label class="field vehicle-detail-field" hidden><span>Vehicle type</span><select id="vehicle-type"></select></label>
             <label class="field vehicle-detail-field field-wide" hidden><span>Brand, model &amp; year</span><select id="vehicle-model"></select></label>
-            <label class="field vehicle-count-field" hidden><span id="vehicle-count-label">Vehicles</span><input id="vehicle-count" type="number" min="1" max="12" value="1" /></label>
+            <label class="field vehicle-count-field" hidden><span id="vehicle-count-label">Vehicles</span><input id="vehicle-count" type="number" min="1" max="12" value="1" /><small class="field-hint" id="vehicle-capacity-note">Minimum quantity is calculated from vehicle capacity.</small></label>
 
             <fieldset class="meal-planner field-wide">
               <legend>Meal planner · restaurant bills are not added</legend>
@@ -386,7 +390,7 @@
             <label class="field field-wide"><span>Anything you want to add or change?</span><textarea id="special-request" rows="3" placeholder="Places you love, mobility needs, hotel preference, celebrations…"></textarea></label>
           </div>
           <div class="estimate-bar">
-            <div><span>Estimated total trip spend</span><strong id="estimate-total">฿8,200</strong><small id="estimate-note">for 2 guests · 3 days · 1 room · 2 hotel nights</small><small id="estimate-breakdown">Plan ฿5,400 + hotel ฿2,800 + transport ฿0 · meals excluded · card payment ฿8,200</small></div>
+            <div><span id="estimate-label">Website estimate · meals excluded</span><strong id="estimate-total">฿8,200</strong><small id="estimate-note">for 2 guests · 3 days · 1 room · 2 hotel nights</small><small id="estimate-breakdown">Package ฿5,400 (activities ฿1,500) + hotel ฿2,800 + transport ฿0 · meals excluded · card ฿8,200</small></div>
             <button class="button" id="review-trip-button" type="submit">Review &amp; confirm <span>→</span></button>
           </div>
           <p class="estimate-budget-alert" id="estimate-budget-alert" aria-live="polite"></p>
@@ -398,15 +402,17 @@
             <div class="eyebrow">YOUR JOURNEY</div>
             <h3 id="review-title">3 days in Bangkok</h3>
             <div class="review-lines" id="review-lines"></div>
-            <div class="review-total"><span>Website card payment</span><strong id="review-total">฿29,800</strong></div>
+            <div class="review-total"><span>Website card payment</span><strong id="review-total">฿8,200</strong></div>
           </div>
           <div class="checkout-card">
             <div class="secure-row"><span>◆</span><div><strong>Card payment</strong><small>Prototype checkout · no charge will be made</small></div></div>
-            <label class="field"><span>Name on card</span><input id="card-name" type="text" autocomplete="cc-name" placeholder="Full name" required /></label>
-            <label class="field"><span>Card number</span><input id="card-number" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" maxlength="23" required /></label>
-            <div class="mini-fields"><label class="field"><span>Expiry</span><input id="card-expiry" type="text" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required /></label><label class="field"><span>CVC</span><input id="card-cvc" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="•••" maxlength="4" required /></label></div>
-            <button class="button button-full" id="demo-payment" type="button">Complete preview booking</button>
-            <p>Live card processing will be connected through a certified payment provider before launch.</p>
+            <p class="demo-warning"><strong>Demonstration only.</strong> Never enter a real card number. Use the safe test details below.</p>
+            <button class="test-data-button" id="fill-test-card" type="button">Fill safe test card</button>
+            <label class="field"><span>Name on card</span><input id="card-name" type="text" autocomplete="off" placeholder="Test Traveler" required /></label>
+            <label class="field"><span>Card number</span><input id="card-number" type="text" inputmode="numeric" autocomplete="off" placeholder="4242 4242 4242 4242" maxlength="23" required /></label>
+            <div class="mini-fields"><label class="field"><span>Expiry</span><input id="card-expiry" type="text" autocomplete="off" placeholder="MM / YY" maxlength="7" required /></label><label class="field"><span>CVC</span><input id="card-cvc" type="text" inputmode="numeric" autocomplete="off" placeholder="123" maxlength="4" required /></label></div>
+            <button class="button button-full" id="demo-payment" type="button">Complete test booking</button>
+            <p>Nothing is submitted or stored. Live card processing requires a certified payment provider and secure backend before launch.</p>
           </div>
           <button class="back-to-plan" type="button">← Edit journey</button>
         </div>
@@ -420,16 +426,17 @@
         <img src="assets/twar-mal-logo.jpeg" alt="Twar Mal" />
         <h2 id="account-title">Welcome to Twar Mal.</h2>
         <p>Save your journey and return whenever you are ready.</p>
+        <p class="demo-warning"><strong>Frontend demonstration only.</strong> Do not use a real password. No account is sent to a server.</p>
         <div class="account-tabs"><button class="active" type="button" data-account-tab="signin">Sign in</button><button type="button" data-account-tab="signup">Create account</button></div>
         <form id="signin-form" class="account-form">
-          <label class="field"><span>Email</span><input type="email" required autocomplete="email" placeholder="you@example.com" /></label>
-          <label class="field"><span>Password</span><input type="password" required autocomplete="current-password" placeholder="Your password" /></label>
+          <label class="field"><span>Email</span><input type="email" required autocomplete="off" placeholder="demo@example.com" /></label>
+          <label class="field"><span>Password</span><input type="password" required autocomplete="off" placeholder="Use a test password" /></label>
           <button class="button button-full" type="submit">Sign in</button>
         </form>
         <form id="signup-form" class="account-form" hidden>
           <label class="field"><span>Name</span><input id="signup-name" type="text" required autocomplete="name" placeholder="Your name" /></label>
-          <label class="field"><span>Email</span><input type="email" required autocomplete="email" placeholder="you@example.com" /></label>
-          <label class="field"><span>Password</span><input type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters" /></label>
+          <label class="field"><span>Email</span><input type="email" required autocomplete="off" placeholder="demo@example.com" /></label>
+          <label class="field"><span>Password</span><input type="password" required minlength="8" autocomplete="off" placeholder="Use at least 8 test characters" /></label>
           <button class="button button-full" type="submit">Create account</button>
         </form>
         <small>Account access is a frontend preview. Secure authentication will be connected before launch.</small>

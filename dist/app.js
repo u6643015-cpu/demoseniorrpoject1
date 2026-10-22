@@ -110,50 +110,50 @@ Object.values(hotelProfiles).forEach((profile) => {
 
 const vehicleCatalog = {
   moto: [
-    { type: "Scooter", brand: "Honda", model: "Scoopy", year: 2023, rate: 200 },
-    { type: "Scooter", brand: "Honda", model: "Click 125", year: 2025, rate: 250 },
-    { type: "Scooter", brand: "Yamaha", model: "Fazzio", year: 2024, rate: 250 },
-    { type: "Sport scooter", brand: "Honda", model: "Click 160", year: 2025, rate: 350 },
-    { type: "Sport scooter", brand: "Honda", model: "PCX 160", year: 2025, rate: 450 },
-    { type: "Touring scooter", brand: "Yamaha", model: "NMAX 155", year: 2024, rate: 450 },
-    { type: "Touring scooter", brand: "Honda", model: "ADV 160", year: 2025, rate: 500 },
-    { type: "Touring", brand: "Yamaha", model: "XMAX 300", year: 2025, rate: 800 },
-    { type: "Touring", brand: "Honda", model: "Forza 350", year: 2025, rate: 800 },
-    { type: "Touring", brand: "Honda", model: "ADV 350", year: 2025, rate: 900 }
+    { type: "Scooter", brand: "Honda", model: "Scoopy", year: 2023, rate: 200, capacity: 2 },
+    { type: "Scooter", brand: "Honda", model: "Click 125", year: 2025, rate: 250, capacity: 2 },
+    { type: "Scooter", brand: "Yamaha", model: "Fazzio", year: 2024, rate: 250, capacity: 2 },
+    { type: "Sport scooter", brand: "Honda", model: "Click 160", year: 2025, rate: 350, capacity: 2 },
+    { type: "Sport scooter", brand: "Honda", model: "PCX 160", year: 2025, rate: 450, capacity: 2 },
+    { type: "Touring scooter", brand: "Yamaha", model: "NMAX 155", year: 2024, rate: 450, capacity: 2 },
+    { type: "Touring scooter", brand: "Honda", model: "ADV 160", year: 2025, rate: 500, capacity: 2 },
+    { type: "Touring", brand: "Yamaha", model: "XMAX 300", year: 2025, rate: 800, capacity: 2 },
+    { type: "Touring", brand: "Honda", model: "Forza 350", year: 2025, rate: 800, capacity: 2 },
+    { type: "Touring", brand: "Honda", model: "ADV 350", year: 2025, rate: 900, capacity: 2 }
   ],
   car: [
-    { type: "Sedan", brand: "Toyota", model: "Yaris Ativ", year: 2022, rate: 800 },
-    { type: "Sedan", brand: "Honda", model: "City", year: 2023, rate: 1000 },
-    { type: "Sedan", brand: "Toyota", model: "Corolla Altis", year: 2024, rate: 1100 },
-    { type: "Sedan", brand: "Honda", model: "Civic", year: 2024, rate: 1300 },
-    { type: "7-seater", brand: "Mitsubishi", model: "Xpander", year: 2024, rate: 1500 },
-    { type: "7-seater", brand: "Toyota", model: "Fortuner", year: 2024, rate: 1900 },
-    { type: "Van", brand: "Toyota", model: "Commuter", year: 2023, rate: 2200 },
-    { type: "Van", brand: "Hyundai", model: "H-1", year: 2023, rate: 2400 },
-    { type: "Pickup", brand: "Isuzu", model: "D-Max", year: 2023, rate: 1300 },
-    { type: "Pickup", brand: "Toyota", model: "Hilux Revo", year: 2024, rate: 1400 },
-    { type: "Premium", brand: "BMW", model: "X1", year: 2024, rate: 2600 },
-    { type: "Premium", brand: "BMW", model: "5 Series", year: 2023, rate: 3500 },
-    { type: "Premium", brand: "Mercedes-Benz", model: "E-Class", year: 2024, rate: 3800 }
+    { type: "Sedan", brand: "Toyota", model: "Yaris Ativ", year: 2022, rate: 800, capacity: 4 },
+    { type: "Sedan", brand: "Honda", model: "City", year: 2023, rate: 1000, capacity: 4 },
+    { type: "Sedan", brand: "Toyota", model: "Corolla Altis", year: 2024, rate: 1100, capacity: 4 },
+    { type: "Sedan", brand: "Honda", model: "Civic", year: 2024, rate: 1300, capacity: 4 },
+    { type: "7-seater", brand: "Mitsubishi", model: "Xpander", year: 2024, rate: 1500, capacity: 7 },
+    { type: "7-seater", brand: "Toyota", model: "Fortuner", year: 2024, rate: 1900, capacity: 7 },
+    { type: "Van", brand: "Toyota", model: "Commuter", year: 2023, rate: 2200, capacity: 10 },
+    { type: "Van", brand: "Hyundai", model: "H-1", year: 2023, rate: 2400, capacity: 10 },
+    { type: "Pickup", brand: "Isuzu", model: "D-Max", year: 2023, rate: 1300, capacity: 5 },
+    { type: "Pickup", brand: "Toyota", model: "Hilux Revo", year: 2024, rate: 1400, capacity: 5 },
+    { type: "Premium", brand: "BMW", model: "X1", year: 2024, rate: 2600, capacity: 4 },
+    { type: "Premium", brand: "BMW", model: "5 Series", year: 2023, rate: 3500, capacity: 4 },
+    { type: "Premium", brand: "Mercedes-Benz", model: "E-Class", year: 2024, rate: 3800, capacity: 4 }
   ],
   driver: [
-    { type: "Sedan", brand: "Toyota", model: "Yaris Ativ + driver", year: 2022, rate: 1700 },
-    { type: "Sedan", brand: "Honda", model: "City + driver", year: 2023, rate: 1900 },
-    { type: "Sedan", brand: "Toyota", model: "Camry + driver", year: 2023, rate: 2200 },
-    { type: "7-seater", brand: "Toyota", model: "Fortuner + driver", year: 2022, rate: 2500 },
-    { type: "7-seater", brand: "Mitsubishi", model: "Pajero Sport + driver", year: 2024, rate: 2700 },
-    { type: "Van", brand: "Toyota", model: "Commuter + driver", year: 2023, rate: 2800 },
-    { type: "Van", brand: "Hyundai", model: "H-1 + driver", year: 2023, rate: 3000 },
-    { type: "Premium", brand: "Mercedes-Benz", model: "E-Class + driver", year: 2023, rate: 4500 },
-    { type: "Premium", brand: "Toyota", model: "Alphard + driver", year: 2024, rate: 5500 }
+    { type: "Sedan", brand: "Toyota", model: "Yaris Ativ + driver", year: 2022, rate: 1700, capacity: 4 },
+    { type: "Sedan", brand: "Honda", model: "City + driver", year: 2023, rate: 1900, capacity: 4 },
+    { type: "Sedan", brand: "Toyota", model: "Camry + driver", year: 2023, rate: 2200, capacity: 4 },
+    { type: "7-seater", brand: "Toyota", model: "Fortuner + driver", year: 2022, rate: 2500, capacity: 7 },
+    { type: "7-seater", brand: "Mitsubishi", model: "Pajero Sport + driver", year: 2024, rate: 2700, capacity: 7 },
+    { type: "Van", brand: "Toyota", model: "Commuter + driver", year: 2023, rate: 2800, capacity: 10 },
+    { type: "Van", brand: "Hyundai", model: "H-1 + driver", year: 2023, rate: 3000, capacity: 10 },
+    { type: "Premium", brand: "Mercedes-Benz", model: "E-Class + driver", year: 2023, rate: 4500, capacity: 4 },
+    { type: "Premium", brand: "Toyota", model: "Alphard + driver", year: 2024, rate: 5500, capacity: 7 }
   ]
 };
 
 const pricing = {
   tiers: {
-    budget: { label: "Budget Friendly", perGuestDay: 900 },
-    mid: { label: "Mid-range", perGuestDay: 1450 },
-    premium: { label: "Premium", perGuestDay: 2650 }
+    budget: { label: "Budget Friendly", perGuestDay: 900, activityPerGuestDay: 250 },
+    mid: { label: "Mid-range", perGuestDay: 1450, activityPerGuestDay: 450 },
+    premium: { label: "Premium", perGuestDay: 2650, activityPerGuestDay: 850 }
   },
   roomCategoryMultipliers: { normal: 1, family: 1.6, presidential: 4 },
   roomViewMultipliers: { standard: 1, landscape: 1.1, mountain: 1.15, sea: 1.25 }
@@ -185,6 +185,30 @@ const budgetProfiles = {
     mealOptions: "Hotel breakfast, curated local dining, high-end restaurants, or chef-led experiences"
   }
 };
+
+function chargedHotelNights(days) {
+  return Math.max(1, days - 1);
+}
+
+function roundedHundred(amount) {
+  return Math.round(amount / 100) * 100;
+}
+
+function roomCapacity(category) {
+  return category === "family" || category === "presidential" ? 4 : 2;
+}
+
+function requiredRoomCount(category, travelers) {
+  return Math.max(1, Math.ceil(travelers / roomCapacity(category)));
+}
+
+function requiredVehicleCount(vehicle, travelers) {
+  return vehicle ? Math.max(1, Math.ceil(travelers / vehicle.capacity)) : 0;
+}
+
+function allowedBudgetOverage(maximum) {
+  return Math.min(2500, Math.max(100, roundedHundred(maximum * 0.06)));
+}
 
 const qs = (selector, scope = document) => scope.querySelector(selector);
 const qsa = (selector, scope = document) => [...scope.querySelectorAll(selector)];
@@ -236,25 +260,38 @@ destinationSelect.value = "Bangkok";
 quickDestinationSelect.innerHTML = destinations.map((name) => `<option value="${name}">${name}</option>`).join("");
 quickDestinationSelect.value = "Bangkok";
 
-const tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1);
-qs("#start-date").min = tomorrow.toISOString().split("T")[0];
-qs("#start-date").value = new Date(tomorrow.setDate(tomorrow.getDate() + 20)).toISOString().split("T")[0];
+function localDateInputValue(date) {
+  const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  return local.toISOString().split("T")[0];
+}
+
+function formatTripDateRange(startValue, days) {
+  if (!startValue) return "To be confirmed";
+  const start = new Date(`${startValue}T00:00:00`);
+  const end = new Date(start);
+  end.setDate(end.getDate() + days - 1);
+  const formatter = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  return days === 1 ? formatter.format(start) : `${formatter.format(start)} – ${formatter.format(end)}`;
+}
+
+const earliestStart = new Date();
+earliestStart.setDate(earliestStart.getDate() + 1);
+const suggestedStart = new Date();
+suggestedStart.setDate(suggestedStart.getDate() + 21);
+qs("#start-date").min = localDateInputValue(earliestStart);
+qs("#start-date").value = localDateInputValue(suggestedStart);
 
 function formatTHB(amount) {
   return new Intl.NumberFormat("th-TH", { style: "currency", currency: "THB", maximumFractionDigits: 0 }).format(amount);
 }
 
 function durationDays() {
-  return durationSelect.value === "custom" ? Number(qs("#custom-days").value || 1) : Number(durationSelect.value);
+  const selected = durationSelect.value === "custom" ? Number(qs("#custom-days").value || 1) : Number(durationSelect.value);
+  return Math.min(30, Math.max(1, Math.round(selected)));
 }
 
-function chargedHotelNights(days) {
-  return Math.max(1, days - 1);
-}
-
-function roundedHundred(amount) {
-  return Math.round(amount / 100) * 100;
+function travelerCount() {
+  return Math.min(12, Math.max(1, Math.round(Number(travelerInput.value || 1))));
 }
 
 function setRangeValidity(minInput, maxInput, label, minimumAllowed = 0) {
@@ -262,14 +299,17 @@ function setRangeValidity(minInput, maxInput, label, minimumAllowed = 0) {
   const maximum = Number(maxInput.value || 0);
   const hasMinimum = minInput.value !== "";
   const hasMaximum = maxInput.value !== "";
-  const invalid = hasMinimum && hasMaximum && minimum > maximum;
-  minInput.setCustomValidity(invalid ? `${label} minimum cannot be higher than the maximum.` : "");
-  maxInput.setCustomValidity(invalid ? `${label} maximum cannot be lower than the minimum.` : "");
+  const minimumTooLow = hasMinimum && minimum < minimumAllowed;
+  const maximumTooLow = hasMaximum && maximum < minimumAllowed;
+  const invalidOrder = hasMinimum && hasMaximum && minimum > maximum;
+  const invalid = minimumTooLow || maximumTooLow || invalidOrder;
+  minInput.setCustomValidity(minimumTooLow ? `${label} minimum must be at least ${formatTHB(minimumAllowed)}.` : invalidOrder ? `${label} minimum cannot be higher than the maximum.` : "");
+  maxInput.setCustomValidity(maximumTooLow ? `${label} maximum must be at least ${formatTHB(minimumAllowed)}.` : invalidOrder ? `${label} maximum cannot be lower than the minimum.` : "");
   minInput.toggleAttribute("aria-invalid", invalid);
   maxInput.toggleAttribute("aria-invalid", invalid);
   maxInput.min = String(hasMinimum ? Math.max(minimumAllowed, minimum) : minimumAllowed);
   minInput.max = hasMaximum ? String(maximum) : "";
-  return { minimum, maximum, hasMinimum, hasMaximum, invalid };
+  return { minimum, maximum, hasMinimum, hasMaximum, invalid, minimumTooLow, maximumTooLow, invalidOrder };
 }
 
 function tripBudgetRange() {
@@ -287,10 +327,6 @@ function mealBudgetRange(profileKey = selectedTier()) {
   const minimum = hasBudget ? range.minimum : 0;
   const maximum = hasBudget ? range.maximum : 0;
   return { ...range, hasBudget, minimum, maximum, suggested, fineDiningSupplement };
-}
-
-function allowedBudgetOverage(maximum) {
-  return Math.min(2500, Math.max(750, roundedHundred(maximum * 0.06)));
 }
 
 function selectedTier() {
@@ -328,6 +364,7 @@ function syncHotels(preserveSelection = false) {
   if (previous && qsa("option", hotelSelect).some((option) => option.value === previous)) hotelSelect.value = previous;
   qs("#hotel-range-note").textContent = `${destinationSelect.value} · ${pricing.tiers[tier].label} range ${profile.range} per room/night. Examples are researched planning estimates; live dates are confirmed before payment.`;
   syncHotelFields();
+  syncRoomRequirement();
 }
 
 function syncHotelFields() {
@@ -345,6 +382,39 @@ function selectedHotelRate() {
 function selectedVehicle() {
   if (transportSelect.value === "none") return null;
   return vehicleCatalog[transportSelect.value].find((vehicle) => vehicleModelSelect.value === `${vehicle.brand}-${vehicle.model}-${vehicle.year}`) || null;
+}
+
+function syncRoomRequirement(showNotice = false) {
+  if (hotelSelect.value === "own") {
+    roomCountInput.min = "1";
+    qs("#room-capacity-note").textContent = "No room quantity is charged because the hotel is booked separately.";
+    return;
+  }
+  const required = requiredRoomCount(roomCategorySelect.value, travelerCount());
+  const entered = Math.max(1, Math.round(Number(roomCountInput.value || 1)));
+  roomCountInput.min = String(required);
+  if (entered < required) {
+    roomCountInput.value = String(required);
+    if (showNotice) showToast(`Room quantity increased to ${required} for ${travelerCount()} travelers.`);
+  }
+  qs("#room-capacity-note").textContent = `${roomCapacity(roomCategorySelect.value)} guests per room for planning · minimum ${required} room${required > 1 ? "s" : ""}.`;
+}
+
+function syncVehicleRequirement(showNotice = false) {
+  const vehicle = selectedVehicle();
+  if (!vehicle) {
+    vehicleCountInput.min = "1";
+    qs("#vehicle-capacity-note").textContent = "Minimum quantity is calculated when a vehicle is selected.";
+    return;
+  }
+  const required = requiredVehicleCount(vehicle, travelerCount());
+  const entered = Math.max(1, Math.round(Number(vehicleCountInput.value || 1)));
+  vehicleCountInput.min = String(required);
+  if (entered < required) {
+    vehicleCountInput.value = String(required);
+    if (showNotice) showToast(`Vehicle quantity increased to ${required} for ${travelerCount()} travelers.`);
+  }
+  qs("#vehicle-capacity-note").textContent = `${vehicle.capacity} guests per vehicle · minimum ${required} vehicle${required > 1 ? "s" : ""}.`;
 }
 
 function syncVehicleModels() {
@@ -380,6 +450,7 @@ function syncTransportFields(showNotice = false) {
   qs(".vehicle-count-field").hidden = !hasVehicle;
   if (!hasVehicle) {
     qs("#transport-policy").textContent = isKohLarn ? "Koh Larn: only motorcycle rental is available." : "Choose a vehicle type and model to see its daily rate.";
+    syncVehicleRequirement();
     return;
   }
 
@@ -394,6 +465,7 @@ function syncTransportFields(showNotice = false) {
   qs("#transport-policy").textContent = isKohLarn
     ? `Koh Larn motorcycle rate: ${formatTHB(vehicle?.rate || 200)} per vehicle/day.`
     : `${vehicle ? `${vehicle.brand} ${vehicle.model}: ${formatTHB(vehicle.rate)} per vehicle/day.` : "Choose a model."} Fuel, tolls, parking, ferry charges, overtime, and deposits are confirmed separately.`;
+  syncVehicleRequirement();
 }
 
 function syncMealDayOptions() {
@@ -479,19 +551,6 @@ function activitySuggestion(profileKey) {
   return { title, copy };
 }
 
-function budgetVehicle(profileKey, travelers) {
-  const isKohLarn = destinationSelect.value === "Koh Larn";
-  const mode = isKohLarn ? "moto" : profileKey === "premium" ? "driver" : profileKey === "mid" ? "car" : travelers <= 2 ? "moto" : "car";
-  let type = "Scooter";
-  let capacity = 2;
-  if (mode !== "moto") {
-    type = travelers <= 4 ? "Sedan" : travelers <= 7 ? "7-seater" : "Van";
-    capacity = travelers <= 4 ? 4 : travelers <= 7 ? 7 : 10;
-  }
-  const vehicle = vehicleCatalog[mode].find((item) => item.type === type) || vehicleCatalog[mode][0];
-  return { mode, vehicle, count: Math.max(1, Math.ceil(travelers / capacity)) };
-}
-
 function candidateTransportOptions(profileKey, travelers) {
   const isKohLarn = destinationSelect.value === "Koh Larn";
   const modesByTier = {
@@ -499,19 +558,10 @@ function candidateTransportOptions(profileKey, travelers) {
     mid: ["moto", "car", "driver"],
     premium: ["car", "driver"]
   };
-  const preferredIndex = { budget: 0, mid: 1, premium: 99 };
   const modes = isKohLarn ? ["moto"] : modesByTier[profileKey];
-  return modes.map((mode) => {
+  return modes.flatMap((mode) => {
     if (mode === "none") return { mode, vehicle: null, count: 0 };
-    const vehicles = vehicleCatalog[mode];
-    const index = Math.min(preferredIndex[profileKey], vehicles.length - 1);
-    let vehicle = vehicles[index];
-    if (mode !== "moto" && travelers > 4) {
-      const neededType = travelers <= 7 ? "7-seater" : "Van";
-      vehicle = vehicles.find((item) => item.type === neededType) || vehicle;
-    }
-    const capacity = mode === "moto" ? 2 : vehicle.type === "Sedan" ? 4 : vehicle.type === "7-seater" ? 7 : 10;
-    return { mode, vehicle, count: Math.max(1, Math.ceil(travelers / capacity)) };
+    return vehicleCatalog[mode].map((vehicle) => ({ mode, vehicle, count: requiredVehicleCount(vehicle, travelers) }));
   });
 }
 
@@ -519,13 +569,14 @@ function buildBudgetCandidates(profileKey) {
   const profile = budgetProfiles[profileKey];
   const days = Math.max(1, durationDays());
   const nights = chargedHotelNights(days);
-  const travelers = Math.max(1, Number(travelerInput.value || 1));
-  const rooms = Math.max(1, Number(roomCountInput.value || 1));
+  const travelers = travelerCount();
   const catalog = hotelCatalog[destinationSelect.value];
   const hotelProfile = hotelProfiles[catalog.profile][profile.tier];
   const roomCategory = "normal";
   const roomView = recommendedView(profileKey);
+  const rooms = Math.max(requiredRoomCount(roomCategory, travelers), Math.round(Number(roomCountInput.value || 1)));
   const planSubtotal = pricing.tiers[profile.tier].perGuestDay * travelers * days;
+  const activitySubtotal = pricing.tiers[profile.tier].activityPerGuestDay * travelers * days;
   const mealRange = mealBudgetRange(profileKey);
   if (mealRange.invalid || mealRange.maximum < mealRange.minimum) return [];
   const targetMeal = Math.min(mealRange.maximum, Math.max(mealRange.minimum, mealRange.suggested));
@@ -541,7 +592,7 @@ function buildBudgetCandidates(profileKey) {
       mealChoices.forEach((mealSubtotal) => {
         const websiteSubtotal = planSubtotal + hotelSubtotal + transportSubtotal;
         candidates.push({
-          id: `${profileKey}-${hotelIndex}-${transport.mode}-${mealSubtotal}`,
+          id: `${profileKey}-${hotelIndex}-${transport.mode}-${transport.vehicle?.brand || "none"}-${transport.vehicle?.model || "none"}-${mealSubtotal}`,
           profileKey,
           profile,
           days,
@@ -554,6 +605,7 @@ function buildBudgetCandidates(profileKey) {
           roomCategory,
           roomView,
           planSubtotal,
+          activitySubtotal,
           hotelSubtotal,
           transport,
           transportSubtotal,
@@ -593,7 +645,9 @@ function refreshBudgetSuggestions() {
     applyButton.disabled = true;
     qs("#budget-status").textContent = status;
     qs("#budget-spend").textContent = detail;
-    qs("#budget-note").textContent = "Restaurant spending is a planning allowance only and will not be added to the website payment total.";
+    qs("#budget-note").textContent = rawMealRange.hasMinimum
+      ? "Restaurant spending is a planning allowance only and will not be added to the website payment total."
+      : "No meal cost is added unless you enter both meal-budget fields.";
     unlockComfortLevels();
     qs("#tier-budget-note").textContent = "Enter a valid total budget range to see which comfort levels are affordable.";
   };
@@ -670,7 +724,7 @@ function refreshBudgetSuggestions() {
     const cheapestAbove = candidates.filter((candidate) => candidate.suggestedSpend > maximum).sort((a, b) => a.suggestedSpend - b.suggestedSpend)[0];
     qs("#budget-status").textContent = "No complete combination fits this range yet.";
     qs("#budget-spend").textContent = cheapestAbove
-      ? `The closest complete trip is ${formatTHB(cheapestAbove.suggestedSpend - maximum)} above your maximum. Increase the maximum, shorten the trip, or reduce the meal range.`
+      ? `The closest complete trip is ${formatTHB(cheapestAbove.suggestedSpend - maximum)} above your maximum. Increase the maximum, shorten the trip${rawMealRange.hasMinimum ? ", or reduce the meal range" : ""}.`
       : "Adjust the range or trip details to continue.";
     qs("#budget-note").textContent = "Best fit is disabled until the complete estimated trip is inside the range or only slightly above it.";
     return Boolean(tierChanged);
@@ -695,13 +749,13 @@ function refreshBudgetSuggestions() {
     : `${pricing.tiers[recommendation.profile.tier].label} · ${recommendation.days}-day travel package`;
   qs("#budget-package-copy").textContent = `Affordable levels: ${packageOptions.join(" · ")}. Best fit: ${recommendation.profile.label} for ${recommendation.travelers} guest${recommendation.travelers > 1 ? "s" : ""}.`;
 
-  const hotelNames = [...new Set(optionSet.flatMap((candidate) => candidate.hotelOptions))];
+  const hotelNames = [...new Set(optionSet.map((candidate) => candidate.hotelName))];
   qs("#budget-hotel-title").textContent = `${hotelNames.length} hotel options fit · ${formatTHBRange(optionSet.map((candidate) => candidate.hotelSubtotal))}`;
   qs("#budget-hotel-copy").textContent = `${hotelNames.slice(0, 6).join(" · ")}${hotelNames.length > 6 ? ` · plus ${hotelNames.length - 6} more` : ""}. Best fit: normal room with ${viewLabels[recommendation.roomView]} at ${recommendation.hotelName}.`;
 
   const activityTitles = [...new Set(optionSet.map((candidate) => candidate.activity.title))];
-  qs("#budget-activity-title").textContent = activityTitles.join(" · ");
-  qs("#budget-activity-copy").textContent = `${recommendation.activity.copy} Other activity levels shown here also fit the range; exact ticket inclusions are confirmed before payment.`;
+  qs("#budget-activity-title").textContent = `${activityTitles.join(" · ")} · ${formatTHB(recommendation.activitySubtotal)} included allowance`;
+  qs("#budget-activity-copy").textContent = `${recommendation.activity.copy} This allowance is already inside the travel-package price; exact ticket inclusions are confirmed before payment.`;
 
   const transportLabels = optionSet.map((candidate) => {
     const label = candidate.transport.mode === "driver" ? "Private driver" : candidate.transport.mode === "moto" ? "Motorcycle" : candidate.transport.mode === "car" ? "Self-drive car" : "No agency transportation";
@@ -752,30 +806,37 @@ function applyBudgetSuggestion() {
 
 function calculateEstimate() {
   const days = Math.max(1, durationDays());
-  const travelers = Math.max(1, Number(travelerInput.value || 1));
+  const travelers = travelerCount();
   const nights = hotelSelect.value === "own" ? 0 : chargedHotelNights(days);
-  const rooms = Math.max(1, Number(roomCountInput.value || 1));
   const tier = selectedTier();
+  const rooms = hotelSelect.value === "own"
+    ? 0
+    : Math.max(requiredRoomCount(roomCategorySelect.value, travelers), Math.round(Number(roomCountInput.value || 1)));
   const planSubtotal = pricing.tiers[tier].perGuestDay * travelers * days;
+  const activitySubtotal = pricing.tiers[tier].activityPerGuestDay * travelers * days;
+  const serviceSubtotal = planSubtotal - activitySubtotal;
   const roomCategoryMultiplier = pricing.roomCategoryMultipliers[roomCategorySelect.value];
   const roomViewMultiplier = pricing.roomViewMultipliers[roomViewSelect.value];
   const hotelRate = selectedHotelRate();
   const hotelSubtotal = Math.round(hotelRate * roomCategoryMultiplier * roomViewMultiplier * rooms * nights);
   const vehicle = selectedVehicle();
-  const vehicleCount = Math.max(1, Number(vehicleCountInput.value || 1));
+  const vehicleCount = vehicle
+    ? Math.max(requiredVehicleCount(vehicle, travelers), Math.round(Number(vehicleCountInput.value || 1)))
+    : 0;
   const transportSubtotal = vehicle ? vehicle.rate * days * vehicleCount : 0;
   const websiteTotal = planSubtotal + hotelSubtotal + transportSubtotal;
   const meals = mealBudgetRange(tier);
   const recommendedMealAllowance = Math.min(meals.maximum, Math.max(meals.minimum, meals.suggested));
   const mealAllowance = appliedMealAllowance === null ? recommendedMealAllowance : appliedMealAllowance;
   const total = websiteTotal + mealAllowance;
+  qs("#estimate-label").textContent = meals.hasBudget ? "Estimated total trip spend" : "Website estimate · meals excluded";
   qs("#estimate-total").textContent = formatTHB(total);
   const roomNote = hotelSelect.value === "own" ? "hotel not included" : `${rooms} room${rooms > 1 ? "s" : ""}`;
   const nightNote = nights ? `${nights} hotel night${nights > 1 ? "s" : ""}` : "hotel booked separately";
   qs("#estimate-note").textContent = `for ${travelers} guest${travelers > 1 ? "s" : ""} · ${days} day${days > 1 ? "s" : ""} · ${roomNote} · ${nightNote}`;
   qs("#estimate-breakdown").textContent = meals.hasBudget
-    ? `Plan ${formatTHB(planSubtotal)} + hotel ${formatTHB(hotelSubtotal)} + transport ${formatTHB(transportSubtotal)} + meal budget ${formatTHB(mealAllowance)} paid direct · card payment ${formatTHB(websiteTotal)}`
-    : `Plan ${formatTHB(planSubtotal)} + hotel ${formatTHB(hotelSubtotal)} + transport ${formatTHB(transportSubtotal)} · meals excluded · card payment ${formatTHB(websiteTotal)}`;
+    ? `Package ${formatTHB(planSubtotal)} (activities ${formatTHB(activitySubtotal)}) + hotel ${formatTHB(hotelSubtotal)} + transport ${formatTHB(transportSubtotal)} + meal budget ${formatTHB(mealAllowance)} paid direct · card ${formatTHB(websiteTotal)}`
+    : `Package ${formatTHB(planSubtotal)} (activities ${formatTHB(activitySubtotal)}) + hotel ${formatTHB(hotelSubtotal)} + transport ${formatTHB(transportSubtotal)} · meals excluded · card ${formatTHB(websiteTotal)}`;
 
   const tierChanged = refreshBudgetSuggestions();
   if (tierChanged && !budgetTierRecalculation) {
@@ -802,7 +863,7 @@ function calculateEstimate() {
   } else {
     alert.textContent = "";
   }
-  return { days, nights, travelers, rooms, tier, vehicle, planSubtotal, hotelSubtotal, transportSubtotal, mealAllowance, websiteTotal, total };
+  return { days, nights, travelers, rooms, tier, vehicle, vehicleCount, planSubtotal, serviceSubtotal, activitySubtotal, hotelSubtotal, transportSubtotal, mealAllowance, hasMealBudget: meals.hasBudget, websiteTotal, total };
 }
 
 function openPlanner(options = {}) {
@@ -840,6 +901,7 @@ function closeModal(modal) {
       input.setCustomValidity("");
     });
   }
+  if (modal === accountModal) qsa('input[type="password"]', accountModal).forEach((input) => { input.value = ""; });
   if (!qsa(".modal-shell.open").length) document.body.classList.remove("modal-open");
   const returnFocus = modal === plannerModal ? plannerReturnFocus : accountReturnFocus;
   if (returnFocus?.isConnected) setTimeout(() => returnFocus.focus(), 0);
@@ -865,7 +927,12 @@ qs("#trip-finder").addEventListener("submit", (event) => {
 qsa(".destination-card").forEach((card) => {
   const open = () => openPlanner({ destination: card.dataset.destination });
   card.addEventListener("click", open);
-  card.addEventListener("keydown", (event) => { if (event.key === "Enter") open(); });
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      open();
+    }
+  });
 });
 
 qsa(".destination-list button").forEach((button) => button.addEventListener("click", () => openPlanner({ destination: button.textContent })));
@@ -878,8 +945,12 @@ qsa(".style-options button").forEach((button) => button.addEventListener("click"
 }));
 
 qsa(".filter-tabs button").forEach((button) => button.addEventListener("click", () => {
-  qsa(".filter-tabs button").forEach((item) => item.classList.remove("active"));
+  qsa(".filter-tabs button").forEach((item) => {
+    item.classList.remove("active");
+    item.setAttribute("aria-pressed", "false");
+  });
   button.classList.add("active");
+  button.setAttribute("aria-pressed", "true");
   qsa(".destination-card").forEach((card) => {
     card.hidden = button.dataset.filter !== "all" && !card.dataset.category.includes(button.dataset.filter);
   });
@@ -901,13 +972,19 @@ qs(".all-destinations-toggle").addEventListener("click", (event) => {
 
 travelerInput.addEventListener("input", () => {
   clearAppliedBestFit();
-  roomCountInput.value = String(Math.max(1, Math.ceil(Number(travelerInput.value || 1) / 2)));
+  syncRoomRequirement(true);
+  syncVehicleRequirement(true);
   calculateEstimate();
 });
 
 [hotelSelect, roomCategorySelect, roomViewSelect, bedTypeSelect, roomCountInput, vehicleCountInput].forEach((input) => input.addEventListener("input", () => {
   clearAppliedBestFit();
-  if (input === hotelSelect) syncHotelFields();
+  if (input === hotelSelect) {
+    syncHotelFields();
+    syncRoomRequirement();
+  }
+  if (input === roomCategorySelect || input === roomCountInput) syncRoomRequirement(input === roomCategorySelect);
+  if (input === vehicleCountInput) syncVehicleRequirement();
   calculateEstimate();
 }));
 
@@ -925,6 +1002,7 @@ transportSelect.addEventListener("input", () => {
   clearAppliedBestFit();
   vehicleTypeSelect.value = "";
   syncTransportFields(true);
+  syncVehicleRequirement(true);
   calculateEstimate();
 });
 
@@ -932,6 +1010,7 @@ vehicleTypeSelect.addEventListener("input", () => {
   clearAppliedBestFit();
   syncVehicleModels();
   syncTransportFields();
+  syncVehicleRequirement(true);
   calculateEstimate();
 });
 
@@ -939,6 +1018,7 @@ vehicleModelSelect.addEventListener("input", () => {
   clearAppliedBestFit();
   const vehicle = selectedVehicle();
   if (vehicle) qs("#transport-policy").textContent = `${vehicle.brand} ${vehicle.model}: ${formatTHB(vehicle.rate)} per vehicle/day. Fuel, tolls, parking, ferry charges, overtime, and deposits are confirmed separately.`;
+  syncVehicleRequirement(true);
   calculateEstimate();
 });
 
@@ -1005,25 +1085,27 @@ plannerForm.addEventListener("submit", (event) => {
   const estimate = calculateEstimate();
   const tripBudgetMinimum = Number(tripBudgetMinInput.value || 0);
   const tripBudgetMaximum = Number(tripBudgetMaxInput.value || 0);
-  const vehicleCount = Math.max(1, Number(vehicleCountInput.value || 1));
   const roomCategory = roomCategorySelect.options[roomCategorySelect.selectedIndex].text;
   const roomView = roomViewSelect.options[roomViewSelect.selectedIndex].text;
   const bedType = bedTypeSelect.options[bedTypeSelect.selectedIndex].text;
   const vehicleDescription = estimate.vehicle
-    ? `${estimate.vehicle.type} · ${estimate.vehicle.brand} ${estimate.vehicle.model} ${estimate.vehicle.year} × ${vehicleCount}`
+    ? `${estimate.vehicle.type} · ${estimate.vehicle.brand} ${estimate.vehicle.model} ${estimate.vehicle.year} × ${estimate.vehicleCount}`
     : "No Twar Mal transportation";
-  const startDate = qs("#start-date").value;
-  const startDateLabel = startDate
-    ? new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric" }).format(new Date(`${startDate}T00:00:00`))
-    : "To be confirmed";
+  const startDateLabel = formatTripDateRange(qs("#start-date").value, estimate.days);
   const rows = [
     ["Destination", destinationSelect.value],
-    ["Start date", startDateLabel],
+    ["Travel dates", startDateLabel],
     ["Travelers", String(estimate.travelers)],
     ["Comfort level", pricing.tiers[estimate.tier].label],
     ["Travel style", qs("#planner-style").value],
-    ["Journey plan", formatTHB(estimate.planSubtotal)]
+    ["Arrival / pickup", qs("#pickup-point").value],
+    ["Journey design & support", formatTHB(estimate.serviceSubtotal)],
+    ["Attractions & activities allowance", `${formatTHB(estimate.activitySubtotal)} · included in package`]
   ];
+  const arrivalDetails = qs("#arrival-details").value.trim();
+  if (arrivalDetails) rows.push(["Arrival details", arrivalDetails]);
+  const mustSee = qs("#must-see").value.trim();
+  if (mustSee) rows.push(["Must-see places & activities", mustSee]);
   if (hotelSelect.value === "own") {
     rows.push(["Hotel", "Booked separately · ฿0"]);
   } else {
@@ -1039,7 +1121,7 @@ plannerForm.addEventListener("submit", (event) => {
   rows.push(mealBudgetMinInput.value !== "" && mealBudgetMaxInput.value !== ""
     ? ["Meal budget", `${formatTHB(estimate.mealAllowance)} · paid directly to restaurants or delivery providers`]
     : ["Meal cost", "Not added · pay restaurants, hotels, or delivery providers directly"]);
-  rows.push(["Estimated total trip spend", formatTHB(estimate.total)]);
+  rows.push([estimate.hasMealBudget ? "Estimated total trip spend" : "Website booking estimate", formatTHB(estimate.total)]);
   if (tripBudgetMinimum >= 1000 && tripBudgetMaximum >= tripBudgetMinimum) {
     rows.splice(2, 0, ["Trip budget range", `${formatTHB(tripBudgetMinimum)}–${formatTHB(tripBudgetMaximum)}`]);
     if (lastBudgetRecommendation) {
@@ -1085,6 +1167,13 @@ qs(".back-to-plan").addEventListener("click", () => {
 });
 
 qsa(".checkout-card input").forEach((input) => input.addEventListener("input", () => input.setCustomValidity("")));
+qs("#card-number").addEventListener("input", (event) => {
+  event.currentTarget.value = event.currentTarget.value.replace(/\D/g, "").slice(0, 19).replace(/(.{4})/g, "$1 ").trim();
+});
+qs("#card-expiry").addEventListener("input", (event) => {
+  const digits = event.currentTarget.value.replace(/\D/g, "").slice(0, 4);
+  event.currentTarget.value = digits.length > 2 ? `${digits.slice(0, 2)} / ${digits.slice(2)}` : digits;
+});
 
 function passesLuhn(number) {
   let sum = 0;
@@ -1130,7 +1219,17 @@ function validatePreviewCard() {
 qs("#demo-payment").addEventListener("click", () => {
   if (!validatePreviewCard()) return;
   closeModal(plannerModal);
-  showToast("Preview booking saved — no card has been charged.");
+  showToast("Test booking completed — nothing was submitted and no card was charged.");
+});
+
+qs("#fill-test-card").addEventListener("click", () => {
+  const nextYear = String((new Date().getFullYear() + 1) % 100).padStart(2, "0");
+  qs("#card-name").value = "Test Traveler";
+  qs("#card-number").value = "4242 4242 4242 4242";
+  qs("#card-expiry").value = `12 / ${nextYear}`;
+  qs("#card-cvc").value = "123";
+  qsa(".checkout-card input").forEach((input) => input.setCustomValidity(""));
+  showToast("Safe test card filled. No real payment details are used.");
 });
 
 qsa(".account-trigger").forEach((button) => button.addEventListener("click", () => {
@@ -1138,6 +1237,7 @@ qsa(".account-trigger").forEach((button) => button.addEventListener("click", () 
   accountModal.classList.add("open");
   accountModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
+  setTimeout(() => qs("[data-account-tab]", accountModal).focus(), 100);
 }));
 
 qsa("[data-account-tab]").forEach((button) => button.addEventListener("click", () => {
@@ -1194,9 +1294,25 @@ qsa("#nav-links a").forEach((link) => link.addEventListener("click", () => {
 
 window.addEventListener("scroll", () => qs(".site-header").classList.toggle("scrolled", window.scrollY > 70), { passive: true });
 document.addEventListener("keydown", (event) => {
+  const activeModal = qs(".modal-shell.open");
   if (event.key === "Escape") qsa(".modal-shell.open").forEach(closeModal);
+  if (event.key === "Tab" && activeModal) {
+    const focusable = qsa('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])', activeModal)
+      .filter((element) => !element.closest("[hidden]"));
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
 });
 
+qsa(".filter-tabs button").forEach((button) => button.setAttribute("aria-pressed", String(button.classList.contains("active"))));
 syncHotels();
 syncTransportFields();
 syncMealDayOptions();

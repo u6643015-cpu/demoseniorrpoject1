@@ -253,6 +253,9 @@ footer { color: rgba(255,255,255,.7); background: #052b26; }
 .budget-recommendations article strong { display: block; margin-top: 10px; color: var(--pine); font-family: var(--serif); font-size: 15px; font-weight: 400; line-height: 1.25; }
 .budget-recommendations article p { margin: 7px 0 0; color: var(--muted); font-size: 9px; line-height: 1.55; }
 .budget-note { margin: 10px 0 0; color: var(--muted); font-size: 8px; text-align: center; }
+.trip-scope-note { display: grid; gap: 5px; padding: 16px 18px; border-left: 3px solid var(--gold); color: var(--muted); background: rgba(191,139,62,.08); font-size: 10px; line-height: 1.55; }
+.trip-scope-note strong { color: var(--pine); font-family: var(--serif); font-size: 16px; font-weight: 400; }
+.trip-scope-note b { color: var(--ink); font-weight: 600; }
 .tier-picker { margin: 0; padding: 0; border: 0; }
 .tier-picker legend { margin-bottom: 8px; color: var(--muted); font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
 .tier-picker-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -310,6 +313,9 @@ footer { color: rgba(255,255,255,.7); background: #052b26; }
 .mini-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .checkout-card .button { margin-top: 20px; }
 .checkout-card > p { color: var(--muted); font-size: 9px; text-align: center; }
+.demo-warning { padding: 11px 12px; border: 1px solid rgba(154,59,49,.24); color: #7a342d !important; background: rgba(154,59,49,.06); line-height: 1.5; text-align: left !important; }
+.test-data-button { width: 100%; padding: 10px 12px; border: 1px solid var(--pine); color: var(--pine); background: transparent; font-size: 9px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+.test-data-button:hover { color: white; background: var(--pine); }
 .back-to-plan { position: absolute; left: 0; bottom: -35px; padding: 0; border: 0; color: var(--pine); background: none; font-size: 11px; }
 
 .account-modal { width: min(100%, 470px); padding: 44px; text-align: center; }

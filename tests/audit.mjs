@@ -23,8 +23,8 @@ const dataBoundary = app.indexOf("const qs =");
 check(dataBoundary > 0, "Could not locate the application data boundary.");
 const context = {};
 vm.createContext(context);
-vm.runInContext(`${app.slice(0, dataBoundary)}\nglobalThis.__audit = { destinations, translations, hotelProfiles, hotelCatalog, vehicleCatalog, pricing, budgetProfiles };`, context);
-const { destinations, translations, hotelProfiles, hotelCatalog, vehicleCatalog, pricing, budgetProfiles } = context.__audit;
+vm.runInContext(`${app.slice(0, dataBoundary)}\nglobalThis.__audit = { destinations, translations, hotelProfiles, hotelCatalog, vehicleCatalog, pricing, budgetProfiles, chargedHotelNights, roundedHundred, roomCapacity, requiredRoomCount, requiredVehicleCount, allowedBudgetOverage };`, context);
+const { destinations, translations, hotelProfiles, hotelCatalog, vehicleCatalog, pricing, budgetProfiles, chargedHotelNights, roundedHundred, roomCapacity, requiredRoomCount, requiredVehicleCount, allowedBudgetOverage } = context.__audit;
 
 check(destinations.length === 23, `Expected 23 destinations, found ${destinations.length}.`);
 check(new Set(destinations).size === destinations.length, "Destination names must be unique.");
@@ -66,10 +66,27 @@ for (const [mode, requiredTypes] of Object.entries(fleetRequirements)) {
   for (const vehicle of vehicles) {
     check(Number.isInteger(vehicle.year) && vehicle.year >= 2020, `${vehicle.brand} ${vehicle.model} has an invalid year.`);
     check(Number.isFinite(vehicle.rate) && vehicle.rate > 0, `${vehicle.brand} ${vehicle.model} has an invalid rate.`);
+    check(Number.isInteger(vehicle.capacity) && vehicle.capacity >= 2 && vehicle.capacity <= 10, `${vehicle.brand} ${vehicle.model} has an invalid passenger capacity.`);
   }
   for (const type of requiredTypes) {
     check(vehicles.filter((vehicle) => vehicle.type === type).length >= 2, `${mode} ${type} needs at least two model choices.`);
   }
+}
+
+for (const tier of Object.values(pricing.tiers)) {
+  check(Number.isFinite(tier.activityPerGuestDay) && tier.activityPerGuestDay > 0, `${tier.label} is missing an activity allowance.`);
+  check(tier.activityPerGuestDay < tier.perGuestDay, `${tier.label} activity allowance must remain inside the package price.`);
+}
+check(roomCapacity("normal") === 2 && roomCapacity("family") === 4 && roomCapacity("presidential") === 4, "Room capacities are incorrect.");
+check(requiredRoomCount("normal", 12) === 6, "Twelve travelers must require six normal rooms.");
+check(requiredRoomCount("family", 12) === 3, "Twelve travelers must require three family rooms.");
+check(requiredVehicleCount(vehicleCatalog.moto[0], 12) === 6, "Twelve travelers must require six motorcycles.");
+check(requiredVehicleCount(vehicleCatalog.car.find((vehicle) => vehicle.model === "5 Series"), 12) === 3, "Premium sedan capacity is incorrect.");
+check(requiredVehicleCount(vehicleCatalog.driver.find((vehicle) => vehicle.model.startsWith("Alphard")), 12) === 2, "Alphard capacity is incorrect.");
+for (const maximum of [2000, 5000, 15000, 50000]) {
+  const overage = allowedBudgetOverage(maximum);
+  check(overage <= 2500, `Budget overage cap exceeded for ${maximum}.`);
+  check(overage <= roundedHundred(maximum * 0.06) || overage === 100, `Budget overage is not approximately six percent for ${maximum}.`);
 }
 
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
@@ -111,6 +128,13 @@ check(/rows\.push\(\["Special requests", specialRequest\]\)/.test(app), "Special
 check(/const hasBudget = range\.hasMinimum && range\.hasMaximum;/.test(app), "Meal allowance must require an explicit minimum and maximum.");
 check(/const suggested = hasBudget \? roundedHundred\(base \+ fineDiningSupplement\) : 0;/.test(app), "Blank meal budgets must produce a zero allowance.");
 check(/No meal budget added · ฿0/.test(app), "Blank meal-budget guidance must clearly show ฿0.");
+check(/optionSet\.map\(\(candidate\) => candidate\.hotelName\)/.test(app), "Hotel budget matches must list only hotels that actually fit.");
+check(/requiredVehicleCount\(vehicle, travelers\)/.test(app), "Vehicle quantities must use declared passenger capacity.");
+check(/requiredRoomCount\(roomCategorySelect\.value, travelers\)/.test(app), "Room quantities must use room-category capacity.");
+check(/Nothing is submitted or stored/.test(html), "The prototype checkout must warn users that card details are not submitted.");
+check(idSet.has("must-see") && idSet.has("pickup-point") && idSet.has("fill-test-card"), "Customer customization or safe test-payment controls are missing.");
+check(idSet.has("estimate-label") && /meals\.hasBudget \? "Estimated total trip spend" : "Website estimate · meals excluded"/.test(app), "The estimate label must say when meals are excluded.");
+check(/modal === accountModal[\s\S]*?input\[type="password"\][\s\S]*?input\.value = ""/.test(app), "Account passwords must be cleared when the modal closes.");
 
 let calculationScenarios = 0;
 const roomMultipliers = Object.values(pricing.roomCategoryMultipliers);
@@ -120,7 +144,7 @@ for (const destination of destinations) {
   for (const tier of ["budget", "mid", "premium"]) {
     const tierProfile = hotelProfiles[catalogue.profile][tier];
     for (const days of [1, 3, 7, 14, 30]) {
-      const nights = Math.max(1, days - 1);
+      const nights = chargedHotelNights(days);
       check(days !== 1 || nights === 1, "A one-day journey must include one hotel night.");
       for (const travelers of [1, 2, 5, 12]) {
         const rooms = Math.max(1, Math.ceil(travelers / 2));
@@ -130,12 +154,17 @@ for (const destination of destinations) {
             for (const viewMultiplier of viewMultipliers) {
               const hotel = Math.round(rate * roomMultiplier * viewMultiplier * rooms * nights);
               for (const vehicle of [null, ...vehicleCatalog.moto, ...vehicleCatalog.car, ...vehicleCatalog.driver]) {
-                const vehicleCount = vehicle ? Math.max(1, Math.ceil(travelers / (vehicle.type.includes("Scooter") || vehicle.type === "Touring" ? 2 : vehicle.type === "Sedan" ? 4 : vehicle.type === "7-seater" ? 7 : 10))) : 0;
+                const vehicleCount = requiredVehicleCount(vehicle, travelers);
                 const transport = vehicle ? vehicle.rate * days * vehicleCount : 0;
                 const cardPayment = plan + hotel + transport;
-                const totalSpend = cardPayment;
-                calculationScenarios += 1;
-                check(Number.isInteger(totalSpend) && totalSpend === cardPayment && cardPayment >= hotel, `Invalid no-meal-budget total in ${destination} ${tier}.`);
+                const activityAllowance = pricing.tiers[tier].activityPerGuestDay * travelers * days;
+                check(activityAllowance < plan, `Activity allowance must stay inside the package in ${destination} ${tier}.`);
+                for (const mealAllowance of [0, budgetProfiles[tier].mealPerGuestDay * travelers * days, 5000]) {
+                  const totalSpend = cardPayment + mealAllowance;
+                  calculationScenarios += 1;
+                  check(Number.isInteger(totalSpend) && totalSpend - mealAllowance === cardPayment && cardPayment >= hotel, `Invalid total in ${destination} ${tier}.`);
+                  if (mealAllowance === 0) check(totalSpend === cardPayment, `Blank meal budget changed the card payment in ${destination} ${tier}.`);
+                }
               }
             }
           }
@@ -150,6 +179,7 @@ const exactHotel = Math.round(3400 * pricing.roomViewMultipliers.landscape);
 const exactTransport = vehicleCatalog.car.find((vehicle) => vehicle.brand === "Honda" && vehicle.model === "City").rate;
 check(exactPlan + exactHotel + exactTransport === 6190, "A blank meal budget must keep the reported one-day Bangkok total at ฿6,190.");
 check(exactPlan + exactHotel + exactTransport === 6190, "The reported one-day Bangkok card payment must be ฿6,190.");
+check(pricing.tiers.mid.activityPerGuestDay === 450 && exactPlan - pricing.tiers.mid.activityPerGuestDay === 1000, "Mid-range package split must remain ฿1,000 support + ฿450 activities.");
 
 if (failures.length) {
   console.error(`Audit failed: ${failures.length} problem(s) across ${checks.toLocaleString()} checks.`);
