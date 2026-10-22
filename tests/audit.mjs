@@ -108,6 +108,9 @@ check(/vehicleTypeSelect\.value = "";\s*\n\s*syncTransportFields\(true\)/.test(a
 check(/modal === plannerModal[\s\S]*?checkout-card input[\s\S]*?input\.value = ""/.test(app), "Card details must be cleared when the planner closes.");
 check(/returnFocus\?\.isConnected[\s\S]*?returnFocus\.focus\(\)/.test(app), "Closing a modal must restore keyboard focus to its opener.");
 check(/rows\.push\(\["Special requests", specialRequest\]\)/.test(app), "Special requests are missing from the booking review.");
+check(/const hasBudget = range\.hasMinimum && range\.hasMaximum;/.test(app), "Meal allowance must require an explicit minimum and maximum.");
+check(/const suggested = hasBudget \? roundedHundred\(base \+ fineDiningSupplement\) : 0;/.test(app), "Blank meal budgets must produce a zero allowance.");
+check(/No meal budget added · ฿0/.test(app), "Blank meal-budget guidance must clearly show ฿0.");
 
 let calculationScenarios = 0;
 const roomMultipliers = Object.values(pricing.roomCategoryMultipliers);
@@ -122,7 +125,6 @@ for (const destination of destinations) {
       for (const travelers of [1, 2, 5, 12]) {
         const rooms = Math.max(1, Math.ceil(travelers / 2));
         const plan = pricing.tiers[tier].perGuestDay * travelers * days;
-        const meals = budgetProfiles[tier].mealPerGuestDay * travelers * days;
         for (const rate of tierProfile.rates.slice(0, catalogue[tier].length)) {
           for (const roomMultiplier of roomMultipliers) {
             for (const viewMultiplier of viewMultipliers) {
@@ -131,9 +133,9 @@ for (const destination of destinations) {
                 const vehicleCount = vehicle ? Math.max(1, Math.ceil(travelers / (vehicle.type.includes("Scooter") || vehicle.type === "Touring" ? 2 : vehicle.type === "Sedan" ? 4 : vehicle.type === "7-seater" ? 7 : 10))) : 0;
                 const transport = vehicle ? vehicle.rate * days * vehicleCount : 0;
                 const cardPayment = plan + hotel + transport;
-                const totalSpend = cardPayment + meals;
+                const totalSpend = cardPayment;
                 calculationScenarios += 1;
-                check(Number.isInteger(totalSpend) && totalSpend >= cardPayment && cardPayment >= hotel, `Invalid total in ${destination} ${tier}.`);
+                check(Number.isInteger(totalSpend) && totalSpend === cardPayment && cardPayment >= hotel, `Invalid no-meal-budget total in ${destination} ${tier}.`);
               }
             }
           }
@@ -146,8 +148,7 @@ for (const destination of destinations) {
 const exactPlan = pricing.tiers.mid.perGuestDay;
 const exactHotel = Math.round(3400 * pricing.roomViewMultipliers.landscape);
 const exactTransport = vehicleCatalog.car.find((vehicle) => vehicle.brand === "Honda" && vehicle.model === "City").rate;
-const exactMeals = budgetProfiles.mid.mealPerGuestDay;
-check(exactPlan + exactHotel + exactTransport + exactMeals === 6990, "The reported one-day Bangkok scenario must total ฿6,990.");
+check(exactPlan + exactHotel + exactTransport === 6190, "A blank meal budget must keep the reported one-day Bangkok total at ฿6,190.");
 check(exactPlan + exactHotel + exactTransport === 6190, "The reported one-day Bangkok card payment must be ฿6,190.");
 
 if (failures.length) {

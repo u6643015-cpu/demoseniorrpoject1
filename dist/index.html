@@ -372,7 +372,7 @@
                   <label class="budget-input" for="meal-budget-max"><span>Meal budget maximum · THB</span><div class="budget-money"><b>฿</b><input id="meal-budget-max" type="number" min="0" step="100" inputmode="numeric" placeholder="5,000" /></div><small>This remains outside the website card payment.</small></label>
                 </div>
                 <label class="fine-dining-toggle"><input id="meal-fine-dining" type="checkbox" /><span><strong>Keep room for one fine-dining meal</strong><small>Assign it to breakfast, lunch, or dinner below. The planner protects a sensible allowance for that one special meal.</small></span></label>
-                <p class="meal-budget-status" id="meal-budget-status">Leave the meal range blank to use the comfort-level recommendation.</p>
+                <p class="meal-budget-status" id="meal-budget-status">Leave both fields blank to add ฿0 for meals. Restaurant, hotel dining, and delivery costs stay outside the estimate.</p>
               </div>
               <div class="meal-builder">
                 <label class="field"><span>Day</span><select id="meal-day"></select></label>
@@ -386,7 +386,7 @@
             <label class="field field-wide"><span>Anything you want to add or change?</span><textarea id="special-request" rows="3" placeholder="Places you love, mobility needs, hotel preference, celebrations…"></textarea></label>
           </div>
           <div class="estimate-bar">
-            <div><span>Estimated total trip spend</span><strong id="estimate-total">฿10,900</strong><small id="estimate-note">for 2 guests · 3 days · 1 room · 2 hotel nights</small><small id="estimate-breakdown">Plan ฿5,400 + hotel ฿2,800 + transport ฿0 + meals ฿2,700 paid direct · card payment ฿8,200</small></div>
+            <div><span>Estimated total trip spend</span><strong id="estimate-total">฿8,200</strong><small id="estimate-note">for 2 guests · 3 days · 1 room · 2 hotel nights</small><small id="estimate-breakdown">Plan ฿5,400 + hotel ฿2,800 + transport ฿0 · meals excluded · card payment ฿8,200</small></div>
             <button class="button" id="review-trip-button" type="submit">Review &amp; confirm <span>→</span></button>
           </div>
           <p class="estimate-budget-alert" id="estimate-budget-alert" aria-live="polite"></p>

@@ -280,12 +280,13 @@ function mealBudgetRange(profileKey = selectedTier()) {
   const range = setRangeValidity(mealBudgetMinInput, mealBudgetMaxInput, "Meal budget", 0);
   const days = Math.max(1, durationDays());
   const travelers = Math.max(1, Number(travelerInput.value || 1));
+  const hasBudget = range.hasMinimum && range.hasMaximum;
   const base = budgetProfiles[profileKey].mealPerGuestDay * travelers * days;
   const fineDiningSupplement = fineDiningInput.checked ? 1400 * travelers : 0;
-  const suggested = roundedHundred(base + fineDiningSupplement);
-  const minimum = range.hasMinimum ? range.minimum : suggested;
-  const maximum = range.hasMaximum ? range.maximum : suggested;
-  return { ...range, minimum, maximum, suggested, fineDiningSupplement };
+  const suggested = hasBudget ? roundedHundred(base + fineDiningSupplement) : 0;
+  const minimum = hasBudget ? range.minimum : 0;
+  const maximum = hasBudget ? range.maximum : 0;
+  return { ...range, hasBudget, minimum, maximum, suggested, fineDiningSupplement };
 }
 
 function allowedBudgetOverage(maximum) {
@@ -621,7 +622,7 @@ function refreshBudgetSuggestions() {
   if (rawMealRange.hasMinimum) {
     mealStatus.textContent = `${formatTHB(rawMealRange.minimum)}–${formatTHB(rawMealRange.maximum)} reserved for restaurant bills${fineDiningInput.checked ? ", including one fine-dining meal" : ""}.`;
   } else {
-    mealStatus.textContent = `Using the comfort-level meal recommendation${fineDiningInput.checked ? " with extra room for one fine-dining meal" : ""}.`;
+    mealStatus.textContent = `No meal budget added. ${fineDiningInput.checked ? "Your fine-dining preference is saved, but its cost remains outside this estimate." : "Restaurant, hotel dining, and delivery costs stay outside this estimate."}`;
   }
 
   if (minimum < 1000 || maximum < 1000 || !tripRange.hasMinimum || !tripRange.hasMaximum) {
@@ -710,11 +711,17 @@ function refreshBudgetSuggestions() {
   qs("#budget-transport-title").textContent = `${distinctTransportLabels.length} transportation option${distinctTransportLabels.length > 1 ? "s" : ""} · ${formatTHBRange(optionSet.map((candidate) => candidate.transportSubtotal))}`;
   qs("#budget-transport-copy").textContent = `${distinctTransportLabels.slice(0, 5).join(" · ")}. Best fit: ${recommendation.transport.vehicle ? `${recommendation.transport.vehicle.brand} ${recommendation.transport.vehicle.model} × ${recommendation.transport.count}` : "no agency transportation"}.`;
 
-  const mealLabels = optionSet.map((candidate) => `${candidate.profile.mealTitle} ${formatTHB(candidate.mealSubtotal)}`);
-  const distinctMealLabels = [...new Set(mealLabels)];
-  qs("#budget-meal-title").textContent = `${distinctMealLabels.length} meal allowance option${distinctMealLabels.length > 1 ? "s" : ""} · ${formatTHBRange(optionSet.map((candidate) => candidate.mealSubtotal))}`;
-  qs("#budget-meal-copy").textContent = `${distinctMealLabels.slice(0, 5).join(" · ")}. Best-fit choices: ${recommendation.profile.mealOptions}${fineDiningInput.checked ? ", with one fine-dining meal protected" : ""}. Pay restaurants directly.`;
-  qs("#budget-note").textContent = `${slightlyOver ? `This best fit is ${formatTHB(overage)} above your maximum. ` : ""}Website card payment: ${formatTHB(recommendation.websiteSubtotal)}. Keep ${formatTHB(recommendation.mealSubtotal)} outside the website for restaurant bills.`;
+  if (recommendation.mealRange.hasBudget) {
+    const mealLabels = optionSet.map((candidate) => `${candidate.profile.mealTitle} ${formatTHB(candidate.mealSubtotal)}`);
+    const distinctMealLabels = [...new Set(mealLabels)];
+    qs("#budget-meal-title").textContent = `${distinctMealLabels.length} meal allowance option${distinctMealLabels.length > 1 ? "s" : ""} · ${formatTHBRange(optionSet.map((candidate) => candidate.mealSubtotal))}`;
+    qs("#budget-meal-copy").textContent = `${distinctMealLabels.slice(0, 5).join(" · ")}. Best-fit choices: ${recommendation.profile.mealOptions}${fineDiningInput.checked ? ", with one fine-dining meal protected" : ""}. Pay restaurants directly.`;
+    qs("#budget-note").textContent = `${slightlyOver ? `This best fit is ${formatTHB(overage)} above your maximum. ` : ""}Website card payment: ${formatTHB(recommendation.websiteSubtotal)}. Keep ${formatTHB(recommendation.mealSubtotal)} outside the website for restaurant bills.`;
+  } else {
+    qs("#budget-meal-title").textContent = "No meal budget added · ฿0";
+    qs("#budget-meal-copy").textContent = `Choose restaurants, hotel dining, or delivery freely${fineDiningInput.checked ? ", including your fine-dining preference" : ""}. Pay the restaurant or delivery provider directly.`;
+    qs("#budget-note").textContent = `${slightlyOver ? `This best fit is ${formatTHB(overage)} above your maximum. ` : ""}Website card payment: ${formatTHB(recommendation.websiteSubtotal)}. Meal costs are not estimated or charged.`;
+  }
   return Boolean(tierChanged);
 }
 
@@ -766,7 +773,9 @@ function calculateEstimate() {
   const roomNote = hotelSelect.value === "own" ? "hotel not included" : `${rooms} room${rooms > 1 ? "s" : ""}`;
   const nightNote = nights ? `${nights} hotel night${nights > 1 ? "s" : ""}` : "hotel booked separately";
   qs("#estimate-note").textContent = `for ${travelers} guest${travelers > 1 ? "s" : ""} · ${days} day${days > 1 ? "s" : ""} · ${roomNote} · ${nightNote}`;
-  qs("#estimate-breakdown").textContent = `Plan ${formatTHB(planSubtotal)} + hotel ${formatTHB(hotelSubtotal)} + transport ${formatTHB(transportSubtotal)} + meals ${formatTHB(mealAllowance)} paid direct · card payment ${formatTHB(websiteTotal)}`;
+  qs("#estimate-breakdown").textContent = meals.hasBudget
+    ? `Plan ${formatTHB(planSubtotal)} + hotel ${formatTHB(hotelSubtotal)} + transport ${formatTHB(transportSubtotal)} + meal budget ${formatTHB(mealAllowance)} paid direct · card payment ${formatTHB(websiteTotal)}`
+    : `Plan ${formatTHB(planSubtotal)} + hotel ${formatTHB(hotelSubtotal)} + transport ${formatTHB(transportSubtotal)} · meals excluded · card payment ${formatTHB(websiteTotal)}`;
 
   const tierChanged = refreshBudgetSuggestions();
   if (tierChanged && !budgetTierRecalculation) {
@@ -1026,11 +1035,11 @@ plannerForm.addEventListener("submit", (event) => {
       ["Bed", `${bedType} · no price change`]
     );
   }
-  rows.push(
-    ["Transport", `${vehicleDescription} · ${formatTHB(estimate.transportSubtotal)}`],
-    ["Meal allowance", `${formatTHB(estimate.mealAllowance)} · paid directly to restaurants`],
-    ["Estimated total trip spend", formatTHB(estimate.total)]
-  );
+  rows.push(["Transport", `${vehicleDescription} · ${formatTHB(estimate.transportSubtotal)}`]);
+  rows.push(mealBudgetMinInput.value !== "" && mealBudgetMaxInput.value !== ""
+    ? ["Meal budget", `${formatTHB(estimate.mealAllowance)} · paid directly to restaurants or delivery providers`]
+    : ["Meal cost", "Not added · pay restaurants, hotels, or delivery providers directly"]);
+  rows.push(["Estimated total trip spend", formatTHB(estimate.total)]);
   if (tripBudgetMinimum >= 1000 && tripBudgetMaximum >= tripBudgetMinimum) {
     rows.splice(2, 0, ["Trip budget range", `${formatTHB(tripBudgetMinimum)}–${formatTHB(tripBudgetMaximum)}`]);
     if (lastBudgetRecommendation) {
