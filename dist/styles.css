@@ -244,9 +244,10 @@ footer { color: rgba(255,255,255,.7); background: #052b26; }
 .budget-prompt span { margin-top: 3px; color: rgba(255,255,255,.68); font-size: 9px; line-height: 1.5; }
 .budget-prompt button { flex: 0 0 auto; padding: 10px 13px; border: 1px solid var(--gold-light); color: var(--pine-deep); background: var(--gold-light); font-size: 9px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
 .budget-prompt button:disabled { cursor: not-allowed; opacity: .45; }
-.budget-recommendations { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-top: 10px; }
+.budget-recommendations { display: grid; grid-template-columns: repeat(6, 1fr); gap: 9px; margin-top: 10px; }
 .budget-recommendations[hidden] { display: none; }
-.budget-recommendations article { min-height: 145px; padding: 16px; border: 1px solid var(--line); background: rgba(255,255,255,.84); }
+.budget-recommendations article { grid-column: span 2; min-height: 145px; padding: 16px; border: 1px solid var(--line); background: rgba(255,255,255,.84); }
+.budget-recommendations article:nth-child(n+4) { grid-column: span 3; }
 .budget-recommendations article > span { color: var(--gold); font-size: 8px; font-weight: 700; letter-spacing: .08em; }
 .budget-recommendations article strong { display: block; margin-top: 10px; color: var(--pine); font-family: var(--serif); font-size: 15px; font-weight: 400; line-height: 1.25; }
 .budget-recommendations article p { margin: 7px 0 0; color: var(--muted); font-size: 9px; line-height: 1.55; }
@@ -322,6 +323,8 @@ footer { color: rgba(255,255,255,.7); background: #052b26; }
   .tier-grid { grid-template-columns: repeat(3, 1fr); }
   .tier-card { min-height: 390px; padding-inline: 22px; }
   .budget-recommendations { grid-template-columns: repeat(2, 1fr); }
+  .budget-recommendations article, .budget-recommendations article:nth-child(n+4) { grid-column: auto; }
+  .budget-recommendations article:first-child { grid-column: 1 / -1; }
   .package-grid { grid-template-columns: repeat(2, 1fr); gap: 25px 16px; }
   .package-card.featured { transform: none; }
   .meal-builder { grid-template-columns: repeat(2, 1fr); }
@@ -384,6 +387,7 @@ footer { color: rgba(255,255,255,.7); background: #052b26; }
   .budget-advisor-head { grid-template-columns: 1fr; gap: 18px; }
   .budget-prompt { align-items: stretch; flex-direction: column; }
   .budget-recommendations { grid-template-columns: 1fr; }
+  .budget-recommendations article:first-child { grid-column: auto; }
   .tier-picker-grid { grid-template-columns: 1fr; }
   .meal-planner { padding: 18px 14px; }
   .meal-builder { grid-template-columns: 1fr; }

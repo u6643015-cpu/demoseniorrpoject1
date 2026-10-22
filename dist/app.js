@@ -112,21 +112,24 @@ const budgetProfiles = {
     tier: "budget",
     mealPerGuestDay: 450,
     mealTitle: "Hotel breakfast + local favorites",
-    mealPreference: "Local favorites & hidden gems"
+    mealPreference: "Local favorites & hidden gems",
+    mealOptions: "Hotel breakfast, local favorites, halal-friendly, or vegetarian-friendly places"
   },
   mid: {
     label: "Balanced match",
     tier: "mid",
     mealPerGuestDay: 800,
     mealTitle: "Local favorites + one special meal",
-    mealPreference: "Surprise me"
+    mealPreference: "Surprise me",
+    mealOptions: "Hotel breakfast, local favorites, surprise-me picks, or one special restaurant"
   },
   premium: {
     label: "Premium match",
     tier: "premium",
     mealPerGuestDay: 1500,
     mealTitle: "Curated and high-end dining",
-    mealPreference: "High-end restaurant"
+    mealPreference: "High-end restaurant",
+    mealOptions: "Hotel breakfast, curated local dining, high-end restaurants, or chef-led experiences"
   }
 };
 
@@ -328,24 +331,24 @@ function activitySuggestion(profileKey) {
   const type = destinationExperienceType();
   const suggestions = {
     city: {
-      budget: ["Essential city highlights", "Temples, markets, public viewpoints, and one paid highlight."],
-      mid: ["Culture plus a signature experience", "Main sights with a guided half-day, river experience, or evening attraction."],
-      premium: ["Privately curated city days", "Private guiding, priority experiences, premium wellness, or a signature evening."]
+      budget: ["Essential city highlights", "Choose temples, markets, public viewpoints, or one paid highlight."],
+      mid: ["Culture plus a signature experience", "Choose a guided culture half-day, river experience, or evening attraction."],
+      premium: ["Privately curated city days", "Choose private guiding, a priority experience, premium wellness, or a signature evening."]
     },
     coast: {
-      budget: ["Beaches and local discoveries", "Beach time, viewpoints, walking streets, and one shared activity."],
-      mid: ["Island or water highlights", "A shared boat, snorkeling, or island day with relaxed local stops."],
-      premium: ["Private coastal experiences", "A private boat or premium water activity, spa time, and a sunset experience."]
+      budget: ["Beaches and local discoveries", "Choose beach time, viewpoints, walking streets, or one shared activity."],
+      mid: ["Island or water highlights", "Choose a shared boat, snorkeling trip, or island day with relaxed local stops."],
+      premium: ["Private coastal experiences", "Choose a private boat, premium water activity, spa time, or sunset experience."]
     },
     nature: {
-      budget: ["Scenic essentials", "Temples, trails, waterfalls, viewpoints, and a local market."],
-      mid: ["Guided nature and culture", "A guided nature or temple day plus a local craft or food experience."],
-      premium: ["Private nature and wellness", "Private guiding, a signature landscape experience, and premium wellness time."]
+      budget: ["Scenic essentials", "Choose temples, trails, waterfalls, viewpoints, or a local market."],
+      mid: ["Guided nature and culture", "Choose a guided nature day, temple route, local craft, or food experience."],
+      premium: ["Private nature and wellness", "Choose private guiding, a signature landscape experience, or premium wellness time."]
     },
     heritage: {
-      budget: ["Historic essentials", "Historic parks, temples, local markets, and self-paced cultural stops."],
-      mid: ["Guided heritage journey", "A guided heritage route, museum stop, and a local cultural experience."],
-      premium: ["Private heritage immersion", "A private expert-led route, premium transfers, and an exclusive cultural experience."]
+      budget: ["Historic essentials", "Choose historic parks, temples, local markets, or self-paced cultural stops."],
+      mid: ["Guided heritage journey", "Choose a guided heritage route, museum stop, or local cultural experience."],
+      premium: ["Private heritage immersion", "Choose a private expert-led route, premium transfers, or an exclusive cultural experience."]
     }
   };
   const [title, copy] = suggestions[type][profileKey];
@@ -389,6 +392,7 @@ function buildBudgetCandidate(profileKey) {
     travelers,
     rooms,
     hotelName: catalog[profile.tier][0],
+    hotelOptions: catalog[profile.tier].slice(0, 2),
     hotelRate,
     roomCategory,
     roomView,
@@ -429,14 +433,30 @@ function refreshBudgetSuggestions() {
   qs("#budget-spend").textContent = `Suggested trip spend ${formatTHB(recommendation.suggestedSpend)} · website estimate ${formatTHB(recommendation.websiteSubtotal)} + restaurant reserve ${formatTHB(recommendation.mealSubtotal)}`;
 
   const viewLabels = { standard: "standard view", landscape: "landscape view", mountain: "mountain view", sea: "sea view" };
+  const packageAlternatives = recommendation.profileKey === "premium"
+    ? "Mid-range and Budget Friendly packages are also available."
+    : recommendation.profileKey === "mid"
+      ? "A Budget Friendly package is also available if you prefer to spend less."
+      : difference >= 0
+        ? "This is the best-value complete package for the entered budget."
+        : "Reduce the duration or group size to bring this complete package within budget.";
+  qs("#budget-package-title").textContent = `${pricing.tiers[recommendation.profile.tier].label} · ${recommendation.days}-day travel package`;
+  qs("#budget-package-copy").textContent = `For ${recommendation.travelers} guest${recommendation.travelers > 1 ? "s" : ""}: ${formatTHB(recommendation.planSubtotal)} for planning, local coordination, and the selected activity level. ${packageAlternatives}`;
   qs("#budget-hotel-title").textContent = `${pricing.tiers[recommendation.profile.tier].label} · ${recommendation.hotelName}`;
-  qs("#budget-hotel-copy").textContent = `Normal room with ${viewLabels[recommendation.roomView]}. About ${formatTHB(recommendation.hotelRate)} per room/night; ${formatTHB(recommendation.hotelSubtotal)} for this trip.`;
+  qs("#budget-hotel-copy").textContent = `Options: ${recommendation.hotelOptions.join(" or ")}. Normal room with ${viewLabels[recommendation.roomView]}; about ${formatTHB(recommendation.hotelSubtotal)} for this trip.`;
   qs("#budget-activity-title").textContent = recommendation.activity.title;
-  qs("#budget-activity-copy").textContent = `${recommendation.activity.copy} Package allowance: ${formatTHB(recommendation.planSubtotal)}.`;
+  qs("#budget-activity-copy").textContent = `${recommendation.activity.copy} These choices are matched to the suggested travel package; exact ticket inclusions are confirmed before payment.`;
   qs("#budget-transport-title").textContent = recommendation.transport.mode === "driver" ? "Private car + driver" : recommendation.transport.mode === "moto" ? "Motorcycle rental" : "Self-drive car";
-  qs("#budget-transport-copy").textContent = `${recommendation.transport.vehicle.brand} ${recommendation.transport.vehicle.model} × ${recommendation.transport.count}. Estimated ${formatTHB(recommendation.transportSubtotal)} for ${recommendation.days} day${recommendation.days > 1 ? "s" : ""}.`;
+  const transportAlternative = destinationSelect.value === "Koh Larn"
+    ? "Koh Larn offers motorcycle rental only."
+    : recommendation.transport.mode === "driver"
+      ? "Self-drive cars from ฿800/day are the lower-cost alternative."
+      : recommendation.transport.mode === "car"
+        ? "Motorcycles from ฿200/day are another option for one or two travelers."
+        : "Self-drive cars from ฿800/day are also available.";
+  qs("#budget-transport-copy").textContent = `Recommended: ${recommendation.transport.vehicle.brand} ${recommendation.transport.vehicle.model} × ${recommendation.transport.count}, about ${formatTHB(recommendation.transportSubtotal)}. ${transportAlternative}`;
   qs("#budget-meal-title").textContent = recommendation.profile.mealTitle;
-  qs("#budget-meal-copy").textContent = `${formatTHB(recommendation.profile.mealPerGuestDay)} per guest/day; reserve ${formatTHB(recommendation.mealSubtotal)} and pay restaurants directly.`;
+  qs("#budget-meal-copy").textContent = `Options: ${recommendation.profile.mealOptions}. Reserve ${formatTHB(recommendation.mealSubtotal)} and pay restaurants directly.`;
   qs("#budget-note").textContent = `Recommended website booking: ${formatTHB(recommendation.websiteSubtotal)}. Keep approximately ${formatTHB(recommendation.mealSubtotal)} outside the website for restaurant bills.`;
 }
 
