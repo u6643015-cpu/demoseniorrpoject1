@@ -9,7 +9,7 @@
     <title>Twar Mal | Thailand, tailored to you</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&amp;family=DM+Serif+Display:ital@0;1&amp;display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -18,7 +18,7 @@
     <header class="site-header">
       <nav class="nav-shell" aria-label="Primary navigation">
         <a class="brand" href="#top" aria-label="Twar Mal home">
-          <img src="assets/twar-mal-logo.jpeg" alt="Twar Mal Travel & Tour" />
+          <img src="assets/twar-mal-logo.jpeg" alt="Twar Mal Travel &amp; Tour" />
           <span class="brand-copy"><strong>Twar Mal</strong><small>TRAVEL &amp; TOUR</small></span>
         </a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
@@ -402,9 +402,9 @@
           </div>
           <div class="checkout-card">
             <div class="secure-row"><span>◆</span><div><strong>Card payment</strong><small>Prototype checkout · no charge will be made</small></div></div>
-            <label class="field"><span>Name on card</span><input type="text" autocomplete="cc-name" placeholder="Full name" /></label>
-            <label class="field"><span>Card number</span><input type="text" inputmode="numeric" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" maxlength="19" /></label>
-            <div class="mini-fields"><label class="field"><span>Expiry</span><input type="text" autocomplete="cc-exp" placeholder="MM / YY" /></label><label class="field"><span>CVC</span><input type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="•••" maxlength="4" /></label></div>
+            <label class="field"><span>Name on card</span><input id="card-name" type="text" autocomplete="cc-name" placeholder="Full name" required /></label>
+            <label class="field"><span>Card number</span><input id="card-number" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="•••• •••• •••• ••••" maxlength="23" required /></label>
+            <div class="mini-fields"><label class="field"><span>Expiry</span><input id="card-expiry" type="text" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required /></label><label class="field"><span>CVC</span><input id="card-cvc" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="•••" maxlength="4" required /></label></div>
             <button class="button button-full" id="demo-payment" type="button">Complete preview booking</button>
             <p>Live card processing will be connected through a certified payment provider before launch.</p>
           </div>

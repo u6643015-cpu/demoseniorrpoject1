@@ -111,25 +111,41 @@ Object.values(hotelProfiles).forEach((profile) => {
 const vehicleCatalog = {
   moto: [
     { type: "Scooter", brand: "Honda", model: "Scoopy", year: 2023, rate: 200 },
+    { type: "Scooter", brand: "Honda", model: "Click 125", year: 2025, rate: 250 },
     { type: "Scooter", brand: "Yamaha", model: "Fazzio", year: 2024, rate: 250 },
-    { type: "Sport scooter", brand: "Honda", model: "Click 160", year: 2024, rate: 300 },
+    { type: "Sport scooter", brand: "Honda", model: "Click 160", year: 2025, rate: 350 },
+    { type: "Sport scooter", brand: "Honda", model: "PCX 160", year: 2025, rate: 450 },
     { type: "Touring scooter", brand: "Yamaha", model: "NMAX 155", year: 2024, rate: 450 },
-    { type: "Touring", brand: "Honda", model: "Forza 350", year: 2024, rate: 800 }
+    { type: "Touring scooter", brand: "Honda", model: "ADV 160", year: 2025, rate: 500 },
+    { type: "Touring", brand: "Yamaha", model: "XMAX 300", year: 2025, rate: 800 },
+    { type: "Touring", brand: "Honda", model: "Forza 350", year: 2025, rate: 800 },
+    { type: "Touring", brand: "Honda", model: "ADV 350", year: 2025, rate: 900 }
   ],
   car: [
     { type: "Sedan", brand: "Toyota", model: "Yaris Ativ", year: 2022, rate: 800 },
     { type: "Sedan", brand: "Honda", model: "City", year: 2023, rate: 1000 },
-    { type: "7-seater", brand: "Toyota", model: "Fortuner", year: 2022, rate: 1600 },
+    { type: "Sedan", brand: "Toyota", model: "Corolla Altis", year: 2024, rate: 1100 },
+    { type: "Sedan", brand: "Honda", model: "Civic", year: 2024, rate: 1300 },
+    { type: "7-seater", brand: "Mitsubishi", model: "Xpander", year: 2024, rate: 1500 },
+    { type: "7-seater", brand: "Toyota", model: "Fortuner", year: 2024, rate: 1900 },
     { type: "Van", brand: "Toyota", model: "Commuter", year: 2023, rate: 2200 },
+    { type: "Van", brand: "Hyundai", model: "H-1", year: 2023, rate: 2400 },
     { type: "Pickup", brand: "Isuzu", model: "D-Max", year: 2023, rate: 1300 },
-    { type: "Premium", brand: "BMW", model: "5 Series", year: 2023, rate: 3500 }
+    { type: "Pickup", brand: "Toyota", model: "Hilux Revo", year: 2024, rate: 1400 },
+    { type: "Premium", brand: "BMW", model: "X1", year: 2024, rate: 2600 },
+    { type: "Premium", brand: "BMW", model: "5 Series", year: 2023, rate: 3500 },
+    { type: "Premium", brand: "Mercedes-Benz", model: "E-Class", year: 2024, rate: 3800 }
   ],
   driver: [
     { type: "Sedan", brand: "Toyota", model: "Yaris Ativ + driver", year: 2022, rate: 1700 },
+    { type: "Sedan", brand: "Honda", model: "City + driver", year: 2023, rate: 1900 },
     { type: "Sedan", brand: "Toyota", model: "Camry + driver", year: 2023, rate: 2200 },
     { type: "7-seater", brand: "Toyota", model: "Fortuner + driver", year: 2022, rate: 2500 },
+    { type: "7-seater", brand: "Mitsubishi", model: "Pajero Sport + driver", year: 2024, rate: 2700 },
     { type: "Van", brand: "Toyota", model: "Commuter + driver", year: 2023, rate: 2800 },
-    { type: "Premium", brand: "Mercedes-Benz", model: "E-Class + driver", year: 2023, rate: 4500 }
+    { type: "Van", brand: "Hyundai", model: "H-1 + driver", year: 2023, rate: 3000 },
+    { type: "Premium", brand: "Mercedes-Benz", model: "E-Class + driver", year: 2023, rate: 4500 },
+    { type: "Premium", brand: "Toyota", model: "Alphard + driver", year: 2024, rate: 5500 }
   ]
 };
 
@@ -177,6 +193,7 @@ const accountModal = qs("#account-modal");
 const plannerForm = qs("#planner-form");
 const bookingReview = qs(".booking-review");
 const destinationSelect = qs("#planner-destination");
+const quickDestinationSelect = qs("#quick-destination");
 const durationSelect = qs("#planner-duration");
 const travelerInput = qs("#traveler-count");
 const hotelSelect = qs("#hotel-choice");
@@ -202,6 +219,8 @@ let lastBudgetMatches = [];
 let appliedMealAllowance = null;
 let appliedBestFitOverage = false;
 let budgetTierRecalculation = false;
+let plannerReturnFocus = null;
+let accountReturnFocus = null;
 
 function clearAppliedBestFit() {
   appliedMealAllowance = null;
@@ -214,6 +233,8 @@ destinations.forEach((name) => {
   destinationSelect.append(option);
 });
 destinationSelect.value = "Bangkok";
+quickDestinationSelect.innerHTML = destinations.map((name) => `<option value="${name}">${name}</option>`).join("");
+quickDestinationSelect.value = "Bangkok";
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -305,6 +326,15 @@ function syncHotels(preserveSelection = false) {
   hotelSelect.append(own);
   if (previous && qsa("option", hotelSelect).some((option) => option.value === previous)) hotelSelect.value = previous;
   qs("#hotel-range-note").textContent = `${destinationSelect.value} · ${pricing.tiers[tier].label} range ${profile.range} per room/night. Examples are researched planning estimates; live dates are confirmed before payment.`;
+  syncHotelFields();
+}
+
+function syncHotelFields() {
+  const hotelBookedSeparately = hotelSelect.value === "own";
+  [roomCategorySelect, roomViewSelect, bedTypeSelect, roomCountInput].forEach((input) => {
+    input.disabled = hotelBookedSeparately;
+  });
+  if (hotelBookedSeparately) qs("#hotel-range-note").textContent = "Hotel booked separately — no room charge is added to the Twar Mal estimate.";
 }
 
 function selectedHotelRate() {
@@ -767,6 +797,7 @@ function calculateEstimate() {
 }
 
 function openPlanner(options = {}) {
+  if (!plannerModal.classList.contains("open")) plannerReturnFocus = document.activeElement;
   if (options.destination && destinations.includes(options.destination)) destinationSelect.value = options.destination;
   if (options.duration) durationSelect.value = String(options.duration);
   if (options.style) qs("#planner-style").value = options.style;
@@ -794,7 +825,15 @@ function openPlanner(options = {}) {
 function closeModal(modal) {
   modal.classList.remove("open");
   modal.setAttribute("aria-hidden", "true");
+  if (modal === plannerModal) {
+    qsa(".checkout-card input").forEach((input) => {
+      input.value = "";
+      input.setCustomValidity("");
+    });
+  }
   if (!qsa(".modal-shell.open").length) document.body.classList.remove("modal-open");
+  const returnFocus = modal === plannerModal ? plannerReturnFocus : accountReturnFocus;
+  if (returnFocus?.isConnected) setTimeout(() => returnFocus.focus(), 0);
 }
 
 function showToast(message) {
@@ -859,6 +898,7 @@ travelerInput.addEventListener("input", () => {
 
 [hotelSelect, roomCategorySelect, roomViewSelect, bedTypeSelect, roomCountInput, vehicleCountInput].forEach((input) => input.addEventListener("input", () => {
   clearAppliedBestFit();
+  if (input === hotelSelect) syncHotelFields();
   calculateEstimate();
 }));
 
@@ -874,6 +914,7 @@ qs("#apply-budget").addEventListener("click", applyBudgetSuggestion);
 
 transportSelect.addEventListener("input", () => {
   clearAppliedBestFit();
+  vehicleTypeSelect.value = "";
   syncTransportFields(true);
   calculateEstimate();
 });
@@ -927,12 +968,18 @@ qs("#add-meal").addEventListener("click", () => {
   const hotelName = hotelSelect.value === "own" ? "Customer's hotel" : hotelSelect.options[hotelSelect.selectedIndex].text.split(" · ")[0];
   const typedRestaurant = qs("#restaurant-name").value.trim();
   const restaurant = typedRestaurant || (preference === "Breakfast at hotel" ? hotelName : "Twar Mal to recommend");
-  mealPlans.push({ id: String(Date.now()), day: Number(qs("#meal-day").value), meal: qs("#meal-type").value, preference, restaurant });
+  const day = Number(qs("#meal-day").value);
+  const meal = qs("#meal-type").value;
+  const existing = mealPlans.find((item) => item.day === day && item.meal === meal);
+  const nextMeal = { id: existing?.id || String(Date.now()), day, meal, preference, restaurant };
+  mealPlans = existing
+    ? mealPlans.map((item) => item.id === existing.id ? nextMeal : item)
+    : [...mealPlans, nextMeal];
   qs("#restaurant-name").value = "";
   renderMealPlans();
   clearAppliedBestFit();
   calculateEstimate();
-  showToast("Meal added. Its restaurant bill is not included in the total.");
+  showToast(`${existing ? "Meal updated" : "Meal added"}. Its restaurant bill is not included in the total.`);
 });
 
 qs("#meal-plan-list").addEventListener("click", (event) => {
@@ -956,21 +1003,34 @@ plannerForm.addEventListener("submit", (event) => {
   const vehicleDescription = estimate.vehicle
     ? `${estimate.vehicle.type} · ${estimate.vehicle.brand} ${estimate.vehicle.model} ${estimate.vehicle.year} × ${vehicleCount}`
     : "No Twar Mal transportation";
+  const startDate = qs("#start-date").value;
+  const startDateLabel = startDate
+    ? new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric" }).format(new Date(`${startDate}T00:00:00`))
+    : "To be confirmed";
   const rows = [
     ["Destination", destinationSelect.value],
+    ["Start date", startDateLabel],
     ["Travelers", String(estimate.travelers)],
     ["Comfort level", pricing.tiers[estimate.tier].label],
     ["Travel style", qs("#planner-style").value],
-    ["Journey plan", formatTHB(estimate.planSubtotal)],
-    ["Hotel", `${hotelSelect.options[hotelSelect.selectedIndex].text} · ${formatTHB(estimate.hotelSubtotal)}`],
-    ["Hotel stay", estimate.nights ? `${estimate.nights} night${estimate.nights > 1 ? "s" : ""}` : "Booked separately"],
-    ["Rooms", `${estimate.rooms} × ${roomCategory}`],
-    ["View", roomView],
-    ["Bed", `${bedType} · no price change`],
+    ["Journey plan", formatTHB(estimate.planSubtotal)]
+  ];
+  if (hotelSelect.value === "own") {
+    rows.push(["Hotel", "Booked separately · ฿0"]);
+  } else {
+    rows.push(
+      ["Hotel", `${hotelSelect.options[hotelSelect.selectedIndex].text} · ${formatTHB(estimate.hotelSubtotal)}`],
+      ["Hotel stay", `${estimate.nights} night${estimate.nights > 1 ? "s" : ""}`],
+      ["Rooms", `${estimate.rooms} × ${roomCategory}`],
+      ["View", roomView],
+      ["Bed", `${bedType} · no price change`]
+    );
+  }
+  rows.push(
     ["Transport", `${vehicleDescription} · ${formatTHB(estimate.transportSubtotal)}`],
     ["Meal allowance", `${formatTHB(estimate.mealAllowance)} · paid directly to restaurants`],
     ["Estimated total trip spend", formatTHB(estimate.total)]
-  ];
+  );
   if (tripBudgetMinimum >= 1000 && tripBudgetMaximum >= tripBudgetMinimum) {
     rows.splice(2, 0, ["Trip budget range", `${formatTHB(tripBudgetMinimum)}–${formatTHB(tripBudgetMaximum)}`]);
     if (lastBudgetRecommendation) {
@@ -988,6 +1048,8 @@ plannerForm.addEventListener("submit", (event) => {
   }
   if (!mealPlans.length) rows.push(["Meals", "Not planned · restaurant bills excluded"]);
   mealPlans.forEach((meal) => rows.push([`Day ${meal.day} · ${meal.meal}`, `${meal.restaurant} · ${meal.preference} · pay directly`]));
+  const specialRequest = qs("#special-request").value.trim();
+  if (specialRequest) rows.push(["Special requests", specialRequest]);
   qs("#review-title").textContent = `${estimate.days} day${estimate.days > 1 ? "s" : ""} in ${destinationSelect.value}`;
   const reviewLines = qs("#review-lines");
   reviewLines.innerHTML = "";
@@ -1013,12 +1075,57 @@ qs(".back-to-plan").addEventListener("click", () => {
   qsa(".step-indicator span").forEach((el, index) => el.classList.toggle("active", index === 0));
 });
 
+qsa(".checkout-card input").forEach((input) => input.addEventListener("input", () => input.setCustomValidity("")));
+
+function passesLuhn(number) {
+  let sum = 0;
+  let shouldDouble = false;
+  for (let index = number.length - 1; index >= 0; index -= 1) {
+    let digit = Number(number[index]);
+    if (shouldDouble) {
+      digit *= 2;
+      if (digit > 9) digit -= 9;
+    }
+    sum += digit;
+    shouldDouble = !shouldDouble;
+  }
+  return sum % 10 === 0;
+}
+
+function validatePreviewCard() {
+  const name = qs("#card-name");
+  const number = qs("#card-number");
+  const expiry = qs("#card-expiry");
+  const cvc = qs("#card-cvc");
+  const digits = number.value.replace(/\D/g, "");
+  name.setCustomValidity(name.value.trim().length >= 2 ? "" : "Enter the cardholder name.");
+  number.setCustomValidity(digits.length >= 13 && digits.length <= 19 && passesLuhn(digits) ? "" : "Enter a valid card number.");
+  const expiryMatch = expiry.value.trim().match(/^(0[1-9]|1[0-2])\s*\/\s*(\d{2})$/);
+  let expiryValid = false;
+  if (expiryMatch) {
+    const expiryMonth = Number(expiryMatch[1]);
+    const expiryYear = 2000 + Number(expiryMatch[2]);
+    const expiryDate = new Date(expiryYear, expiryMonth, 0, 23, 59, 59);
+    expiryValid = expiryDate >= new Date();
+  }
+  expiry.setCustomValidity(expiryValid ? "" : "Enter a valid future expiry date in MM / YY format.");
+  cvc.setCustomValidity(/^\d{3,4}$/.test(cvc.value.trim()) ? "" : "Enter a valid 3 or 4 digit CVC.");
+  const invalid = [name, number, expiry, cvc].find((input) => !input.checkValidity());
+  if (invalid) {
+    invalid.reportValidity();
+    return false;
+  }
+  return true;
+}
+
 qs("#demo-payment").addEventListener("click", () => {
+  if (!validatePreviewCard()) return;
   closeModal(plannerModal);
   showToast("Preview booking saved — no card has been charged.");
 });
 
 qsa(".account-trigger").forEach((button) => button.addEventListener("click", () => {
+  accountReturnFocus = document.activeElement;
   accountModal.classList.add("open");
   accountModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
@@ -1062,6 +1169,8 @@ qs(".lang-toggle").addEventListener("click", () => {
     const value = translations[currentLanguage][element.dataset.i18n];
     if (value) element.innerHTML = value;
   });
+  const guest = localStorage.getItem("twarMalGuest");
+  if (guest) setAccountName(guest);
 });
 
 qs(".menu-toggle").addEventListener("click", (event) => {
@@ -1069,7 +1178,10 @@ qs(".menu-toggle").addEventListener("click", (event) => {
   menu.classList.toggle("open");
   event.currentTarget.setAttribute("aria-expanded", String(menu.classList.contains("open")));
 });
-qsa("#nav-links a").forEach((link) => link.addEventListener("click", () => qs("#nav-links").classList.remove("open")));
+qsa("#nav-links a").forEach((link) => link.addEventListener("click", () => {
+  qs("#nav-links").classList.remove("open");
+  qs(".menu-toggle").setAttribute("aria-expanded", "false");
+}));
 
 window.addEventListener("scroll", () => qs(".site-header").classList.toggle("scrolled", window.scrollY > 70), { passive: true });
 document.addEventListener("keydown", (event) => {

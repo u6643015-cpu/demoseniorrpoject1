@@ -19,6 +19,7 @@ Then open `http://localhost:4173`.
 ## Current scope
 
 - 23 Thailand destinations
+- 207 categorized hotel examples and 32 vehicle choices
 - 1-day, 3-day, 7-day, 14-day, and custom-duration journeys
 - Custom hotel, dining, travel-style, and transportation preferences
 - Self-drive car and motorcycle options
@@ -27,3 +28,17 @@ Then open `http://localhost:4173`.
 - Frontend account, booking, pricing, and checkout previews
 
 Secure authentication, persistent bookings, live inventory, and card processing require production service integrations before accepting real customer payments.
+
+## Quality checks
+
+Run the full catalogue, markup, and calculation matrix:
+
+```sh
+node tests/audit.mjs
+```
+
+With internet access, verify every hosted font and image dependency:
+
+```sh
+node tests/check-assets.mjs
+```
