@@ -351,6 +351,7 @@
                 <label><input type="radio" name="plan-tier" value="mid" /><span><strong>Mid-range</strong><small>฿1,450 / guest / day</small></span></label>
                 <label><input type="radio" name="plan-tier" value="premium" /><span><strong>Premium</strong><small>฿2,650 / guest / day</small></span></label>
               </div>
+              <small class="tier-budget-note" id="tier-budget-note">Enter a total budget range to see which comfort levels are affordable.</small>
             </fieldset>
             <label class="field field-wide"><span>Hotel</span><select id="hotel-choice"></select><small class="field-hint" id="hotel-range-note">Select a destination and comfort level to see researched hotel examples.</small></label>
             <label class="field"><span>Room category</span><select id="room-category"><option value="normal" selected>Normal room · base rate</option><option value="family">Family room · +60%</option><option value="presidential">Presidential room · ×4</option></select></label>
@@ -364,7 +365,15 @@
 
             <fieldset class="meal-planner field-wide">
               <legend>Meal planner · restaurant bills are not added</legend>
-              <p>Plan breakfast, lunch, or dinner for any day. Choose hotel breakfast, a dining style, or enter the exact restaurant. Customers pay the restaurant directly for what they order.</p>
+              <p>Set a meal budget for the whole trip, then plan breakfast, lunch, or dinner for any day. Customers pay restaurants directly. You can still reserve part of a modest meal budget for one fine-dining experience.</p>
+              <div class="meal-budget-panel">
+                <div class="budget-range-inputs">
+                  <label class="budget-input" for="meal-budget-min"><span>Meal budget minimum · THB</span><div class="budget-money"><b>฿</b><input id="meal-budget-min" type="number" min="0" step="100" inputmode="numeric" placeholder="2,500" /></div><small>Total restaurant allowance for the whole trip.</small></label>
+                  <label class="budget-input" for="meal-budget-max"><span>Meal budget maximum · THB</span><div class="budget-money"><b>฿</b><input id="meal-budget-max" type="number" min="0" step="100" inputmode="numeric" placeholder="5,000" /></div><small>This remains outside the website card payment.</small></label>
+                </div>
+                <label class="fine-dining-toggle"><input id="meal-fine-dining" type="checkbox" /><span><strong>Keep room for one fine-dining meal</strong><small>Assign it to breakfast, lunch, or dinner below. The planner protects a sensible allowance for that one special meal.</small></span></label>
+                <p class="meal-budget-status" id="meal-budget-status">Leave the meal range blank to use the comfort-level recommendation.</p>
+              </div>
               <div class="meal-builder">
                 <label class="field"><span>Day</span><select id="meal-day"></select></label>
                 <label class="field"><span>Meal</span><select id="meal-type"><option>Breakfast</option><option>Lunch</option><option>Dinner</option></select></label>
@@ -377,9 +386,10 @@
             <label class="field field-wide"><span>Anything you want to add or change?</span><textarea id="special-request" rows="3" placeholder="Places you love, mobility needs, hotel preference, celebrations…"></textarea></label>
           </div>
           <div class="estimate-bar">
-            <div><span>Planning estimate</span><strong id="estimate-total">฿8,200</strong><small id="estimate-note">for 2 guests · 3 days · 1 room</small><small id="estimate-breakdown">Plan ฿5,400 + hotel ฿2,800 + transport ฿0 · meals paid direct</small></div>
-            <button class="button" type="submit">Review &amp; confirm <span>→</span></button>
+            <div><span>Estimated total trip spend</span><strong id="estimate-total">฿10,900</strong><small id="estimate-note">for 2 guests · 3 days · 1 room</small><small id="estimate-breakdown">Website card payment ฿8,200 + meal allowance ฿2,700 paid direct</small></div>
+            <button class="button" id="review-trip-button" type="submit">Review &amp; confirm <span>→</span></button>
           </div>
+          <p class="estimate-budget-alert" id="estimate-budget-alert" aria-live="polite"></p>
           <p class="estimate-disclaimer">Hotel estimates are added to this total and confirmed for your dates before payment. Restaurant bills are never included. Seasonal rates, availability, taxes, fuel, parking, ferries, overtime, and deposits may change the final confirmed quote.</p>
         </form>
 
@@ -388,7 +398,7 @@
             <div class="eyebrow">YOUR JOURNEY</div>
             <h3 id="review-title">3 days in Bangkok</h3>
             <div class="review-lines" id="review-lines"></div>
-            <div class="review-total"><span>Estimated total</span><strong id="review-total">฿29,800</strong></div>
+            <div class="review-total"><span>Website card payment</span><strong id="review-total">฿29,800</strong></div>
           </div>
           <div class="checkout-card">
             <div class="secure-row"><span>◆</span><div><strong>Card payment</strong><small>Prototype checkout · no charge will be made</small></div></div>
