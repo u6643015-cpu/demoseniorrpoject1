@@ -324,13 +324,16 @@
                 <div>
                   <span class="budget-kicker">SMART BUDGET PLANNER</span>
                   <h3 id="budget-title">What is your total trip budget?</h3>
-                  <p>Tell us one total in THB. We will give you five separate recommendations: travel package, hotel room, attractions and activities, transportation, and meals.</p>
+                  <p>Tell us your minimum and maximum total in THB. We will show five separate recommendations that fit your range: travel package, hotel room, attractions and activities, transportation, and meals.</p>
                 </div>
-                <label class="budget-input" for="trip-budget"><span>Total trip budget · THB</span><div class="budget-money"><b>฿</b><input id="trip-budget" type="number" min="1000" step="500" inputmode="numeric" placeholder="25,000" required /></div><small>Include the amount you are comfortable spending at restaurants.</small></label>
+                <div class="budget-range-inputs">
+                  <label class="budget-input" for="trip-budget-min"><span>Minimum budget · THB</span><div class="budget-money"><b>฿</b><input id="trip-budget-min" type="number" min="1000" step="500" inputmode="numeric" placeholder="15,000" required /></div><small>The least you plan to spend.</small></label>
+                  <label class="budget-input" for="trip-budget-max"><span>Maximum budget · THB</span><div class="budget-money"><b>฿</b><input id="trip-budget-max" type="number" min="1000" step="500" inputmode="numeric" placeholder="30,000" required /></div><small>Your comfortable spending limit, including restaurants.</small></label>
+                </div>
               </div>
               <div class="budget-prompt" id="budget-prompt" aria-live="polite">
-                <div><strong id="budget-status">Enter your budget to see tailored suggestions.</strong><span id="budget-spend">We will compare complete travel options for you.</span></div>
-                <button id="apply-budget" type="button" disabled>Use these suggestions</button>
+                <div><strong id="budget-status">Enter your minimum and maximum budget.</strong><span id="budget-spend">We will show the complete travel options inside your range.</span></div>
+                <button id="apply-budget" type="button" disabled>Use best-fit suggestions</button>
               </div>
               <div class="budget-recommendations" id="budget-recommendations" hidden>
                 <article><span>01 · TRAVEL PACKAGE</span><strong id="budget-package-title"></strong><p id="budget-package-copy"></p></article>

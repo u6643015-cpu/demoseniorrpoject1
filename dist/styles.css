@@ -231,6 +231,7 @@ footer { color: rgba(255,255,255,.7); background: #052b26; }
 .budget-advisor h3 { margin: 7px 0 8px; color: var(--pine-deep); font-family: var(--serif); font-size: 25px; font-weight: 400; }
 .budget-advisor-head p { max-width: 590px; margin: 0; color: var(--muted); font-size: 10px; line-height: 1.65; }
 .budget-input { display: flex; flex-direction: column; gap: 7px; }
+.budget-range-inputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .budget-input > span { color: var(--muted); font-size: 9px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
 .budget-input > small { color: var(--muted); font-size: 8px; line-height: 1.45; }
 .budget-money { display: grid; grid-template-columns: 42px 1fr; min-height: 50px; border: 1px solid rgba(11,74,64,.25); background: white; }
@@ -385,6 +386,7 @@ footer { color: rgba(255,255,255,.7); background: #052b26; }
   .field-wide { grid-column: auto; }
   .budget-advisor { padding: 20px 15px; }
   .budget-advisor-head { grid-template-columns: 1fr; gap: 18px; }
+  .budget-range-inputs { grid-template-columns: 1fr; }
   .budget-prompt { align-items: stretch; flex-direction: column; }
   .budget-recommendations { grid-template-columns: 1fr; }
   .budget-recommendations article:first-child { grid-column: auto; }
