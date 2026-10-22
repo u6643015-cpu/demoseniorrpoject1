@@ -228,6 +228,10 @@ function durationDays() {
   return durationSelect.value === "custom" ? Number(qs("#custom-days").value || 1) : Number(durationSelect.value);
 }
 
+function chargedHotelNights(days) {
+  return Math.max(1, days - 1);
+}
+
 function roundedHundred(amount) {
   return Math.round(amount / 100) * 100;
 }
@@ -483,7 +487,7 @@ function candidateTransportOptions(profileKey, travelers) {
 function buildBudgetCandidates(profileKey) {
   const profile = budgetProfiles[profileKey];
   const days = Math.max(1, durationDays());
-  const nights = Math.max(0, days - 1);
+  const nights = chargedHotelNights(days);
   const travelers = Math.max(1, Number(travelerInput.value || 1));
   const rooms = Math.max(1, Number(roomCountInput.value || 1));
   const catalog = hotelCatalog[destinationSelect.value];
@@ -500,7 +504,7 @@ function buildBudgetCandidates(profileKey) {
 
   catalog[profile.tier].forEach((hotelName, hotelIndex) => {
     const hotelRate = hotelProfile.rates[hotelIndex] || hotelProfile.rates[0];
-    const hotelSubtotal = Math.round((hotelRate * pricing.roomCategoryMultipliers[roomCategory] * pricing.roomViewMultipliers[roomView] * rooms * nights) / 50) * 50;
+    const hotelSubtotal = Math.round(hotelRate * pricing.roomCategoryMultipliers[roomCategory] * pricing.roomViewMultipliers[roomView] * rooms * nights);
     transportOptions.forEach((transport) => {
       const transportSubtotal = transport.vehicle ? transport.vehicle.rate * days * transport.count : 0;
       mealChoices.forEach((mealSubtotal) => {
@@ -712,14 +716,14 @@ function applyBudgetSuggestion() {
 function calculateEstimate() {
   const days = Math.max(1, durationDays());
   const travelers = Math.max(1, Number(travelerInput.value || 1));
-  const nights = Math.max(0, days - 1);
+  const nights = hotelSelect.value === "own" ? 0 : chargedHotelNights(days);
   const rooms = Math.max(1, Number(roomCountInput.value || 1));
   const tier = selectedTier();
   const planSubtotal = pricing.tiers[tier].perGuestDay * travelers * days;
   const roomCategoryMultiplier = pricing.roomCategoryMultipliers[roomCategorySelect.value];
   const roomViewMultiplier = pricing.roomViewMultipliers[roomViewSelect.value];
   const hotelRate = selectedHotelRate();
-  const hotelSubtotal = Math.round((hotelRate * roomCategoryMultiplier * roomViewMultiplier * rooms * nights) / 50) * 50;
+  const hotelSubtotal = Math.round(hotelRate * roomCategoryMultiplier * roomViewMultiplier * rooms * nights);
   const vehicle = selectedVehicle();
   const vehicleCount = Math.max(1, Number(vehicleCountInput.value || 1));
   const transportSubtotal = vehicle ? vehicle.rate * days * vehicleCount : 0;
@@ -730,8 +734,9 @@ function calculateEstimate() {
   const total = websiteTotal + mealAllowance;
   qs("#estimate-total").textContent = formatTHB(total);
   const roomNote = hotelSelect.value === "own" ? "hotel not included" : `${rooms} room${rooms > 1 ? "s" : ""}`;
-  qs("#estimate-note").textContent = `for ${travelers} guest${travelers > 1 ? "s" : ""} · ${days} day${days > 1 ? "s" : ""} · ${roomNote}`;
-  qs("#estimate-breakdown").textContent = `Website card payment ${formatTHB(websiteTotal)} + meal allowance ${formatTHB(mealAllowance)} paid direct`;
+  const nightNote = nights ? `${nights} hotel night${nights > 1 ? "s" : ""}` : "hotel booked separately";
+  qs("#estimate-note").textContent = `for ${travelers} guest${travelers > 1 ? "s" : ""} · ${days} day${days > 1 ? "s" : ""} · ${roomNote} · ${nightNote}`;
+  qs("#estimate-breakdown").textContent = `Plan ${formatTHB(planSubtotal)} + hotel ${formatTHB(hotelSubtotal)} + transport ${formatTHB(transportSubtotal)} + meals ${formatTHB(mealAllowance)} paid direct · card payment ${formatTHB(websiteTotal)}`;
 
   const tierChanged = refreshBudgetSuggestions();
   if (tierChanged && !budgetTierRecalculation) {
@@ -758,7 +763,7 @@ function calculateEstimate() {
   } else {
     alert.textContent = "";
   }
-  return { days, travelers, rooms, tier, vehicle, planSubtotal, hotelSubtotal, transportSubtotal, mealAllowance, websiteTotal, total };
+  return { days, nights, travelers, rooms, tier, vehicle, planSubtotal, hotelSubtotal, transportSubtotal, mealAllowance, websiteTotal, total };
 }
 
 function openPlanner(options = {}) {
@@ -958,6 +963,7 @@ plannerForm.addEventListener("submit", (event) => {
     ["Travel style", qs("#planner-style").value],
     ["Journey plan", formatTHB(estimate.planSubtotal)],
     ["Hotel", `${hotelSelect.options[hotelSelect.selectedIndex].text} · ${formatTHB(estimate.hotelSubtotal)}`],
+    ["Hotel stay", estimate.nights ? `${estimate.nights} night${estimate.nights > 1 ? "s" : ""}` : "Booked separately"],
     ["Rooms", `${estimate.rooms} × ${roomCategory}`],
     ["View", roomView],
     ["Bed", `${bedType} · no price change`],
