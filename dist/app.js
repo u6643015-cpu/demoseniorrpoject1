@@ -106,6 +106,30 @@ const pricing = {
   roomViewMultipliers: { standard: 1, landscape: 1.1, mountain: 1.15, sea: 1.25 }
 };
 
+const budgetProfiles = {
+  budget: {
+    label: "Budget-smart match",
+    tier: "budget",
+    mealPerGuestDay: 450,
+    mealTitle: "Hotel breakfast + local favorites",
+    mealPreference: "Local favorites & hidden gems"
+  },
+  mid: {
+    label: "Balanced match",
+    tier: "mid",
+    mealPerGuestDay: 800,
+    mealTitle: "Local favorites + one special meal",
+    mealPreference: "Surprise me"
+  },
+  premium: {
+    label: "Premium match",
+    tier: "premium",
+    mealPerGuestDay: 1500,
+    mealTitle: "Curated and high-end dining",
+    mealPreference: "High-end restaurant"
+  }
+};
+
 const qs = (selector, scope = document) => scope.querySelector(selector);
 const qsa = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 const plannerModal = qs("#planner-modal");
@@ -124,10 +148,12 @@ const transportSelect = qs("#transport-choice");
 const vehicleTypeSelect = qs("#vehicle-type");
 const vehicleModelSelect = qs("#vehicle-model");
 const vehicleCountInput = qs("#vehicle-count");
+const tripBudgetInput = qs("#trip-budget");
 const tierInputs = qsa('[name="plan-tier"]');
 let currentLanguage = "en";
 let toastTimer;
 let mealPlans = [];
+let lastBudgetRecommendation = null;
 
 destinations.forEach((name) => {
   const option = document.createElement("option");
@@ -282,6 +308,157 @@ function renderMealPlans() {
   });
 }
 
+function destinationExperienceType() {
+  const profile = hotelCatalog[destinationSelect.value].profile;
+  if (["island", "coast", "phuket", "krabi", "pattaya", "kohLarn"].includes(profile)) return "coast";
+  if (["chiangMai", "northern", "nature"].includes(profile)) return "nature";
+  if (profile === "heritage") return "heritage";
+  return "city";
+}
+
+function recommendedView(profileKey) {
+  if (profileKey === "budget") return "standard";
+  if (profileKey === "mid") return destinationExperienceType() === "nature" ? "mountain" : "landscape";
+  if (destinationExperienceType() === "coast") return "sea";
+  if (destinationExperienceType() === "nature") return "mountain";
+  return "landscape";
+}
+
+function activitySuggestion(profileKey) {
+  const type = destinationExperienceType();
+  const suggestions = {
+    city: {
+      budget: ["Essential city highlights", "Temples, markets, public viewpoints, and one paid highlight."],
+      mid: ["Culture plus a signature experience", "Main sights with a guided half-day, river experience, or evening attraction."],
+      premium: ["Privately curated city days", "Private guiding, priority experiences, premium wellness, or a signature evening."]
+    },
+    coast: {
+      budget: ["Beaches and local discoveries", "Beach time, viewpoints, walking streets, and one shared activity."],
+      mid: ["Island or water highlights", "A shared boat, snorkeling, or island day with relaxed local stops."],
+      premium: ["Private coastal experiences", "A private boat or premium water activity, spa time, and a sunset experience."]
+    },
+    nature: {
+      budget: ["Scenic essentials", "Temples, trails, waterfalls, viewpoints, and a local market."],
+      mid: ["Guided nature and culture", "A guided nature or temple day plus a local craft or food experience."],
+      premium: ["Private nature and wellness", "Private guiding, a signature landscape experience, and premium wellness time."]
+    },
+    heritage: {
+      budget: ["Historic essentials", "Historic parks, temples, local markets, and self-paced cultural stops."],
+      mid: ["Guided heritage journey", "A guided heritage route, museum stop, and a local cultural experience."],
+      premium: ["Private heritage immersion", "A private expert-led route, premium transfers, and an exclusive cultural experience."]
+    }
+  };
+  const [title, copy] = suggestions[type][profileKey];
+  return { title, copy };
+}
+
+function budgetVehicle(profileKey, travelers) {
+  const isKohLarn = destinationSelect.value === "Koh Larn";
+  const mode = isKohLarn ? "moto" : profileKey === "premium" ? "driver" : profileKey === "mid" ? "car" : travelers <= 2 ? "moto" : "car";
+  let type = "Scooter";
+  let capacity = 2;
+  if (mode !== "moto") {
+    type = travelers <= 4 ? "Sedan" : travelers <= 7 ? "7-seater" : "Van";
+    capacity = travelers <= 4 ? 4 : travelers <= 7 ? 7 : 10;
+  }
+  const vehicle = vehicleCatalog[mode].find((item) => item.type === type) || vehicleCatalog[mode][0];
+  return { mode, vehicle, count: Math.max(1, Math.ceil(travelers / capacity)) };
+}
+
+function buildBudgetCandidate(profileKey) {
+  const profile = budgetProfiles[profileKey];
+  const days = Math.max(1, durationDays());
+  const nights = Math.max(0, days - 1);
+  const travelers = Math.max(1, Number(travelerInput.value || 1));
+  const rooms = Math.max(1, Number(roomCountInput.value || 1));
+  const catalog = hotelCatalog[destinationSelect.value];
+  const hotelProfile = hotelProfiles[catalog.profile][profile.tier];
+  const roomCategory = "normal";
+  const roomView = recommendedView(profileKey);
+  const hotelRate = hotelProfile.rates[0];
+  const hotelSubtotal = Math.round((hotelRate * pricing.roomCategoryMultipliers[roomCategory] * pricing.roomViewMultipliers[roomView] * rooms * nights) / 50) * 50;
+  const planSubtotal = pricing.tiers[profile.tier].perGuestDay * travelers * days;
+  const transport = budgetVehicle(profileKey, travelers);
+  const transportSubtotal = transport.vehicle.rate * days * transport.count;
+  const mealSubtotal = profile.mealPerGuestDay * travelers * days;
+  const websiteSubtotal = planSubtotal + hotelSubtotal + transportSubtotal;
+  return {
+    profileKey,
+    profile,
+    days,
+    travelers,
+    rooms,
+    hotelName: catalog[profile.tier][0],
+    hotelRate,
+    roomCategory,
+    roomView,
+    planSubtotal,
+    hotelSubtotal,
+    transport,
+    transportSubtotal,
+    mealSubtotal,
+    websiteSubtotal,
+    suggestedSpend: websiteSubtotal + mealSubtotal,
+    activity: activitySuggestion(profileKey)
+  };
+}
+
+function refreshBudgetSuggestions() {
+  const budget = Number(tripBudgetInput.value || 0);
+  const recommendations = qs("#budget-recommendations");
+  const applyButton = qs("#apply-budget");
+  if (budget < 1000) {
+    lastBudgetRecommendation = null;
+    recommendations.hidden = true;
+    applyButton.disabled = true;
+    qs("#budget-status").textContent = "Enter your budget to see tailored suggestions.";
+    qs("#budget-spend").textContent = "We will compare complete travel options for you.";
+    qs("#budget-note").textContent = "Restaurant spending is a planning allowance only and will not be added to the website payment total.";
+    return;
+  }
+
+  const candidates = ["premium", "mid", "budget"].map(buildBudgetCandidate);
+  const recommendation = candidates.find((candidate) => candidate.suggestedSpend <= budget) || candidates[2];
+  const difference = budget - recommendation.suggestedSpend;
+  lastBudgetRecommendation = recommendation;
+  recommendations.hidden = false;
+  applyButton.disabled = false;
+  qs("#budget-status").textContent = difference >= 0
+    ? `${recommendation.profile.label} · fits with ${formatTHB(difference)} available`
+    : `Closest complete match · ${formatTHB(Math.abs(difference))} above this budget`;
+  qs("#budget-spend").textContent = `Suggested trip spend ${formatTHB(recommendation.suggestedSpend)} · website estimate ${formatTHB(recommendation.websiteSubtotal)} + restaurant reserve ${formatTHB(recommendation.mealSubtotal)}`;
+
+  const viewLabels = { standard: "standard view", landscape: "landscape view", mountain: "mountain view", sea: "sea view" };
+  qs("#budget-hotel-title").textContent = `${pricing.tiers[recommendation.profile.tier].label} · ${recommendation.hotelName}`;
+  qs("#budget-hotel-copy").textContent = `Normal room with ${viewLabels[recommendation.roomView]}. About ${formatTHB(recommendation.hotelRate)} per room/night; ${formatTHB(recommendation.hotelSubtotal)} for this trip.`;
+  qs("#budget-activity-title").textContent = recommendation.activity.title;
+  qs("#budget-activity-copy").textContent = `${recommendation.activity.copy} Package allowance: ${formatTHB(recommendation.planSubtotal)}.`;
+  qs("#budget-transport-title").textContent = recommendation.transport.mode === "driver" ? "Private car + driver" : recommendation.transport.mode === "moto" ? "Motorcycle rental" : "Self-drive car";
+  qs("#budget-transport-copy").textContent = `${recommendation.transport.vehicle.brand} ${recommendation.transport.vehicle.model} × ${recommendation.transport.count}. Estimated ${formatTHB(recommendation.transportSubtotal)} for ${recommendation.days} day${recommendation.days > 1 ? "s" : ""}.`;
+  qs("#budget-meal-title").textContent = recommendation.profile.mealTitle;
+  qs("#budget-meal-copy").textContent = `${formatTHB(recommendation.profile.mealPerGuestDay)} per guest/day; reserve ${formatTHB(recommendation.mealSubtotal)} and pay restaurants directly.`;
+  qs("#budget-note").textContent = `Recommended website booking: ${formatTHB(recommendation.websiteSubtotal)}. Keep approximately ${formatTHB(recommendation.mealSubtotal)} outside the website for restaurant bills.`;
+}
+
+function applyBudgetSuggestion() {
+  if (!lastBudgetRecommendation) return;
+  const recommendation = lastBudgetRecommendation;
+  chooseTier(recommendation.profile.tier);
+  syncHotels();
+  hotelSelect.value = `${recommendation.profile.tier}-0`;
+  roomCategorySelect.value = recommendation.roomCategory;
+  roomViewSelect.value = recommendation.roomView;
+  transportSelect.value = recommendation.transport.mode;
+  syncTransportFields();
+  vehicleTypeSelect.value = recommendation.transport.vehicle.type;
+  syncVehicleModels();
+  vehicleModelSelect.value = `${recommendation.transport.vehicle.brand}-${recommendation.transport.vehicle.model}-${recommendation.transport.vehicle.year}`;
+  vehicleCountInput.value = String(recommendation.transport.count);
+  qs("#meal-preference").value = recommendation.profile.mealPreference;
+  calculateEstimate();
+  showToast(`${recommendation.profile.label} applied. Restaurant spending remains outside the website total.`);
+}
+
 function calculateEstimate() {
   const days = Math.max(1, durationDays());
   const travelers = Math.max(1, Number(travelerInput.value || 1));
@@ -301,6 +478,7 @@ function calculateEstimate() {
   const roomNote = hotelSelect.value === "own" ? "hotel not included" : `${rooms} room${rooms > 1 ? "s" : ""}`;
   qs("#estimate-note").textContent = `for ${travelers} guest${travelers > 1 ? "s" : ""} · ${days} day${days > 1 ? "s" : ""} · ${roomNote}`;
   qs("#estimate-breakdown").textContent = `Plan ${formatTHB(planSubtotal)} + hotel ${formatTHB(hotelSubtotal)} + transport ${formatTHB(transportSubtotal)} · meals paid direct`;
+  refreshBudgetSuggestions();
   return { days, travelers, rooms, tier, vehicle, planSubtotal, hotelSubtotal, transportSubtotal, total };
 }
 
@@ -395,6 +573,9 @@ travelerInput.addEventListener("input", () => {
 
 [hotelSelect, roomCategorySelect, roomViewSelect, bedTypeSelect, roomCountInput, vehicleCountInput].forEach((input) => input.addEventListener("input", calculateEstimate));
 
+tripBudgetInput.addEventListener("input", refreshBudgetSuggestions);
+qs("#apply-budget").addEventListener("click", applyBudgetSuggestion);
+
 transportSelect.addEventListener("input", () => {
   syncTransportFields(true);
   calculateEstimate();
@@ -457,6 +638,7 @@ qs("#meal-plan-list").addEventListener("click", (event) => {
 plannerForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const estimate = calculateEstimate();
+  const tripBudget = Number(tripBudgetInput.value || 0);
   const vehicleCount = Math.max(1, Number(vehicleCountInput.value || 1));
   const roomCategory = roomCategorySelect.options[roomCategorySelect.selectedIndex].text;
   const roomView = roomViewSelect.options[roomViewSelect.selectedIndex].text;
@@ -476,6 +658,10 @@ plannerForm.addEventListener("submit", (event) => {
     ["Bed", `${bedType} · no price change`],
     ["Transport", `${vehicleDescription} · ${formatTHB(estimate.transportSubtotal)}`]
   ];
+  if (tripBudget >= 1000) {
+    rows.splice(2, 0, ["Total trip budget", formatTHB(tripBudget)]);
+    if (lastBudgetRecommendation) rows.splice(3, 0, ["Budget guidance", `${lastBudgetRecommendation.profile.label} · suggested spend ${formatTHB(lastBudgetRecommendation.suggestedSpend)}`]);
+  }
   if (!mealPlans.length) rows.push(["Meals", "Not planned · restaurant bills excluded"]);
   mealPlans.forEach((meal) => rows.push([`Day ${meal.day} · ${meal.meal}`, `${meal.restaurant} · ${meal.preference} · pay directly`]));
   qs("#review-title").textContent = `${estimate.days} day${estimate.days > 1 ? "s" : ""} in ${destinationSelect.value}`;

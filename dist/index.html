@@ -319,6 +319,27 @@
             <label class="field"><span>Travelers</span><input id="traveler-count" type="number" min="1" max="12" value="2" required /></label>
             <label class="field"><span>Preferred start date</span><input id="start-date" type="date" required /></label>
             <label class="field"><span>Travel style</span><select id="planner-style"><option>Slow &amp; serene</option><option selected>Social &amp; vibrant</option><option>Family explorer</option><option>Island reset</option></select></label>
+            <section class="budget-advisor field-wide" aria-labelledby="budget-title">
+              <div class="budget-advisor-head">
+                <div>
+                  <span class="budget-kicker">SMART BUDGET PLANNER</span>
+                  <h3 id="budget-title">What is your total trip budget?</h3>
+                  <p>Tell us one total in THB. We will suggest a coordinated hotel, attraction plan, transportation, and dining allowance for this destination, duration, and group size.</p>
+                </div>
+                <label class="budget-input" for="trip-budget"><span>Total trip budget · THB</span><div class="budget-money"><b>฿</b><input id="trip-budget" type="number" min="1000" step="500" inputmode="numeric" placeholder="25,000" required /></div><small>Include the amount you are comfortable spending at restaurants.</small></label>
+              </div>
+              <div class="budget-prompt" id="budget-prompt" aria-live="polite">
+                <div><strong id="budget-status">Enter your budget to see tailored suggestions.</strong><span id="budget-spend">We will compare complete travel options for you.</span></div>
+                <button id="apply-budget" type="button" disabled>Use these suggestions</button>
+              </div>
+              <div class="budget-recommendations" id="budget-recommendations" hidden>
+                <article><span>01 · HOTEL ROOM</span><strong id="budget-hotel-title"></strong><p id="budget-hotel-copy"></p></article>
+                <article><span>02 · ATTRACTIONS &amp; ACTIVITIES</span><strong id="budget-activity-title"></strong><p id="budget-activity-copy"></p></article>
+                <article><span>03 · TRANSPORTATION</span><strong id="budget-transport-title"></strong><p id="budget-transport-copy"></p></article>
+                <article><span>04 · MEALS</span><strong id="budget-meal-title"></strong><p id="budget-meal-copy"></p></article>
+              </div>
+              <p class="budget-note" id="budget-note">Restaurant spending is a planning allowance only and will not be added to the website payment total.</p>
+            </section>
             <fieldset class="tier-picker field-wide">
               <legend>Comfort level</legend>
               <div class="tier-picker-grid">
