@@ -23,12 +23,15 @@ Then open `http://localhost:4173`.
 - 1-day, 3-day, 7-day, 14-day, and custom-duration journeys
 - Budget-aware hotel, activity, dining, travel-style, and transportation suggestions
 - Capacity-aware room and vehicle quantities with transparent price breakdowns
+- Adult, child, and senior party planning with accessibility preferences
+- Editable, destination-aware day-by-day itinerary suggestions
 - Self-drive car and motorcycle options
-- English booking planner with an English/Thai marketing presentation
+- English/Thai trip planner, budget guidance, itinerary, and booking review
+- Clear estimate-versus-final-quotation language and prototype policy sections
 - Responsive mobile and desktop layouts
 - Safe frontend account, booking, pricing, and test-checkout previews
 
-Secure authentication, persistent bookings, live inventory, and card processing require production service integrations before accepting real customer payments.
+This is a frontend-only demonstration. Secure authentication, persistent bookings, live inventory, card processing, and production legal review are required before accepting real customer payments.
 
 ## Quality checks
 

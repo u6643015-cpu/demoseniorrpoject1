@@ -29,6 +29,11 @@
           <a href="#journeys" data-i18n="nav.packages">Journeys</a>
           <a href="#rentals" data-i18n="nav.rentals">Self-drive</a>
           <a href="#about" data-i18n="nav.why">Why us</a>
+          <div class="mobile-nav-actions">
+            <button class="lang-toggle" type="button" aria-label="Switch language"><span class="active">EN</span><span>ไทย</span></button>
+            <button class="text-button account-trigger" type="button" data-i18n="nav.signin">Sign in</button>
+            <button class="button button-small open-planner" type="button" data-i18n="nav.plan">Plan my trip</button>
+          </div>
         </div>
         <div class="nav-actions">
           <button class="lang-toggle" type="button" aria-label="Switch language"><span class="active">EN</span><span>ไทย</span></button>
@@ -279,6 +284,23 @@
         </div>
       </section>
 
+      <section class="legal-center" id="policies" aria-labelledby="policies-title">
+        <div class="shell">
+          <div class="legal-heading">
+            <div><div class="eyebrow" data-i18n="legal.eyebrow">CLEAR BEFORE YOU CONFIRM</div><h2 id="policies-title" data-i18n="legal.title">Travel terms,<br /><em>in plain language.</em></h2></div>
+            <p data-i18n="legal.intro">These prototype policies explain what the website estimates, what Twar Mal arranges, and what must be confirmed before a real payment.</p>
+          </div>
+          <div class="legal-grid">
+            <details open><summary data-i18n="legal.pricing.title">Pricing &amp; confirmation</summary><div data-i18n="legal.pricing.copy">All amounts are planning estimates in THB. A booking exists only after availability, taxes, activity tickets, hotel conditions, vehicle terms, and the final written quotation are confirmed. Restaurant and delivery bills are paid directly and are never part of the website payment.</div></details>
+            <details><summary data-i18n="legal.cancel.title">Cancellation &amp; refunds</summary><div data-i18n="legal.cancel.copy">Twar Mal does not add a cancellation fee. Refundable amounts return to the original payment method. If a selected hotel, activity, or supplier is non-refundable, only that confirmed non-refundable amount is deducted. Processing time depends on the future payment provider and card issuer.</div></details>
+            <details><summary data-i18n="legal.rental.title">Vehicle rental terms</summary><div data-i18n="legal.rental.copy">Drivers must meet the confirmed age, licence, identity, deposit, and insurance requirements. Fuel, tolls, parking, ferries, overtime, traffic fines, damage, and late return charges are confirmed before payment. Koh Larn permits motorcycle rental only through this planner.</div></details>
+            <details><summary data-i18n="legal.privacy.title">Privacy &amp; prototype data</summary><div data-i18n="legal.privacy.copy">This version is a frontend demonstration. Planner details stay in the current browser session and test account names may be stored on this device. Do not enter real passwords or card details. A production privacy notice and secure data controls are required before collecting customer information.</div></details>
+            <details><summary data-i18n="legal.scope.title">Service scope</summary><div data-i18n="legal.scope.copy">Twar Mal arranges the local itinerary, selected activity allowance, hotel, and local transportation after arrival. Flights and intercity bus or train tickets are not sold here. Travelers remain responsible for passports, visas, travel insurance, personal expenses, and following local laws.</div></details>
+          </div>
+          <p class="legal-draft" data-i18n="legal.draft">Policy draft for demonstration and academic review · professional legal review is required before commercial launch.</p>
+        </div>
+      </section>
+
       <section class="final-cta">
         <div class="final-cta-image" aria-hidden="true"></div>
         <div class="final-cta-content">
@@ -297,7 +319,7 @@
           <p>Private journeys across Thailand, shaped around you.</p>
         </div>
         <div><h3>Explore</h3><a href="#destinations">Destinations</a><a href="#journeys">Journeys</a><a href="#rentals">Self-drive</a></div>
-        <div><h3>Support</h3><a href="#about">How it works</a><a href="#cancellation">Cancellation promise</a><button class="account-trigger footer-button" type="button">Account</button></div>
+        <div><h3>Support</h3><a href="#about">How it works</a><a href="#cancellation">Cancellation promise</a><a href="#policies">Terms &amp; privacy</a><button class="account-trigger footer-button" type="button">Account</button></div>
         <div class="footer-action"><h3>Ready when you are.</h3><button class="button button-outline open-planner" type="button">Plan my trip</button></div>
       </div>
       <div class="footer-bottom shell"><span>© 2026 Twar Mal Travel &amp; Tour</span><span>Thailand · Prices in THB</span><span>Website preview</span></div>
@@ -316,12 +338,21 @@
             <label class="field"><span>Destination</span><select id="planner-destination" required></select></label>
             <label class="field"><span>Journey length</span><select id="planner-duration" required><option value="1">1 day</option><option value="3" selected>3 days</option><option value="7">1 week</option><option value="14">2 weeks</option><option value="custom">Custom duration</option></select></label>
             <label class="field custom-days-field" hidden><span>Number of days</span><input id="custom-days" type="number" min="1" max="30" value="5" /></label>
-            <label class="field"><span>Travelers</span><input id="traveler-count" type="number" min="1" max="12" value="2" required /></label>
+            <label class="field"><span>Total travelers</span><input id="traveler-count" type="number" min="1" max="12" value="2" readonly aria-describedby="traveler-status" /></label>
+            <div class="traveler-composition field-wide" role="group" aria-labelledby="traveler-composition-title">
+              <div class="traveler-composition-head"><strong id="traveler-composition-title">Who is traveling?</strong><span>Maximum 12 guests · the same package estimate is used per traveler until the final quote.</span></div>
+              <label class="field"><span>Adults</span><input id="adult-count" type="number" min="1" max="12" value="2" required /></label>
+              <label class="field"><span>Children</span><input id="child-count" type="number" min="0" max="11" value="0" /></label>
+              <label class="field"><span>Seniors</span><input id="senior-count" type="number" min="0" max="11" value="0" /></label>
+              <p id="traveler-status" aria-live="polite">2 adults · 2 travelers total</p>
+            </div>
             <label class="field"><span>Preferred start date</span><input id="start-date" type="date" required /></label>
-            <label class="field"><span>Travel style</span><select id="planner-style"><option>Slow &amp; serene</option><option selected>Social &amp; vibrant</option><option>Family explorer</option><option>Island reset</option></select></label>
-            <label class="field"><span>Arrival or pickup point</span><select id="pickup-point"><option>Airport or station</option><option>Hotel</option><option>Meet in the city</option><option>No pickup needed</option></select></label>
+            <label class="field"><span>Travel style</span><select id="planner-style"><option value="Slow &amp; serene">Slow &amp; serene</option><option value="Social &amp; vibrant" selected>Social &amp; vibrant</option><option value="Family explorer">Family explorer</option><option value="Island reset">Island reset</option></select></label>
+            <label class="field"><span>Arrival or pickup point</span><select id="pickup-point"><option value="Airport or station">Airport or station</option><option value="Hotel">Hotel</option><option value="Meet in the city">Meet in the city</option><option value="No pickup needed">No pickup needed</option></select></label>
             <label class="field field-wide"><span>Arrival details · optional</span><input id="arrival-details" type="text" placeholder="Flight or train number, arrival time, hotel, or meeting point" /></label>
             <label class="field field-wide"><span>Must-see places &amp; activities · optional</span><textarea id="must-see" rows="2" placeholder="Temples, beaches, markets, nightlife, accessible activities, or exact places you want included…"></textarea></label>
+            <label class="field"><span>Accessibility preference</span><select id="accessibility-level"><option value="none">No special requirement</option><option value="step-free">Step-free routes</option><option value="wheelchair">Wheelchair-friendly planning</option><option value="reduced-walking">Reduced walking and more rest</option><option value="sensory">Visual, hearing, or sensory support</option><option value="other">Other requirement</option></select></label>
+            <label class="field"><span>Accessibility notes · optional</span><input id="accessibility-notes" type="text" placeholder="Mobility equipment, pace, assistance, or room access" /></label>
             <div class="trip-scope-note field-wide"><strong>What Twar Mal arranges</strong><span>Your editable itinerary, selected activity allowance, hotel, and local transportation after arrival.</span><span><b>Not sold here:</b> flights, intercity bus or train tickets, and restaurant or delivery bills.</span></div>
             <section class="budget-advisor field-wide" aria-labelledby="budget-title">
               <div class="budget-advisor-head">
@@ -380,17 +411,22 @@
               </div>
               <div class="meal-builder">
                 <label class="field"><span>Day</span><select id="meal-day"></select></label>
-                <label class="field"><span>Meal</span><select id="meal-type"><option>Breakfast</option><option>Lunch</option><option>Dinner</option></select></label>
-                <label class="field"><span>Preference</span><select id="meal-preference"><option>Breakfast at hotel</option><option>Local favorites &amp; hidden gems</option><option>Halal-friendly</option><option>Vegetarian-friendly</option><option>High-end restaurant</option><option>Surprise me</option></select></label>
+                <label class="field"><span>Meal</span><select id="meal-type"><option value="Breakfast">Breakfast</option><option value="Lunch">Lunch</option><option value="Dinner">Dinner</option></select></label>
+                <label class="field"><span>Preference</span><select id="meal-preference"><option value="Breakfast at hotel">Breakfast at hotel</option><option value="Local favorites &amp; hidden gems">Local favorites &amp; hidden gems</option><option value="Halal-friendly">Halal-friendly</option><option value="Vegetarian-friendly">Vegetarian-friendly</option><option value="High-end restaurant">High-end restaurant</option><option value="Surprise me">Surprise me</option></select></label>
                 <label class="field"><span>Restaurant</span><input id="restaurant-name" type="text" placeholder="Hotel, restaurant name, or leave for us" /></label>
                 <button class="meal-add" id="add-meal" type="button">Add this meal <span>＋</span></button>
               </div>
               <div class="meal-plan-list" id="meal-plan-list"><span class="meal-empty">No meals planned yet. Restaurant costs stay outside this total.</span></div>
             </fieldset>
+            <fieldset class="itinerary-builder field-wide">
+              <div class="itinerary-heading"><div><legend>Day-by-day itinerary</legend><p>Start with suggestions for your destination, travel style, ages, accessibility needs, meals, and must-see places. Every time slot remains editable.</p></div><button id="regenerate-itinerary" type="button">Regenerate suggestions</button></div>
+              <div class="itinerary-list" id="itinerary-list" aria-live="polite"></div>
+              <p class="itinerary-note">Suggested stops are not reservations. Exact opening hours, tickets, travel times, accessibility, and availability are confirmed in the final quotation.</p>
+            </fieldset>
             <label class="field field-wide"><span>Anything you want to add or change?</span><textarea id="special-request" rows="3" placeholder="Places you love, mobility needs, hotel preference, celebrations…"></textarea></label>
           </div>
           <div class="estimate-bar">
-            <div><span id="estimate-label">Website estimate · meals excluded</span><strong id="estimate-total">฿8,200</strong><small id="estimate-note">for 2 guests · 3 days · 1 room · 2 hotel nights</small><small id="estimate-breakdown">Package ฿5,400 (activities ฿1,500) + hotel ฿2,800 + transport ฿0 · meals excluded · card ฿8,200</small></div>
+            <div><span id="estimate-label">Website estimate · meals excluded</span><strong id="estimate-total">฿8,200</strong><small class="estimate-status">Estimate only · final written quote before any real payment</small><small id="estimate-note">for 2 guests · 3 days · 1 room · 2 hotel nights</small><small id="estimate-breakdown">Package ฿5,400 (activities ฿1,500) + hotel ฿2,800 + transport ฿0 · meals excluded · card ฿8,200</small></div>
             <button class="button" id="review-trip-button" type="submit">Review &amp; confirm <span>→</span></button>
           </div>
           <p class="estimate-budget-alert" id="estimate-budget-alert" aria-live="polite"></p>
@@ -402,7 +438,8 @@
             <div class="eyebrow">YOUR JOURNEY</div>
             <h3 id="review-title">3 days in Bangkok</h3>
             <div class="review-lines" id="review-lines"></div>
-            <div class="review-total"><span>Website card payment</span><strong id="review-total">฿8,200</strong></div>
+            <div class="review-total"><span>Estimated website payment</span><strong id="review-total">฿8,200</strong></div>
+            <small class="review-confirmation-note">Not a confirmed booking · availability and the final written quotation must be accepted first.</small>
           </div>
           <div class="checkout-card">
             <div class="secure-row"><span>◆</span><div><strong>Card payment</strong><small>Prototype checkout · no charge will be made</small></div></div>

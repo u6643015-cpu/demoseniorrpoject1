@@ -23,15 +23,19 @@ const dataBoundary = app.indexOf("const qs =");
 check(dataBoundary > 0, "Could not locate the application data boundary.");
 const context = {};
 vm.createContext(context);
-vm.runInContext(`${app.slice(0, dataBoundary)}\nglobalThis.__audit = { destinations, translations, hotelProfiles, hotelCatalog, vehicleCatalog, pricing, budgetProfiles, chargedHotelNights, roundedHundred, roomCapacity, requiredRoomCount, requiredVehicleCount, allowedBudgetOverage };`, context);
-const { destinations, translations, hotelProfiles, hotelCatalog, vehicleCatalog, pricing, budgetProfiles, chargedHotelNights, roundedHundred, roomCapacity, requiredRoomCount, requiredVehicleCount, allowedBudgetOverage } = context.__audit;
+vm.runInContext(`${app.slice(0, dataBoundary)}\nglobalThis.__audit = { destinations, translations, destinationHighlights, hotelProfiles, hotelCatalog, vehicleCatalog, pricing, budgetProfiles, chargedHotelNights, roundedHundred, roomCapacity, requiredRoomCount, requiredVehicleCount, allowedBudgetOverage, travelerPartyTotal };`, context);
+const { destinations, translations, destinationHighlights, hotelProfiles, hotelCatalog, vehicleCatalog, pricing, budgetProfiles, chargedHotelNights, roundedHundred, roomCapacity, requiredRoomCount, requiredVehicleCount, allowedBudgetOverage, travelerPartyTotal } = context.__audit;
 
 check(destinations.length === 23, `Expected 23 destinations, found ${destinations.length}.`);
 check(new Set(destinations).size === destinations.length, "Destination names must be unique.");
 check(Object.keys(hotelCatalog).length === destinations.length, "Every destination must have exactly one hotel catalogue entry.");
+check(Object.keys(destinationHighlights).length === destinations.length, "Every destination must have itinerary highlights.");
 
 for (const destination of destinations) {
   const catalogue = hotelCatalog[destination];
+  const highlights = destinationHighlights[destination];
+  check(Array.isArray(highlights) && highlights.length >= 6, `${destination} needs at least six itinerary highlights.`);
+  highlights?.forEach((highlight) => check(Array.isArray(highlight) && highlight.length === 2 && highlight.every(Boolean), `${destination} itinerary highlights must be bilingual.`));
   check(Boolean(catalogue), `${destination} is missing a hotel catalogue.`);
   if (!catalogue) continue;
   const profile = hotelProfiles[catalogue.profile];
@@ -83,6 +87,7 @@ check(requiredRoomCount("family", 12) === 3, "Twelve travelers must require thre
 check(requiredVehicleCount(vehicleCatalog.moto[0], 12) === 6, "Twelve travelers must require six motorcycles.");
 check(requiredVehicleCount(vehicleCatalog.car.find((vehicle) => vehicle.model === "5 Series"), 12) === 3, "Premium sedan capacity is incorrect.");
 check(requiredVehicleCount(vehicleCatalog.driver.find((vehicle) => vehicle.model.startsWith("Alphard")), 12) === 2, "Alphard capacity is incorrect.");
+check(travelerPartyTotal(2, 3, 1) === 6 && travelerPartyTotal(1, 0, 0) === 1, "Traveler composition totals are incorrect.");
 for (const maximum of [2000, 5000, 15000, 50000]) {
   const overage = allowedBudgetOverage(maximum);
   check(overage <= 2500, `Budget overage cap exceeded for ${maximum}.`);
@@ -124,17 +129,24 @@ check(/if \(!validatePreviewCard\(\)\) return;/.test(app), "Preview checkout is 
 check(/vehicleTypeSelect\.value = "";\s*\n\s*syncTransportFields\(true\)/.test(app), "Changing transport modes must reset to that mode's starting vehicle category.");
 check(/modal === plannerModal[\s\S]*?checkout-card input[\s\S]*?input\.value = ""/.test(app), "Card details must be cleared when the planner closes.");
 check(/returnFocus\?\.isConnected[\s\S]*?returnFocus\.focus\(\)/.test(app), "Closing a modal must restore keyboard focus to its opener.");
-check(/rows\.push\(\["Special requests", specialRequest\]\)/.test(app), "Special requests are missing from the booking review.");
+check(/rows\.push\(\[l\("Special requests"[\s\S]*?specialRequest\]\)/.test(app), "Special requests are missing from the booking review.");
 check(/const hasBudget = range\.hasMinimum && range\.hasMaximum;/.test(app), "Meal allowance must require an explicit minimum and maximum.");
 check(/const suggested = hasBudget \? roundedHundred\(base \+ fineDiningSupplement\) : 0;/.test(app), "Blank meal budgets must produce a zero allowance.");
 check(/No meal budget added · ฿0/.test(app), "Blank meal-budget guidance must clearly show ฿0.");
 check(/optionSet\.map\(\(candidate\) => candidate\.hotelName\)/.test(app), "Hotel budget matches must list only hotels that actually fit.");
 check(/requiredVehicleCount\(vehicle, travelers\)/.test(app), "Vehicle quantities must use declared passenger capacity.");
 check(/requiredRoomCount\(roomCategorySelect\.value, travelers\)/.test(app), "Room quantities must use room-category capacity.");
+check(/roomCountAutomatic \|\| entered < required/.test(app), "Automatic room quantities must decrease again when the traveler party shrinks.");
+check(/vehicleCountAutomatic \|\| entered < required/.test(app), "Automatic vehicle quantities must decrease again when the traveler party shrinks.");
 check(/Nothing is submitted or stored/.test(html), "The prototype checkout must warn users that card details are not submitted.");
 check(idSet.has("must-see") && idSet.has("pickup-point") && idSet.has("fill-test-card"), "Customer customization or safe test-payment controls are missing.");
-check(idSet.has("estimate-label") && /meals\.hasBudget \? "Estimated total trip spend" : "Website estimate · meals excluded"/.test(app), "The estimate label must say when meals are excluded.");
+check(idSet.has("estimate-label") && /meals\.hasBudget[\s\S]*?Website estimate · meals excluded/.test(app), "The estimate label must say when meals are excluded.");
 check(/modal === accountModal[\s\S]*?input\[type="password"\][\s\S]*?input\.value = ""/.test(app), "Account passwords must be cleared when the modal closes.");
+check(["adult-count", "child-count", "senior-count", "accessibility-level", "itinerary-list", "regenerate-itinerary", "policies"].every((id) => idSet.has(id)), "Traveler composition, itinerary, accessibility, or policy controls are missing.");
+check(/itineraryPlans\.forEach[\s\S]*?Quote status/.test(app), "The booking review must include the day-by-day itinerary and quote status.");
+check(/localizedMealName\(meal\.meal\)/.test(app), "Itinerary meal labels must follow the selected language.");
+check(/composition\.children === 1[\s\S]*?composition\.seniors === 1/.test(app), "English traveler review labels must use correct singular and plural forms.");
+check(/applyPlannerStaticLanguage\(\)/.test(app) && /currentLanguage === "th"/.test(app), "The planner is missing Thai localization support.");
 
 let calculationScenarios = 0;
 const roomMultipliers = Object.values(pricing.roomCategoryMultipliers);
