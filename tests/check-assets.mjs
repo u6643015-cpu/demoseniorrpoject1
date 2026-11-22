@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const source = ["index.html", "styles.css"]
+const source = ["index.html", "styles.css", "admin.html", "admin.css"]
   .map((file) => fs.readFileSync(path.join(root, "dist", file), "utf8"))
   .join("\n");
 const preconnectOrigins = new Set(["https://fonts.googleapis.com", "https://fonts.gstatic.com"]);

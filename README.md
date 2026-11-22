@@ -28,10 +28,11 @@ Then open `http://localhost:4173`.
 - Self-drive car and motorcycle options
 - English/Thai trip planner, budget guidance, itinerary, and booking review
 - Clear estimate-versus-final-quotation language and prototype policy sections
+- Frontend-only admin dashboard at `/admin.html` with browser-local booking, hotel, vehicle, package, and content controls
 - Responsive mobile and desktop layouts
 - Safe frontend account, booking, pricing, and test-checkout previews
 
-This is a frontend-only demonstration. Secure authentication, persistent bookings, live inventory, card processing, and production legal review are required before accepting real customer payments.
+This is a frontend-only demonstration. The admin workspace stores its sample changes in the current browser only. Secure authentication, persistent bookings, live inventory, card processing, and production legal review are required before accepting real customer payments.
 
 ## Quality checks
 
@@ -39,6 +40,7 @@ Run the full catalogue, markup, and calculation matrix:
 
 ```sh
 node tests/audit.mjs
+node tests/admin-audit.mjs
 ```
 
 With internet access, verify every hosted font and image dependency:
