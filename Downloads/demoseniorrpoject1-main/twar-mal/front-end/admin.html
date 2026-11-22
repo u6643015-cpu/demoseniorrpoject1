@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Twar Mal frontend-only administration dashboard demonstration." />
+    <title>Twar Mal · Admin Workspace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=DM+Serif+Display:ital@0;1&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#admin-main">Skip to dashboard</a>
+
+    <div class="admin-app">
+      <aside class="sidebar" id="sidebar" aria-label="Admin navigation">
+        <div class="brand-row">
+          <img src="assets/twar-mal-logo.jpeg" alt="Twar Mal" />
+          <div><strong>Twar Mal</strong><span>ADMIN WORKSPACE</span></div>
+          <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Close navigation">×</button>
+        </div>
+
+        <div class="demo-badge"><span></span><div><strong>Frontend demonstration</strong><small>Browser-local sample data</small></div></div>
+
+        <nav class="side-nav">
+          <button class="nav-item active" type="button" data-section="overview" aria-current="page"><span class="nav-icon">⌂</span><span>Overview</span></button>
+          <button class="nav-item" type="button" data-section="bookings"><span class="nav-icon">▤</span><span>Bookings</span><b id="booking-nav-count">0</b></button>
+          <button class="nav-item" type="button" data-section="hotels"><span class="nav-icon">◇</span><span>Hotels &amp; rooms</span></button>
+          <button class="nav-item" type="button" data-section="vehicles"><span class="nav-icon">▱</span><span>Vehicles</span></button>
+          <button class="nav-item" type="button" data-section="packages"><span class="nav-icon">✦</span><span>Packages</span></button>
+          <button class="nav-item" type="button" data-section="content"><span class="nav-icon">Aa</span><span>Website content</span></button>
+          <button class="nav-item" type="button" data-section="settings"><span class="nav-icon">⚙</span><span>Settings</span></button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <a href="index.html">View customer website</a>
+          <div class="admin-profile"><span>TM</span><div><strong>Demo Administrator</strong><small>Local preview access</small></div></div>
+        </div>
+      </aside>
+
+      <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+      <main id="admin-main">
+        <header class="topbar">
+          <button class="menu-button" id="menu-button" type="button" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">☰</button>
+          <div class="page-title"><span id="page-eyebrow">OPERATIONS OVERVIEW</span><h1 id="page-heading">Good morning, Twar Mal.</h1></div>
+          <div class="topbar-actions">
+            <label class="global-search"><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Search bookings or guests" aria-label="Search bookings or guests" /></label>
+            <button class="icon-button" id="notification-button" type="button" aria-label="Notifications"><span>○</span><b>3</b></button>
+            <button class="primary-button" id="new-booking-button" type="button">New booking</button>
+          </div>
+        </header>
+
+        <div class="dashboard-body">
+          <section class="dashboard-section active" id="section-overview" data-dashboard-section="overview">
+            <div class="notice-banner"><span>i</span><div><strong>Demonstration workspace</strong><p>Changes are saved only in this browser. No customer, payment, hotel, or vehicle system is connected.</p></div><button type="button" data-dismiss-notice aria-label="Dismiss notice">×</button></div>
+
+            <div class="overview-intro"><div><p>Today at a glance</p><h2>Plan clearly. Host beautifully.</h2></div><label class="date-filter">Period<select id="overview-period"><option value="30">Last 30 days</option><option value="7">Last 7 days</option><option value="90">Last 90 days</option></select></label></div>
+
+            <div class="metric-grid" id="metric-grid"></div>
+
+            <div class="overview-grid">
+              <article class="panel revenue-panel">
+                <div class="panel-heading"><div><span>ESTIMATED WEBSITE REVENUE</span><h3>Booking value</h3></div><div class="legend"><span><i class="confirmed"></i>Confirmed</span><span><i class="pending"></i>Pending</span></div></div>
+                <div class="chart-wrap"><div class="chart-y"><span>฿120K</span><span>฿80K</span><span>฿40K</span><span>฿0</span></div><div class="bar-chart" id="revenue-chart" aria-label="Estimated booking revenue chart"></div></div>
+              </article>
+
+              <article class="panel task-panel">
+                <div class="panel-heading"><div><span>NEEDS ATTENTION</span><h3>Today’s priorities</h3></div><button class="text-button" type="button" data-section-jump="bookings">View bookings</button></div>
+                <div class="priority-list" id="priority-list"></div>
+              </article>
+            </div>
+
+            <article class="panel recent-panel">
+              <div class="panel-heading"><div><span>RECENT ACTIVITY</span><h3>Latest bookings</h3></div><button class="text-button" type="button" data-section-jump="bookings">Manage all</button></div>
+              <div class="table-scroll"><table><thead><tr><th>Booking</th><th>Guest</th><th>Journey</th><th>Travel date</th><th>Estimate</th><th>Status</th><th></th></tr></thead><tbody id="recent-bookings-body"></tbody></table></div>
+            </article>
+          </section>
+
+          <section class="dashboard-section" id="section-bookings" data-dashboard-section="bookings" hidden>
+            <div class="section-heading"><div><span>BOOKING OPERATIONS</span><h2>Journeys in progress</h2><p>Review sample reservations, update their workflow status, and export the browser-local list.</p></div><div class="section-actions"><button class="secondary-button" id="export-bookings" type="button">Export CSV</button><button class="primary-button" type="button" data-open-booking>New booking</button></div></div>
+            <div class="filter-bar">
+              <label><span>Search</span><input id="booking-search" type="search" placeholder="ID, guest, destination" /></label>
+              <label><span>Status</span><select id="booking-status-filter"><option value="all">All statuses</option><option value="Pending">Pending</option><option value="Confirmed">Confirmed</option><option value="In progress">In progress</option><option value="Completed">Completed</option><option value="Cancelled">Cancelled</option></select></label>
+              <label><span>Destination</span><select id="booking-destination-filter"><option value="all">All destinations</option></select></label>
+              <button class="clear-filter" id="clear-booking-filters" type="button">Clear filters</button>
+            </div>
+            <article class="panel booking-table-panel"><div class="table-summary"><strong id="booking-result-count">0 bookings</strong><span>Amounts are planning estimates in THB</span></div><div class="table-scroll"><table><thead><tr><th>Booking</th><th>Guest</th><th>Destination</th><th>Travel dates</th><th>Guests</th><th>Estimate</th><th>Status</th><th>Actions</th></tr></thead><tbody id="all-bookings-body"></tbody></table></div><div class="empty-state" id="booking-empty" hidden><strong>No matching bookings</strong><p>Try a different search or clear the current filters.</p></div></article>
+          </section>
+
+          <section class="dashboard-section" id="section-hotels" data-dashboard-section="hotels" hidden>
+            <div class="section-heading"><div><span>ACCOMMODATION CATALOGUE</span><h2>Hotels &amp; room estimates</h2><p>Frontend sample inventory used to demonstrate catalogue administration.</p></div><button class="primary-button" id="add-hotel" type="button">Add hotel</button></div>
+            <div class="catalogue-toolbar"><label class="catalogue-search"><span>⌕</span><input id="hotel-search" type="search" placeholder="Search hotels or cities" /></label><div class="catalogue-totals" id="hotel-totals"></div></div>
+            <div class="card-grid" id="hotel-grid"></div>
+          </section>
+
+          <section class="dashboard-section" id="section-vehicles" data-dashboard-section="vehicles" hidden>
+            <div class="section-heading"><div><span>LOCAL TRANSPORT</span><h2>Vehicle availability</h2><p>Maintain demonstration rates and availability for self-drive and private-driver options.</p></div><button class="primary-button" id="add-vehicle" type="button">Add vehicle</button></div>
+            <div class="fleet-summary" id="fleet-summary"></div>
+            <div class="card-grid vehicle-grid" id="vehicle-grid"></div>
+          </section>
+
+          <section class="dashboard-section" id="section-packages" data-dashboard-section="packages" hidden>
+            <div class="section-heading"><div><span>JOURNEY PRICING</span><h2>Travel packages</h2><p>Control which demonstration packages appear available and preview their starting prices.</p></div></div>
+            <div class="package-admin-grid" id="package-grid"></div>
+          </section>
+
+          <section class="dashboard-section" id="section-content" data-dashboard-section="content" hidden>
+            <div class="section-heading"><div><span>CONTENT PREVIEW</span><h2>Website messaging</h2><p>Edit browser-local drafts without changing the published customer website.</p></div><button class="primary-button" id="save-content" type="button">Save local draft</button></div>
+            <div class="content-editor-grid">
+              <article class="panel editor-panel"><h3>Homepage hero</h3><label>Eyebrow<input id="content-eyebrow" type="text" /></label><label>Headline<input id="content-headline" type="text" /></label><label>Introduction<textarea id="content-introduction" rows="5"></textarea></label><small>Saved locally for this admin demonstration only.</small></article>
+              <article class="content-preview"><span id="preview-eyebrow"></span><h3 id="preview-headline"></h3><p id="preview-introduction"></p><button type="button" tabindex="-1">Create my journey</button></article>
+            </div>
+          </section>
+
+          <section class="dashboard-section" id="section-settings" data-dashboard-section="settings" hidden>
+            <div class="section-heading"><div><span>WORKSPACE SETTINGS</span><h2>Demonstration controls</h2><p>These settings affect only this browser and do not provide real security or server configuration.</p></div></div>
+            <div class="settings-grid">
+              <article class="panel settings-card"><h3>Display preferences</h3><label class="setting-row"><div><strong>Compact booking rows</strong><span>Reduce table row height on desktop.</span></div><input id="compact-toggle" type="checkbox" /></label><label class="setting-row"><div><strong>Show revenue estimates</strong><span>Display planning totals on the overview.</span></div><input id="revenue-toggle" type="checkbox" checked /></label></article>
+              <article class="panel settings-card danger-card"><h3>Reset demonstration</h3><p>Restore all sample bookings, catalogue items, content drafts, and preferences.</p><button class="danger-button" id="reset-demo" type="button">Reset local demo data</button></article>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div class="drawer-shell" id="booking-drawer" aria-hidden="true">
+      <button class="drawer-backdrop" type="button" data-close-drawer aria-label="Close booking details"></button>
+      <aside class="booking-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+        <div class="drawer-head"><div><span>BOOKING DETAILS</span><h2 id="drawer-title">Booking</h2></div><button type="button" data-close-drawer aria-label="Close booking details">×</button></div>
+        <div id="drawer-content"></div>
+      </aside>
+    </div>
+
+    <div class="modal-shell" id="booking-modal" aria-hidden="true">
+      <button class="modal-backdrop" type="button" data-close-booking-modal aria-label="Close new booking form"></button>
+      <section class="booking-modal" role="dialog" aria-modal="true" aria-labelledby="booking-modal-title">
+        <div class="modal-head"><div><span>LOCAL DEMO RECORD</span><h2 id="booking-modal-title">Create a booking</h2></div><button type="button" data-close-booking-modal aria-label="Close new booking form">×</button></div>
+        <form id="new-booking-form">
+          <div class="form-grid">
+            <label><span>Guest name</span><input id="new-guest-name" type="text" required placeholder="Traveler name" /></label>
+            <label><span>Email</span><input id="new-guest-email" type="email" required placeholder="traveler@example.com" /></label>
+            <label><span>Destination</span><select id="new-destination" required></select></label>
+            <label><span>Start date</span><input id="new-start-date" type="date" required /></label>
+            <label><span>Journey length</span><select id="new-duration"><option value="1">1 day</option><option value="3" selected>3 days</option><option value="7">7 days</option><option value="14">14 days</option></select></label>
+            <label><span>Travelers</span><input id="new-travelers" type="number" min="1" max="12" value="2" required /></label>
+            <label><span>Estimated value · THB</span><input id="new-total" type="number" min="0" step="100" value="12000" required /></label>
+            <label><span>Status</span><select id="new-status"><option>Pending</option><option>Confirmed</option><option>In progress</option></select></label>
+            <label class="form-wide"><span>Internal note</span><textarea id="new-note" rows="3" placeholder="Arrival, hotel, accessibility, or follow-up note"></textarea></label>
+          </div>
+          <div class="modal-actions"><button class="secondary-button" type="button" data-close-booking-modal>Cancel</button><button class="primary-button" type="submit">Save demo booking</button></div>
+        </form>
+      </section>
+    </div>
+
+    <div class="confirm-shell" id="confirm-reset" aria-hidden="true">
+      <section role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-copy"><span>RESET DEMONSTRATION</span><h2 id="confirm-title">Restore the original sample data?</h2><p id="confirm-copy">All changes stored by this dashboard in this browser will be removed.</p><div><button class="secondary-button" id="cancel-reset" type="button">Keep my changes</button><button class="danger-button" id="confirm-reset-button" type="button">Reset demo</button></div></section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="admin.js"></script>
+  </body>
+</html>
